@@ -12,8 +12,6 @@ tasks["sourcesJar"].apply {
 }
 
 tasks.register<Exec>("generateNativeProjectMacos") {
-    dependsOn(":box2d-jni:generateJniNativeBindings")
-
     group = "native build"
     workingDir = File("$rootDir/../box2d-native/build")
     commandLine = listOf("cmake", "-DCMAKE_BUILD_TYPE=Release", "..")
@@ -25,10 +23,11 @@ tasks.register<Exec>("generateNativeProjectMacos") {
 }
 
 tasks.register<Exec>("buildNativeLibMacos") {
+    dependsOn(":box2d-jni:generateJniNativeBindings")
+
     group = "native build"
     workingDir = File("$rootDir/../box2d-native/build")
     commandLine = listOf("cmake", "--build", ".")
-
     if (!workingDir.exists()) {
         dependsOn("generateNativeProjectMacos")
     }

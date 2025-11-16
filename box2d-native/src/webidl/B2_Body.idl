@@ -1,0 +1,43 @@
+[NoDelete]
+interface B2_Body {
+    static void defaultBodyDef([Ref] b2BodyDef result);
+    static void createBody([Value] b2WorldId worldId, [Const] b2BodyDef def, [Ref] b2BodyId result);
+
+    [Value] static b2Vec2 getPosition([Value] b2BodyId bodyId);
+    [Value] static b2Rot getRotation([Value] b2BodyId bodyId);
+};
+
+[StackAllocatable]
+interface b2BodyDef {
+    void b2BodyDef();
+    attribute b2BodyType type;
+    [Value] attribute b2Vec2 position;
+    [Value] attribute b2Rot rotation;
+    [Value] attribute b2Vec2 linearVelocity;
+    attribute float angularVelocity;
+    attribute float linearDamping;
+    attribute float angularDamping;
+    attribute float gravityScale;
+    attribute float sleepThreshold;
+    attribute DOMString name;
+    attribute VoidPtr userData;
+    attribute boolean enableSleep;
+    attribute boolean isAwake;
+    attribute boolean fixedRotation;
+    attribute boolean isBullet;
+    attribute boolean isEnabled;
+    attribute boolean allowFastRotation;
+};
+
+interface b2BodyId {
+    void b2BodyId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
+};
+
+enum b2BodyType {
+    "b2_staticBody",
+    "b2_kinematicBody",
+    "b2_dynamicBody"
+};

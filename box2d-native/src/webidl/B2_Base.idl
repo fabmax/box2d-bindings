@@ -1,5 +1,5 @@
 [NoDelete]
-interface B2Base {
+interface B2_Base {
     [Value] static b2Version getVersion();
 };
 

@@ -1,0 +1,34 @@
+[NoDelete]
+interface B2_World {
+    static void defaultWorldDef([Ref] b2WorldDef result);
+    static void createWorld([Const] b2WorldDef def, [Ref] b2WorldId result);
+    static void destroyWorld([Value] b2WorldId result);
+    static void step([Value] b2WorldId world, float timeStep, long subStepCount);
+};
+
+[StackAllocatable]
+interface b2WorldDef {
+    void b2WorldDef();
+    [Value] attribute b2Vec2 gravity;
+    attribute float restitutionThreshold;
+    attribute float hitEventThreshold;
+    attribute float contactHertz;
+    attribute float contactDampingRatio;
+    attribute float maxContactPushSpeed;
+    attribute float maximumLinearSpeed;
+    // b2FrictionCallback * 	frictionCallback
+    // b2RestitutionCallback * 	restitutionCallback
+    attribute boolean enableSleep;
+    attribute boolean enableContinuous;
+    // attribute long workerCount;
+    // b2EnqueueTaskCallback * 	enqueueTask
+    // b2FinishTaskCallback * 	finishTask
+    // attribute VoidPtr userTaskContext;
+    attribute VoidPtr userData;
+};
+
+interface b2WorldId {
+    void b2WorldId();
+    attribute unsigned short generation;
+    attribute unsigned short index1;
+};

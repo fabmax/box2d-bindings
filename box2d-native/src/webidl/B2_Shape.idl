@@ -1,0 +1,39 @@
+[NoDelete]
+interface B2_Shape {
+    static void defaultShapeDef([Ref] b2ShapeDef result);
+    static void createPolygonShape([Value] b2BodyId bodyId, [Const] b2ShapeDef def, [Const] b2Polygon polygon, [Ref] b2ShapeId result);
+};
+
+[StackAllocatable]
+interface b2ShapeDef {
+    void b2ShapeDef();
+    attribute VoidPtr userData;
+    [Value] attribute b2SurfaceMaterial material;
+    attribute float density;
+    //filter
+    attribute boolean isSensor;
+    attribute boolean enableSensorEvents;
+    attribute boolean enableContactEvents;
+    attribute boolean enableHitEvents;
+    attribute boolean enablePreSolveEvents;
+    attribute boolean invokeContactCreation;
+    attribute boolean updateBodyMass;
+};
+
+interface b2ShapeId {
+    void b2ShapeId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
+};
+
+[StackAllocatable]
+interface b2SurfaceMaterial {
+    void b2SurfaceMaterial();
+    attribute unsigned long customColor;
+    attribute float friction;
+    attribute float restitution;
+    attribute float rollingResistance;
+    attribute float tangentSpeed;
+    attribute long userMaterialId;
+};

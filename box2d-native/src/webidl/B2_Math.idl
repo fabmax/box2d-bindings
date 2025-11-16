@@ -1,0 +1,23 @@
+[NoDelete]
+interface B2_Vec2 {
+    static float dot([Value] b2Vec2 a, [Value] b2Vec2 b);
+};
+
+[NoDelete]
+interface B2_Rot {
+    static float getAngle([Value] b2Rot q);
+};
+
+[StackAllocatable]
+interface b2Rot {
+    void b2Rot();
+    attribute float c;
+    attribute float s;
+};
+
+[StackAllocatable]
+interface b2Vec2 {
+    void b2Vec2();
+    attribute float x;
+    attribute float y;
+};

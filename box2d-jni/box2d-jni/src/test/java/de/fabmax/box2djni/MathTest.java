@@ -1,6 +1,6 @@
 package de.fabmax.box2djni;
 
-import box2d.B2Math;
+import box2d.B2_Vec2;
 import box2d.b2Vec2;
 import org.junit.jupiter.api.Test;
 import org.lwjgl.system.MemoryStack;
@@ -8,7 +8,6 @@ import org.lwjgl.system.MemoryStack;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MathTest {
-
     @Test
     public void b2Vec2Test() {
         try (var stack = MemoryStack.stackPush()) {
@@ -23,7 +22,7 @@ public class MathTest {
             b.setX(4.0f);
             b.setY(5.0f);
 
-            assertEquals(2f * 4f + 3f * 5f, B2Math.dot(a, b));
+            assertEquals(2f * 4f + 3f * 5f, B2_Vec2.dot(a, b));
         }
     }
 }

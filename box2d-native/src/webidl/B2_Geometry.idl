@@ -1,0 +1,16 @@
+[NoDelete]
+interface B2_Geometry {
+    static readonly attribute unsigned long MAX_POLYGON_VERTICES;
+
+    static void makeBox(float halfWidth, float halfHeight, [Ref] b2Polygon result);
+};
+
+[StackAllocatable]
+interface b2Polygon {
+    void b2Polygon();
+    [Value] attribute b2Vec2[] vertices;
+    [Value] attribute b2Vec2[] normals;
+    [Value] attribute b2Vec2 centroid;
+    attribute float radius;
+    attribute long count;
+};
