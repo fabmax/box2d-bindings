@@ -1,0 +1,10 @@
+[NoDelete]
+interface B2Base {
+    [Value] static b2Version getVersion();
+};
+
+interface b2Version {
+    attribute long major;
+    attribute long minor;
+    attribute long revision;
+};

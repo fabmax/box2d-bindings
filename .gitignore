@@ -1,2 +1,13 @@
-build/
-.cache/
+.air
+.cache
+.gradle
+.idea
+.kotlin
+build
+generated
+.DS_Store
+local.properties
+*.dll
+*.so
+*.dylib
+*.sha1
