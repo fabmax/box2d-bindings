@@ -1,6 +1,6 @@
 #pragma once
 
-#include "box2d/base.h"
+#include <box2d/box2d.h>
 
 class B2Base {
     public:

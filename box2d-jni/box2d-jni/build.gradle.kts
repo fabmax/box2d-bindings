@@ -19,7 +19,7 @@ java {
 }
 
 webidl {
-    modelPath.set(file("${rootDir}/../src/webidl/"))
+    modelPath.set(file("${rootDir}/../box2d-native/src/webidl/"))
     modelName.set("Box2d")
 
     generateJni {
@@ -30,10 +30,6 @@ webidl {
         onClassLoadStatement.set("de.fabmax.box2djni.Loader.load();")
         nativeIncludeDir.set(file("$rootDir/../box2d-native/build/_deps/box2d-src/include/box2d"))
     }
-
-//    generateCompactWebIdl {
-//        outputFile.set(file("${rootDir}/PhysX/physx/source/webidlbindings/src/wasm/PhysXWasm.idl"))
-//    }
 }
 
 tasks.test {
@@ -52,4 +48,15 @@ dependencies {
 //    testRuntimeOnly(project(":box2d-jni-natives-linux"))
 //    testRuntimeOnly(project(":box2d-jni-natives-macos"))
     testRuntimeOnly(project(":box2d-jni-natives-macos-arm64"))
+
+    testImplementation(libs.lwjgl.core)
+    val os = org.gradle.internal.os.OperatingSystem.current()
+    val arch = System.getProperty("os.arch", "unknown")
+    val lwjglPlatform = when {
+        os.isLinux -> "natives-linux"
+        os.isMacOsX && arch == "aarch64" -> "natives-macos-arm64"
+        os.isMacOsX && arch != "aarch64" -> "natives-macos"
+        else -> "natives-windows"
+    }
+    testRuntimeOnly("${libs.lwjgl.core.get()}:$lwjglPlatform")
 }

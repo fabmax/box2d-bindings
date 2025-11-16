@@ -105,6 +105,44 @@ JNIEXPORT void JNICALL Java_box2d_b2Version_00024Raw_setRevision(JNIEnv*, jclass
     _self->revision = value;
 }
 
+// B2Math
+JNIEXPORT jint JNICALL Java_box2d_B2Math__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2Math);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2Math_00024Raw_dot(JNIEnv*, jclass, jlong a, jlong b) {
+    return (jfloat) B2Math::dot(*((b2Vec2*) a), *((b2Vec2*) b));
+}
+
+// b2Vec2
+JNIEXPORT jint JNICALL Java_box2d_b2Vec2__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Vec2);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Vec2_00024Raw_b2Vec2_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Vec2();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Vec2_00024Raw_b2Vec2(JNIEnv*, jclass) {
+    return (jlong) new b2Vec2();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Vec2*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Vec2_00024Raw_getX(JNIEnv*, jclass, jlong _address) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    return (jfloat) _self->x;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_setX(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    _self->x = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Vec2_00024Raw_getY(JNIEnv*, jclass, jlong _address) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    return (jfloat) _self->y;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_setY(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    _self->y = value;
+}
+
 
 // on load callback executed by the JVM once the lib is loaded
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void*) {
