@@ -9,10 +9,24 @@ interface B2_Rot {
 };
 
 [StackAllocatable]
+interface b2AABB {
+    void b2AABB();
+    [Value] attribute b2Vec2 lowerBound;
+    [Value] attribute b2Vec2 upperBound;
+};
+
+[StackAllocatable]
 interface b2Rot {
     void b2Rot();
     attribute float c;
     attribute float s;
+};
+
+[StackAllocatable]
+interface b2Transform {
+    void b2Transform();
+    [Value] attribute b2Vec2 p;
+    [Value] attribute b2Rot q;
 };
 
 [StackAllocatable]

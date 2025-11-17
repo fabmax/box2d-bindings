@@ -6,6 +6,14 @@ interface B2_Geometry {
 };
 
 [StackAllocatable]
+interface b2MassData {
+    void b2MassData();
+    [Value] attribute b2Vec2 center;
+    attribute float mass;
+    attribute float rotationalInertia;
+};
+
+[StackAllocatable]
 interface b2Polygon {
     void b2Polygon();
     [Value] attribute b2Vec2[] vertices;

@@ -28,7 +28,10 @@ webidl {
 
         packagePrefix.set("box2d")
         onClassLoadStatement.set("de.fabmax.box2djni.Loader.load();")
-        nativeIncludeDir.set(file("$rootDir/../box2d-native/build/_deps/box2d-src/include/box2d"))
+        nativeIncludeDirs.set(files(
+            file("$rootDir/../box2d-native/build/_deps/box2d-src/include/box2d"),
+            file("$rootDir/../box2d-native/src/webidlbindings"),
+        ))
     }
 }
 
