@@ -1,18 +1,105 @@
 [NoDelete]
 interface B2_Vec2 {
     static float dot([Value] b2Vec2 a, [Value] b2Vec2 b);
+    static float cross([Value] b2Vec2 a, [Value] b2Vec2 b);
+    static void crossVS([Value] b2Vec2 v, float s, [Ref] b2Vec2 result);
+    static void crossSV(float s, [Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static void leftPerp([Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static void rightPerp([Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static void add([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void sub([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void neg([Value] b2Vec2 a, [Ref] b2Vec2 result);
+    static void lerp([Value] b2Vec2 a, [Value] b2Vec2 b, float t, [Ref] b2Vec2 result);
+    static void mul([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void mulSV(float s, [Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static void mulAdd([Value] b2Vec2 a, float s, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void mulSub([Value] b2Vec2 a, float s, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void abs([Value] b2Vec2 a, [Ref] b2Vec2 result);
+    static void min([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void max([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void clamp([Value] b2Vec2 v, [Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static float length([Value] b2Vec2 v);
+    static float distance([Value] b2Vec2 a, [Value] b2Vec2 b);
+    static void normalize([Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static boolean isNormalized([Value] b2Vec2 a);
+    static float getLengthAndNormalize([Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static float lengthSquared([Value] b2Vec2 v);
+    static boolean isValid([Value] b2Vec2 v);
 };
 
 [NoDelete]
 interface B2_Rot {
     static float getAngle([Value] b2Rot q);
+    static void getXAxis([Value] b2Rot q, [Ref] b2Vec2 result);
+    static void getYAxis([Value] b2Rot q, [Ref] b2Vec2 result);
+    static void makeRot(float radians, [Ref] b2Rot result);
+    static void normalize([Value] b2Rot q, [Ref] b2Rot result);
+    static boolean isNormalized([Value] b2Rot q);
+    static void integrateRotation([Value] b2Rot q1, float deltaAngle, [Ref] b2Rot result);
+    static void nLerp([Value] b2Rot q1, [Value] b2Rot q2, float t, [Ref] b2Rot result);
+    static void mulRot([Value] b2Rot q, [Value] b2Rot r, [Ref] b2Rot result);
+    static void invMulRot([Value] b2Rot q, [Value] b2Rot r, [Ref] b2Rot result);
+    static float relativeAngle([Value] b2Rot b, [Value] b2Rot a);
+    static float unwindAngle(float radians);
+    static void rotateVector([Value] b2Rot q, [Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static void invRotateVector([Value] b2Rot q, [Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static float computeAngularVelocity([Value] b2Rot q1, [Value] b2Rot q2, float inv_h);
+    static void computeRotationBetweenUnitVectors([Value] b2Vec2 v1, [Value] b2Vec2 v2, [Ref] b2Rot result);
+    static boolean isValid([Value] b2Rot q);
+};
+
+[NoDelete]
+interface B2_Transform {
+    static void transformPoint([Value] b2Transform t, [Value] b2Vec2 p, [Ref] b2Vec2 result);
+    static void invTransformPoint([Value] b2Transform t, [Value] b2Vec2 p, [Ref] b2Vec2 result);
+    static void mulTransforms([Value] b2Transform A, [Value] b2Transform B, [Ref] b2Transform result);
+    static void invMulTransforms([Value] b2Transform A, [Value] b2Transform B, [Ref] b2Transform result);
+};
+
+[NoDelete]
+interface B2_Mat22 {
+    static void mulMV([Value] b2Mat22 A, [Value] b2Vec2 v, [Ref] b2Vec2 result);
+    static void getInverse22([Value] b2Mat22 A, [Ref] b2Mat22 result);
+    static void solve22([Value] b2Mat22 A, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+};
+
+[NoDelete]
+interface B2_AABB {
+    static boolean contains([Value] b2AABB a, [Value] b2AABB b);
+    static void center([Value] b2AABB a, [Ref] b2Vec2 result);
+    static void extents([Value] b2AABB a, [Ref] b2Vec2 result);
+    static void unionAABB([Value] b2AABB a, [Value] b2AABB b, [Ref] b2AABB result);
+    static boolean overlaps([Value] b2AABB a, [Value] b2AABB b);
+    // static void makeAABB([Const] b2Vec2* points, long count, float radius, [Ref] b2AABB result);
+    static boolean isValid([Value] b2AABB aabb);
+};
+
+[NoDelete]
+interface B2_Plane {
+    static float planeSeparation([Value] b2Plane plane, [Value] b2Vec2 point);
+    static boolean isValid([Value] b2Plane plane);
+};
+
+[NoDelete]
+interface B2_Math {
+    static void computeCosSin(float radians, [Ref] b2CosSin result);
+    static float springDamper(float hertz, float dampingRatio, float position, float velocity, float timeStep);
+    static void setLengthUnitsPerMeter(float lengthUnits);
+    static float getLengthUnitsPerMeter();
 };
 
 [StackAllocatable]
-interface b2AABB {
-    void b2AABB();
-    [Value] attribute b2Vec2 lowerBound;
-    [Value] attribute b2Vec2 upperBound;
+interface b2Vec2 {
+    void b2Vec2();
+    attribute float x;
+    attribute float y;
+};
+
+[StackAllocatable]
+interface b2CosSin {
+    void b2CosSin();
+    attribute float cosine;
+    attribute float sine;
 };
 
 [StackAllocatable]
@@ -30,8 +117,22 @@ interface b2Transform {
 };
 
 [StackAllocatable]
-interface b2Vec2 {
-    void b2Vec2();
-    attribute float x;
-    attribute float y;
+interface b2Mat22 {
+    void b2Mat22();
+    [Value] attribute b2Vec2 cx;
+    [Value] attribute b2Vec2 cy;
+};
+
+[StackAllocatable]
+interface b2AABB {
+    void b2AABB();
+    [Value] attribute b2Vec2 lowerBound;
+    [Value] attribute b2Vec2 upperBound;
+};
+
+[StackAllocatable]
+interface b2Plane {
+    void b2Plane();
+    [Value] attribute b2Vec2 normal;
+    attribute float offset;
 };
