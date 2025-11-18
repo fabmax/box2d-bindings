@@ -2,7 +2,53 @@
 interface B2_Geometry {
     static readonly attribute unsigned long MAX_POLYGON_VERTICES;
 
+    // Ray validation
+    static boolean isValidRay([Const] b2RayCastInput input);
+
+    // Polygon creation functions
+    static void makePolygon([Const] b2Hull hull, float radius, [Ref] b2Polygon result);
+    static void makeOffsetPolygon([Const] b2Hull hull, [Value] b2Vec2 position, [Value] b2Rot rotation, [Ref] b2Polygon result);
+    static void makeOffsetRoundedPolygon([Const] b2Hull hull, [Value] b2Vec2 position, [Value] b2Rot rotation, float radius, [Ref] b2Polygon result);
+    static void makeSquare(float halfWidth, [Ref] b2Polygon result);
     static void makeBox(float halfWidth, float halfHeight, [Ref] b2Polygon result);
+    static void makeRoundedBox(float halfWidth, float halfHeight, float radius, [Ref] b2Polygon result);
+    static void makeOffsetBox(float halfWidth, float halfHeight, [Value] b2Vec2 center, [Value] b2Rot rotation, [Ref] b2Polygon result);
+    static void makeOffsetRoundedBox(float halfWidth, float halfHeight, [Value] b2Vec2 center, [Value] b2Rot rotation, float radius, [Ref] b2Polygon result);
+
+    // Transform polygon
+    static void transformPolygon([Value] b2Transform transform, [Const] b2Polygon polygon, [Ref] b2Polygon result);
+
+    // Mass computation functions
+    [Value] static b2MassData computeCircleMass([Const] b2Circle shape, float density);
+    [Value] static b2MassData computeCapsuleMass([Const] b2Capsule shape, float density);
+    [Value] static b2MassData computePolygonMass([Const] b2Polygon shape, float density);
+
+    // AABB computation functions
+    [Value] static b2AABB computeCircleAABB([Const] b2Circle shape, [Value] b2Transform transform);
+    [Value] static b2AABB computeCapsuleAABB([Const] b2Capsule shape, [Value] b2Transform transform);
+    [Value] static b2AABB computePolygonAABB([Const] b2Polygon shape, [Value] b2Transform transform);
+    [Value] static b2AABB computeSegmentAABB([Const] b2Segment shape, [Value] b2Transform transform);
+
+    // Point-in-shape tests
+    static boolean pointInCircle([Value] b2Vec2 point, [Const] b2Circle shape);
+    static boolean pointInCapsule([Value] b2Vec2 point, [Const] b2Capsule shape);
+    static boolean pointInPolygon([Value] b2Vec2 point, [Const] b2Polygon shape);
+
+    // Ray casting functions
+    [Value] static b2CastOutput rayCastCircle([Const] b2RayCastInput input, [Const] b2Circle shape);
+    [Value] static b2CastOutput rayCastCapsule([Const] b2RayCastInput input, [Const] b2Capsule shape);
+    [Value] static b2CastOutput rayCastSegment([Const] b2RayCastInput input, [Const] b2Segment shape, boolean oneSided);
+    [Value] static b2CastOutput rayCastPolygon([Const] b2RayCastInput input, [Const] b2Polygon shape);
+
+    // Shape casting functions
+    [Value] static b2CastOutput shapeCastCircle([Const] b2ShapeCastInput input, [Const] b2Circle shape);
+    [Value] static b2CastOutput shapeCastCapsule([Const] b2ShapeCastInput input, [Const] b2Capsule shape);
+    [Value] static b2CastOutput shapeCastSegment([Const] b2ShapeCastInput input, [Const] b2Segment shape);
+    [Value] static b2CastOutput shapeCastPolygon([Const] b2ShapeCastInput input, [Const] b2Polygon shape);
+
+    // Hull computation and validation
+    //static void computeHull([Value] b2Vec2[] points, long count, [Ref] b2Hull result);
+    static boolean validateHull([Const] b2Hull hull);
 };
 
 [StackAllocatable]
@@ -55,10 +101,34 @@ interface b2ChainSegment {
 };
 
 [StackAllocatable]
+interface b2Hull {
+    void b2Hull();
+    attribute long count;
+    [Value] attribute b2Vec2[] points;
+};
+
+[StackAllocatable]
+interface b2ShapeProxy {
+    void b2ShapeProxy();
+    attribute long count;
+    [Value] attribute b2Vec2[] points;
+    attribute float radius;
+};
+
+[StackAllocatable]
 interface b2RayCastInput {
     void b2RayCastInput();
     attribute float maxFraction;
     [Value] attribute b2Vec2 origin;
+    [Value] attribute b2Vec2 translation;
+};
+
+[StackAllocatable]
+interface b2ShapeCastInput {
+    void b2ShapeCastInput();
+    attribute boolean canEncroach;
+    attribute float maxFraction;
+    [Value] attribute b2ShapeProxy proxy;
     [Value] attribute b2Vec2 translation;
 };
 
