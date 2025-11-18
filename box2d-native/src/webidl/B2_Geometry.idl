@@ -14,6 +14,21 @@ interface b2MassData {
 };
 
 [StackAllocatable]
+interface b2Circle {
+    void b2Circle();
+    [Value] attribute b2Vec2 center;
+    attribute float radius;
+};
+
+[StackAllocatable]
+interface b2Capsule {
+    void b2Capsule();
+    [Value] attribute b2Vec2 center1;
+    [Value] attribute b2Vec2 center2;
+    attribute float radius;
+};
+
+[StackAllocatable]
 interface b2Polygon {
     void b2Polygon();
     [Value] attribute b2Vec2[] vertices;
@@ -21,4 +36,38 @@ interface b2Polygon {
     [Value] attribute b2Vec2 centroid;
     attribute float radius;
     attribute long count;
+};
+
+[StackAllocatable]
+interface b2Segment {
+    void b2Segment();
+    [Value] attribute b2Vec2 point1;
+    [Value] attribute b2Vec2 point2;
+};
+
+[StackAllocatable]
+interface b2ChainSegment {
+    void b2ChainSegment();
+    attribute long chainId;
+    [Value] attribute b2Vec2 ghost1;
+    [Value] attribute b2Vec2 ghost2;
+    [Value] attribute b2Segment segment;
+};
+
+[StackAllocatable]
+interface b2RayCastInput {
+    void b2RayCastInput();
+    attribute float maxFraction;
+    [Value] attribute b2Vec2 origin;
+    [Value] attribute b2Vec2 translation;
+};
+
+[StackAllocatable]
+interface b2CastOutput {
+    void b2CastOutput();
+    attribute float fraction;
+    attribute boolean hit;
+    attribute long iterations;
+    [Value] attribute b2Vec2 normal;
+    [Value] attribute b2Vec2 point;
 };

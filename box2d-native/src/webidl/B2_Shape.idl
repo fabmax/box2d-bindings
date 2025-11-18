@@ -1,7 +1,108 @@
 [NoDelete]
 interface B2_Shape {
+    // Shape definition
     static void defaultShapeDef([Ref] b2ShapeDef result);
+
+    // Shape creation functions
+    static void createCircleShape([Value] b2BodyId bodyId, [Const] b2ShapeDef def, [Const] b2Circle circle, [Ref] b2ShapeId result);
+    static void createSegmentShape([Value] b2BodyId bodyId, [Const] b2ShapeDef def, [Const] b2Segment segment, [Ref] b2ShapeId result);
+    static void createCapsuleShape([Value] b2BodyId bodyId, [Const] b2ShapeDef def, [Const] b2Capsule capsule, [Ref] b2ShapeId result);
     static void createPolygonShape([Value] b2BodyId bodyId, [Const] b2ShapeDef def, [Const] b2Polygon polygon, [Ref] b2ShapeId result);
+
+    // Shape destruction
+    static void destroyShape([Value] b2ShapeId shapeId, boolean updateBodyMass);
+
+    // Shape validation and properties
+    static boolean isValid([Value] b2ShapeId id);
+    static b2ShapeType getType([Value] b2ShapeId shapeId);
+    [Value] static b2BodyId getBody([Value] b2ShapeId shapeId);
+    [Value] static b2WorldId getWorld([Value] b2ShapeId shapeId);
+    static boolean isSensor([Value] b2ShapeId shapeId);
+
+    // Shape user data
+    static void setUserData([Value] b2ShapeId shapeId, VoidPtr userData);
+    static VoidPtr getUserData([Value] b2ShapeId shapeId);
+
+    // Shape material properties
+    static void setDensity([Value] b2ShapeId shapeId, float density, boolean updateBodyMass);
+    static float getDensity([Value] b2ShapeId shapeId);
+    static void setFriction([Value] b2ShapeId shapeId, float friction);
+    static float getFriction([Value] b2ShapeId shapeId);
+    static void setRestitution([Value] b2ShapeId shapeId, float restitution);
+    static float getRestitution([Value] b2ShapeId shapeId);
+    static void setMaterial([Value] b2ShapeId shapeId, long material);
+    static long getMaterial([Value] b2ShapeId shapeId);
+    static void setSurfaceMaterial([Value] b2ShapeId shapeId, [Value] b2SurfaceMaterial surfaceMaterial);
+    [Value] static b2SurfaceMaterial getSurfaceMaterial([Value] b2ShapeId shapeId);
+
+    // Shape filtering
+    [Value] static b2Filter getFilter([Value] b2ShapeId shapeId);
+    static void setFilter([Value] b2ShapeId shapeId, [Value] b2Filter filter);
+
+    // Shape events
+    static void enableSensorEvents([Value] b2ShapeId shapeId, boolean flag);
+    static boolean areSensorEventsEnabled([Value] b2ShapeId shapeId);
+    static void enableContactEvents([Value] b2ShapeId shapeId, boolean flag);
+    static boolean areContactEventsEnabled([Value] b2ShapeId shapeId);
+    static void enablePreSolveEvents([Value] b2ShapeId shapeId, boolean flag);
+    static boolean arePreSolveEventsEnabled([Value] b2ShapeId shapeId);
+    static void enableHitEvents([Value] b2ShapeId shapeId, boolean flag);
+    static boolean areHitEventsEnabled([Value] b2ShapeId shapeId);
+
+    // Shape testing and casting
+    static boolean testPoint([Value] b2ShapeId shapeId, [Value] b2Vec2 point);
+    [Value] static b2CastOutput rayCast([Value] b2ShapeId shapeId, [Const] b2RayCastInput input);
+
+    // Shape geometry getters
+    [Value] static b2Circle getCircle([Value] b2ShapeId shapeId);
+    [Value] static b2Segment getSegment([Value] b2ShapeId shapeId);
+    [Value] static b2ChainSegment getChainSegment([Value] b2ShapeId shapeId);
+    [Value] static b2Capsule getCapsule([Value] b2ShapeId shapeId);
+    [Value] static b2Polygon getPolygon([Value] b2ShapeId shapeId);
+
+    // Shape geometry setters
+    static void setCircle([Value] b2ShapeId shapeId, [Const] b2Circle circle);
+    static void setCapsule([Value] b2ShapeId shapeId, [Const] b2Capsule capsule);
+    static void setSegment([Value] b2ShapeId shapeId, [Const] b2Segment segment);
+    static void setPolygon([Value] b2ShapeId shapeId, [Const] b2Polygon polygon);
+
+    // Shape chain functions
+    [Value] static b2ChainId getParentChain([Value] b2ShapeId shapeId);
+
+    // Shape contact and sensor data
+    // static long getContactCapacity([Value] b2ShapeId shapeId);
+    // static long getContactData([Value] b2ShapeId shapeId, b2ContactData contactData, long capacity);
+    // static long getSensorCapacity([Value] b2ShapeId shapeId);
+    // static long getSensorOverlaps([Value] b2ShapeId shapeId, b2ShapeId overlaps, long capacity);
+
+    // Shape AABB and mass
+    [Value] static b2AABB getAABB([Value] b2ShapeId shapeId);
+    [Value] static b2MassData getMassData([Value] b2ShapeId shapeId);
+    [Value] static b2Vec2 getClosestPoint([Value] b2ShapeId shapeId, [Value] b2Vec2 target);
+};
+
+[NoDelete]
+interface B2_Chain {
+    // Chain definition
+    static void defaultChainDef([Ref] b2ChainDef result);
+
+    // Chain creation and destruction
+    static void createChain([Value] b2BodyId bodyId, [Const] b2ChainDef def, [Ref] b2ChainId result);
+    static void destroyChain([Value] b2ChainId chainId);
+
+    // Chain validation and properties
+    static boolean isValid([Value] b2ChainId id);
+    [Value] static b2WorldId getWorld([Value] b2ChainId chainId);
+    static long getSegmentCount([Value] b2ChainId chainId);
+    // static long getSegments([Value] b2ChainId chainId, b2ShapeId segmentArray, long capacity);
+
+    // Chain material properties
+    static void setFriction([Value] b2ChainId chainId, float friction);
+    static float getFriction([Value] b2ChainId chainId);
+    static void setRestitution([Value] b2ChainId chainId, float restitution);
+    static float getRestitution([Value] b2ChainId chainId);
+    static void setMaterial([Value] b2ChainId chainId, long material);
+    static long getMaterial([Value] b2ChainId chainId);
 };
 
 [StackAllocatable]
@@ -10,7 +111,7 @@ interface b2ShapeDef {
     attribute VoidPtr userData;
     [Value] attribute b2SurfaceMaterial material;
     attribute float density;
-    //filter
+    [Value] attribute b2Filter filter;
     attribute boolean isSensor;
     attribute boolean enableSensorEvents;
     attribute boolean enableContactEvents;
@@ -20,8 +121,44 @@ interface b2ShapeDef {
     attribute boolean updateBodyMass;
 };
 
+[StackAllocatable]
+interface b2ChainDef {
+    void b2ChainDef();
+	attribute VoidPtr userData;
+	attribute b2Vec2 points;
+	attribute long count;
+	attribute b2SurfaceMaterial materials;
+	attribute long materialCount;
+	[Value] attribute b2Filter filter;
+	attribute boolean isLoop;
+	attribute boolean enableSensorEvents;
+	attribute long internalValue;
+};
+
+[StackAllocatable]
+interface b2Filter {
+    void b2Filter();
+    attribute unsigned long long categoryBits;
+    attribute long groupIndex;
+    attribute unsigned long long maskBits;
+};
+
+[StackAllocatable]
+interface b2QueryFilter {
+    void b2QueryFilter();
+    attribute unsigned long long categoryBits;
+    attribute unsigned long long maskBits;
+};
+
 interface b2ShapeId {
     void b2ShapeId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
+};
+
+interface b2ChainId {
+    void b2ChainId();
     attribute unsigned short generation;
     attribute long index1;
     attribute unsigned short world0;
@@ -36,4 +173,12 @@ interface b2SurfaceMaterial {
     attribute float rollingResistance;
     attribute float tangentSpeed;
     attribute long userMaterialId;
+};
+
+enum b2ShapeType {
+    "b2_circleShape",
+    "b2_capsuleShape",
+    "b2_segmentShape",
+    "b2_polygonShape",
+    "b2_chainSegmentShape"
 };
