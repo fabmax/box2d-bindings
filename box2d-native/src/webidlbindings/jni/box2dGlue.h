@@ -70,8 +70,213 @@ JNIEXPORT jint JNICALL Java_box2d_B2_1Shape__1_1sizeOf(JNIEnv*, jclass) {
 JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_defaultShapeDef(JNIEnv*, jclass, jlong result) {
     B2_Shape::defaultShapeDef(*((b2ShapeDef*) result));
 }
-JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_createPolygonShape(JNIEnv*, jclass, jlong bodyId, jlong def, jlong polygon, jlong result) {
-    B2_Shape::createPolygonShape(*((b2BodyId*) bodyId), (b2ShapeDef*) def, (b2Polygon*) polygon, *((b2ShapeId*) result));
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_createCircleShape(JNIEnv*, jclass, jlong bodyId, jlong def, jlong circle) {
+    return (jlong) B2_Shape::createCircleShape(bodyId, (b2ShapeDef*) def, (b2Circle*) circle);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_createSegmentShape(JNIEnv*, jclass, jlong bodyId, jlong def, jlong segment) {
+    return (jlong) B2_Shape::createSegmentShape(bodyId, (b2ShapeDef*) def, (b2Segment*) segment);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_createCapsuleShape(JNIEnv*, jclass, jlong bodyId, jlong def, jlong capsule) {
+    return (jlong) B2_Shape::createCapsuleShape(bodyId, (b2ShapeDef*) def, (b2Capsule*) capsule);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_createPolygonShape(JNIEnv*, jclass, jlong bodyId, jlong def, jlong polygon) {
+    return (jlong) B2_Shape::createPolygonShape(bodyId, (b2ShapeDef*) def, (b2Polygon*) polygon);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_destroyShape(JNIEnv*, jclass, jlong shapeId, jboolean updateBodyMass) {
+    B2_Shape::destroyShape(shapeId, updateBodyMass);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_isValid(JNIEnv*, jclass, jlong id) {
+    return (jboolean) B2_Shape::isValid(id);
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Shape_00024Raw_getType(JNIEnv*, jclass, jlong shapeId) {
+    return (jint) B2_Shape::getType(shapeId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getBody(JNIEnv*, jclass, jlong shapeId) {
+    return (jlong) B2_Shape::getBody(shapeId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getWorld(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2WorldId _cache = B2_Shape::getWorld(shapeId);
+    _cache = B2_Shape::getWorld(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_isSensor(JNIEnv*, jclass, jlong shapeId) {
+    return (jboolean) B2_Shape::isSensor(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setUserData(JNIEnv*, jclass, jlong shapeId, jlong userData) {
+    B2_Shape::setUserData(shapeId, (void*) userData);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getUserData(JNIEnv*, jclass, jlong shapeId) {
+    return (jlong) B2_Shape::getUserData(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setDensity(JNIEnv*, jclass, jlong shapeId, jfloat density, jboolean updateBodyMass) {
+    B2_Shape::setDensity(shapeId, density, updateBodyMass);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Shape_00024Raw_getDensity(JNIEnv*, jclass, jlong shapeId) {
+    return (jfloat) B2_Shape::getDensity(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setFriction(JNIEnv*, jclass, jlong shapeId, jfloat friction) {
+    B2_Shape::setFriction(shapeId, friction);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Shape_00024Raw_getFriction(JNIEnv*, jclass, jlong shapeId) {
+    return (jfloat) B2_Shape::getFriction(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setRestitution(JNIEnv*, jclass, jlong shapeId, jfloat restitution) {
+    B2_Shape::setRestitution(shapeId, restitution);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Shape_00024Raw_getRestitution(JNIEnv*, jclass, jlong shapeId) {
+    return (jfloat) B2_Shape::getRestitution(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setMaterial(JNIEnv*, jclass, jlong shapeId, jint material) {
+    B2_Shape::setMaterial(shapeId, material);
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Shape_00024Raw_getMaterial(JNIEnv*, jclass, jlong shapeId) {
+    return (jint) B2_Shape::getMaterial(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setSurfaceMaterial(JNIEnv*, jclass, jlong shapeId, jlong surfaceMaterial) {
+    B2_Shape::setSurfaceMaterial(shapeId, *((b2SurfaceMaterial*) surfaceMaterial));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getSurfaceMaterial(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2SurfaceMaterial _cache = B2_Shape::getSurfaceMaterial(shapeId);
+    _cache = B2_Shape::getSurfaceMaterial(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getFilter(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2Filter _cache = B2_Shape::getFilter(shapeId);
+    _cache = B2_Shape::getFilter(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setFilter(JNIEnv*, jclass, jlong shapeId, jlong filter) {
+    B2_Shape::setFilter(shapeId, *((b2Filter*) filter));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_enableSensorEvents(JNIEnv*, jclass, jlong shapeId, jboolean flag) {
+    B2_Shape::enableSensorEvents(shapeId, flag);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_areSensorEventsEnabled(JNIEnv*, jclass, jlong shapeId) {
+    return (jboolean) B2_Shape::areSensorEventsEnabled(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_enableContactEvents(JNIEnv*, jclass, jlong shapeId, jboolean flag) {
+    B2_Shape::enableContactEvents(shapeId, flag);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_areContactEventsEnabled(JNIEnv*, jclass, jlong shapeId) {
+    return (jboolean) B2_Shape::areContactEventsEnabled(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_enablePreSolveEvents(JNIEnv*, jclass, jlong shapeId, jboolean flag) {
+    B2_Shape::enablePreSolveEvents(shapeId, flag);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_arePreSolveEventsEnabled(JNIEnv*, jclass, jlong shapeId) {
+    return (jboolean) B2_Shape::arePreSolveEventsEnabled(shapeId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_enableHitEvents(JNIEnv*, jclass, jlong shapeId, jboolean flag) {
+    B2_Shape::enableHitEvents(shapeId, flag);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_areHitEventsEnabled(JNIEnv*, jclass, jlong shapeId) {
+    return (jboolean) B2_Shape::areHitEventsEnabled(shapeId);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Shape_00024Raw_testPoint(JNIEnv*, jclass, jlong shapeId, jlong point) {
+    return (jboolean) B2_Shape::testPoint(shapeId, *((b2Vec2*) point));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_rayCast(JNIEnv*, jclass, jlong shapeId, jlong input) {
+    static thread_local b2CastOutput _cache = B2_Shape::rayCast(shapeId, (b2RayCastInput*) input);
+    _cache = B2_Shape::rayCast(shapeId, (b2RayCastInput*) input);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getCircle(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2Circle _cache = B2_Shape::getCircle(shapeId);
+    _cache = B2_Shape::getCircle(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getSegment(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2Segment _cache = B2_Shape::getSegment(shapeId);
+    _cache = B2_Shape::getSegment(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getChainSegment(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2ChainSegment _cache = B2_Shape::getChainSegment(shapeId);
+    _cache = B2_Shape::getChainSegment(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getCapsule(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2Capsule _cache = B2_Shape::getCapsule(shapeId);
+    _cache = B2_Shape::getCapsule(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getPolygon(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2Polygon _cache = B2_Shape::getPolygon(shapeId);
+    _cache = B2_Shape::getPolygon(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setCircle(JNIEnv*, jclass, jlong shapeId, jlong circle) {
+    B2_Shape::setCircle(shapeId, (b2Circle*) circle);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setCapsule(JNIEnv*, jclass, jlong shapeId, jlong capsule) {
+    B2_Shape::setCapsule(shapeId, (b2Capsule*) capsule);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setSegment(JNIEnv*, jclass, jlong shapeId, jlong segment) {
+    B2_Shape::setSegment(shapeId, (b2Segment*) segment);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Shape_00024Raw_setPolygon(JNIEnv*, jclass, jlong shapeId, jlong polygon) {
+    B2_Shape::setPolygon(shapeId, (b2Polygon*) polygon);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getParentChain(JNIEnv*, jclass, jlong shapeId) {
+    return (jlong) B2_Shape::getParentChain(shapeId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getAABB(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2AABB _cache = B2_Shape::getAABB(shapeId);
+    _cache = B2_Shape::getAABB(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getMassData(JNIEnv*, jclass, jlong shapeId) {
+    static thread_local b2MassData _cache = B2_Shape::getMassData(shapeId);
+    _cache = B2_Shape::getMassData(shapeId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Shape_00024Raw_getClosestPoint(JNIEnv*, jclass, jlong shapeId, jlong target) {
+    static thread_local b2Vec2 _cache = B2_Shape::getClosestPoint(shapeId, *((b2Vec2*) target));
+    _cache = B2_Shape::getClosestPoint(shapeId, *((b2Vec2*) target));
+    return (jlong) &_cache;
+}
+
+// B2_Chain
+JNIEXPORT jint JNICALL Java_box2d_B2_1Chain__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_Chain);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Chain_00024Raw_defaultChainDef(JNIEnv*, jclass, jlong result) {
+    B2_Chain::defaultChainDef(*((b2ChainDef*) result));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Chain_00024Raw_createChain(JNIEnv*, jclass, jlong bodyId, jlong def) {
+    return (jlong) B2_Chain::createChain(bodyId, (b2ChainDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Chain_00024Raw_destroyChain(JNIEnv*, jclass, jlong chainId) {
+    B2_Chain::destroyChain(chainId);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Chain_00024Raw_isValid(JNIEnv*, jclass, jlong id) {
+    return (jboolean) B2_Chain::isValid(id);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Chain_00024Raw_getWorld(JNIEnv*, jclass, jlong chainId) {
+    static thread_local b2WorldId _cache = B2_Chain::getWorld(chainId);
+    _cache = B2_Chain::getWorld(chainId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Chain_00024Raw_getSegmentCount(JNIEnv*, jclass, jlong chainId) {
+    return (jint) B2_Chain::getSegmentCount(chainId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Chain_00024Raw_setFriction(JNIEnv*, jclass, jlong chainId, jfloat friction) {
+    B2_Chain::setFriction(chainId, friction);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Chain_00024Raw_getFriction(JNIEnv*, jclass, jlong chainId) {
+    return (jfloat) B2_Chain::getFriction(chainId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Chain_00024Raw_setRestitution(JNIEnv*, jclass, jlong chainId, jfloat restitution) {
+    B2_Chain::setRestitution(chainId, restitution);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Chain_00024Raw_getRestitution(JNIEnv*, jclass, jlong chainId) {
+    return (jfloat) B2_Chain::getRestitution(chainId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Chain_00024Raw_setMaterial(JNIEnv*, jclass, jlong chainId, jint material) {
+    B2_Chain::setMaterial(chainId, material);
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Chain_00024Raw_getMaterial(JNIEnv*, jclass, jlong chainId) {
+    return (jint) B2_Chain::getMaterial(chainId);
 }
 
 // b2ShapeDef
@@ -110,6 +315,14 @@ JNIEXPORT jfloat JNICALL Java_box2d_b2ShapeDef_00024Raw_getDensity(JNIEnv*, jcla
 JNIEXPORT void JNICALL Java_box2d_b2ShapeDef_00024Raw_setDensity(JNIEnv*, jclass, jlong _address, jfloat value) {
     b2ShapeDef* _self = (b2ShapeDef*) _address;
     _self->density = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeDef_00024Raw_getFilter(JNIEnv*, jclass, jlong _address) {
+    b2ShapeDef* _self = (b2ShapeDef*) _address;
+    return (jlong) &_self->filter;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeDef_00024Raw_setFilter(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ShapeDef* _self = (b2ShapeDef*) _address;
+    _self->filter = *((b2Filter*) value);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_b2ShapeDef_00024Raw_getIsSensor(JNIEnv*, jclass, jlong _address) {
     b2ShapeDef* _self = (b2ShapeDef*) _address;
@@ -168,39 +381,158 @@ JNIEXPORT void JNICALL Java_box2d_b2ShapeDef_00024Raw_setUpdateBodyMass(JNIEnv*,
     _self->updateBodyMass = value;
 }
 
-// b2ShapeId
-JNIEXPORT jint JNICALL Java_box2d_b2ShapeId__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2ShapeId);
+// b2ChainDef
+JNIEXPORT jint JNICALL Java_box2d_b2ChainDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ChainDef);
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2ShapeId_00024Raw_b2ShapeId(JNIEnv*, jclass) {
-    return (jlong) new b2ShapeId();
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainDef_00024Raw_b2ChainDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ChainDef();
 }
-JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2ShapeId*) _address;
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainDef_00024Raw_b2ChainDef(JNIEnv*, jclass) {
+    return (jlong) new b2ChainDef();
 }
-JNIEXPORT jshort JNICALL Java_box2d_b2ShapeId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
-    b2ShapeId* _self = (b2ShapeId*) _address;
-    return (jshort) _self->generation;
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ChainDef*) _address;
 }
-JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
-    b2ShapeId* _self = (b2ShapeId*) _address;
-    _self->generation = value;
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jlong) _self->userData;
 }
-JNIEXPORT jint JNICALL Java_box2d_b2ShapeId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
-    b2ShapeId* _self = (b2ShapeId*) _address;
-    return (jint) _self->index1;
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->userData = (void*) value;
 }
-JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jint value) {
-    b2ShapeId* _self = (b2ShapeId*) _address;
-    _self->index1 = value;
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainDef_00024Raw_getPoints(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jlong) _self->points;
 }
-JNIEXPORT jshort JNICALL Java_box2d_b2ShapeId_00024Raw_getWorld0(JNIEnv*, jclass, jlong _address) {
-    b2ShapeId* _self = (b2ShapeId*) _address;
-    return (jshort) _self->world0;
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setPoints(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->points = (b2Vec2*) value;
 }
-JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_setWorld0(JNIEnv*, jclass, jlong _address, jshort value) {
-    b2ShapeId* _self = (b2ShapeId*) _address;
-    _self->world0 = value;
+JNIEXPORT jint JNICALL Java_box2d_b2ChainDef_00024Raw_getCount(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jint) _self->count;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setCount(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->count = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainDef_00024Raw_getMaterials(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jlong) _self->materials;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setMaterials(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->materials = (b2SurfaceMaterial*) value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ChainDef_00024Raw_getMaterialCount(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jint) _self->materialCount;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setMaterialCount(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->materialCount = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainDef_00024Raw_getFilter(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jlong) &_self->filter;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setFilter(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->filter = *((b2Filter*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2ChainDef_00024Raw_getIsLoop(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jboolean) _self->isLoop;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setIsLoop(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->isLoop = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2ChainDef_00024Raw_getEnableSensorEvents(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jboolean) _self->enableSensorEvents;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setEnableSensorEvents(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->enableSensorEvents = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ChainDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ChainDef* _self = (b2ChainDef*) _address;
+    _self->internalValue = value;
+}
+
+// b2Filter
+JNIEXPORT jint JNICALL Java_box2d_b2Filter__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Filter);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Filter_00024Raw_b2Filter_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Filter();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Filter_00024Raw_b2Filter(JNIEnv*, jclass) {
+    return (jlong) new b2Filter();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Filter_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Filter*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Filter_00024Raw_getCategoryBits(JNIEnv*, jclass, jlong _address) {
+    b2Filter* _self = (b2Filter*) _address;
+    return (jlong) _self->categoryBits;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Filter_00024Raw_setCategoryBits(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Filter* _self = (b2Filter*) _address;
+    _self->categoryBits = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2Filter_00024Raw_getGroupIndex(JNIEnv*, jclass, jlong _address) {
+    b2Filter* _self = (b2Filter*) _address;
+    return (jint) _self->groupIndex;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Filter_00024Raw_setGroupIndex(JNIEnv*, jclass, jlong _address, jint value) {
+    b2Filter* _self = (b2Filter*) _address;
+    _self->groupIndex = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Filter_00024Raw_getMaskBits(JNIEnv*, jclass, jlong _address) {
+    b2Filter* _self = (b2Filter*) _address;
+    return (jlong) _self->maskBits;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Filter_00024Raw_setMaskBits(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Filter* _self = (b2Filter*) _address;
+    _self->maskBits = value;
+}
+
+// b2QueryFilter
+JNIEXPORT jint JNICALL Java_box2d_b2QueryFilter__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2QueryFilter);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2QueryFilter_00024Raw_b2QueryFilter_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2QueryFilter();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2QueryFilter_00024Raw_b2QueryFilter(JNIEnv*, jclass) {
+    return (jlong) new b2QueryFilter();
+}
+JNIEXPORT void JNICALL Java_box2d_b2QueryFilter_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2QueryFilter*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2QueryFilter_00024Raw_getCategoryBits(JNIEnv*, jclass, jlong _address) {
+    b2QueryFilter* _self = (b2QueryFilter*) _address;
+    return (jlong) _self->categoryBits;
+}
+JNIEXPORT void JNICALL Java_box2d_b2QueryFilter_00024Raw_setCategoryBits(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2QueryFilter* _self = (b2QueryFilter*) _address;
+    _self->categoryBits = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2QueryFilter_00024Raw_getMaskBits(JNIEnv*, jclass, jlong _address) {
+    b2QueryFilter* _self = (b2QueryFilter*) _address;
+    return (jlong) _self->maskBits;
+}
+JNIEXPORT void JNICALL Java_box2d_b2QueryFilter_00024Raw_setMaskBits(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2QueryFilter* _self = (b2QueryFilter*) _address;
+    _self->maskBits = value;
 }
 
 // b2SurfaceMaterial
@@ -272,6 +604,78 @@ JNIEXPORT jint JNICALL Java_box2d_B2_1Vec2__1_1sizeOf(JNIEnv*, jclass) {
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Vec2_00024Raw_dot(JNIEnv*, jclass, jlong a, jlong b) {
     return (jfloat) B2_Vec2::dot(*((b2Vec2*) a), *((b2Vec2*) b));
 }
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Vec2_00024Raw_cross(JNIEnv*, jclass, jlong a, jlong b) {
+    return (jfloat) B2_Vec2::cross(*((b2Vec2*) a), *((b2Vec2*) b));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_crossVS(JNIEnv*, jclass, jlong v, jfloat s, jlong result) {
+    B2_Vec2::crossVS(*((b2Vec2*) v), s, *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_crossSV(JNIEnv*, jclass, jfloat s, jlong v, jlong result) {
+    B2_Vec2::crossSV(s, *((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_leftPerp(JNIEnv*, jclass, jlong v, jlong result) {
+    B2_Vec2::leftPerp(*((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_rightPerp(JNIEnv*, jclass, jlong v, jlong result) {
+    B2_Vec2::rightPerp(*((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_add(JNIEnv*, jclass, jlong a, jlong b, jlong result) {
+    B2_Vec2::add(*((b2Vec2*) a), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_sub(JNIEnv*, jclass, jlong a, jlong b, jlong result) {
+    B2_Vec2::sub(*((b2Vec2*) a), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_neg(JNIEnv*, jclass, jlong a, jlong result) {
+    B2_Vec2::neg(*((b2Vec2*) a), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_lerp(JNIEnv*, jclass, jlong a, jlong b, jfloat t, jlong result) {
+    B2_Vec2::lerp(*((b2Vec2*) a), *((b2Vec2*) b), t, *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_mul(JNIEnv*, jclass, jlong a, jlong b, jlong result) {
+    B2_Vec2::mul(*((b2Vec2*) a), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_mulSV(JNIEnv*, jclass, jfloat s, jlong v, jlong result) {
+    B2_Vec2::mulSV(s, *((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_mulAdd(JNIEnv*, jclass, jlong a, jfloat s, jlong b, jlong result) {
+    B2_Vec2::mulAdd(*((b2Vec2*) a), s, *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_mulSub(JNIEnv*, jclass, jlong a, jfloat s, jlong b, jlong result) {
+    B2_Vec2::mulSub(*((b2Vec2*) a), s, *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_abs(JNIEnv*, jclass, jlong a, jlong result) {
+    B2_Vec2::abs(*((b2Vec2*) a), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_min(JNIEnv*, jclass, jlong a, jlong b, jlong result) {
+    B2_Vec2::min(*((b2Vec2*) a), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_max(JNIEnv*, jclass, jlong a, jlong b, jlong result) {
+    B2_Vec2::max(*((b2Vec2*) a), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_clamp(JNIEnv*, jclass, jlong v, jlong a, jlong b, jlong result) {
+    B2_Vec2::clamp(*((b2Vec2*) v), *((b2Vec2*) a), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Vec2_00024Raw_length(JNIEnv*, jclass, jlong v) {
+    return (jfloat) B2_Vec2::length(*((b2Vec2*) v));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Vec2_00024Raw_distance(JNIEnv*, jclass, jlong a, jlong b) {
+    return (jfloat) B2_Vec2::distance(*((b2Vec2*) a), *((b2Vec2*) b));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Vec2_00024Raw_normalize(JNIEnv*, jclass, jlong v, jlong result) {
+    B2_Vec2::normalize(*((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Vec2_00024Raw_isNormalized(JNIEnv*, jclass, jlong a) {
+    return (jboolean) B2_Vec2::isNormalized(*((b2Vec2*) a));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Vec2_00024Raw_getLengthAndNormalize(JNIEnv*, jclass, jlong v, jlong result) {
+    return (jfloat) B2_Vec2::getLengthAndNormalize(*((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Vec2_00024Raw_lengthSquared(JNIEnv*, jclass, jlong v) {
+    return (jfloat) B2_Vec2::lengthSquared(*((b2Vec2*) v));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Vec2_00024Raw_isValid(JNIEnv*, jclass, jlong v) {
+    return (jboolean) B2_Vec2::isValid(*((b2Vec2*) v));
+}
 
 // B2_Rot
 JNIEXPORT jint JNICALL Java_box2d_B2_1Rot__1_1sizeOf(JNIEnv*, jclass) {
@@ -280,35 +684,195 @@ JNIEXPORT jint JNICALL Java_box2d_B2_1Rot__1_1sizeOf(JNIEnv*, jclass) {
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Rot_00024Raw_getAngle(JNIEnv*, jclass, jlong q) {
     return (jfloat) B2_Rot::getAngle(*((b2Rot*) q));
 }
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_getXAxis(JNIEnv*, jclass, jlong q, jlong result) {
+    B2_Rot::getXAxis(*((b2Rot*) q), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_getYAxis(JNIEnv*, jclass, jlong q, jlong result) {
+    B2_Rot::getYAxis(*((b2Rot*) q), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_makeRot(JNIEnv*, jclass, jfloat radians, jlong result) {
+    B2_Rot::makeRot(radians, *((b2Rot*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_normalize(JNIEnv*, jclass, jlong q, jlong result) {
+    B2_Rot::normalize(*((b2Rot*) q), *((b2Rot*) result));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Rot_00024Raw_isNormalized(JNIEnv*, jclass, jlong q) {
+    return (jboolean) B2_Rot::isNormalized(*((b2Rot*) q));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_integrateRotation(JNIEnv*, jclass, jlong q1, jfloat deltaAngle, jlong result) {
+    B2_Rot::integrateRotation(*((b2Rot*) q1), deltaAngle, *((b2Rot*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_nLerp(JNIEnv*, jclass, jlong q1, jlong q2, jfloat t, jlong result) {
+    B2_Rot::nLerp(*((b2Rot*) q1), *((b2Rot*) q2), t, *((b2Rot*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_mulRot(JNIEnv*, jclass, jlong q, jlong r, jlong result) {
+    B2_Rot::mulRot(*((b2Rot*) q), *((b2Rot*) r), *((b2Rot*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_invMulRot(JNIEnv*, jclass, jlong q, jlong r, jlong result) {
+    B2_Rot::invMulRot(*((b2Rot*) q), *((b2Rot*) r), *((b2Rot*) result));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Rot_00024Raw_relativeAngle(JNIEnv*, jclass, jlong b, jlong a) {
+    return (jfloat) B2_Rot::relativeAngle(*((b2Rot*) b), *((b2Rot*) a));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Rot_00024Raw_unwindAngle(JNIEnv*, jclass, jfloat radians) {
+    return (jfloat) B2_Rot::unwindAngle(radians);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_rotateVector(JNIEnv*, jclass, jlong q, jlong v, jlong result) {
+    B2_Rot::rotateVector(*((b2Rot*) q), *((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_invRotateVector(JNIEnv*, jclass, jlong q, jlong v, jlong result) {
+    B2_Rot::invRotateVector(*((b2Rot*) q), *((b2Vec2*) v), *((b2Vec2*) result));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Rot_00024Raw_computeAngularVelocity(JNIEnv*, jclass, jlong q1, jlong q2, jfloat inv_h) {
+    return (jfloat) B2_Rot::computeAngularVelocity(*((b2Rot*) q1), *((b2Rot*) q2), inv_h);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Rot_00024Raw_computeRotationBetweenUnitVectors(JNIEnv*, jclass, jlong v1, jlong v2, jlong result) {
+    B2_Rot::computeRotationBetweenUnitVectors(*((b2Vec2*) v1), *((b2Vec2*) v2), *((b2Rot*) result));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Rot_00024Raw_isValid(JNIEnv*, jclass, jlong q) {
+    return (jboolean) B2_Rot::isValid(*((b2Rot*) q));
+}
 
-// b2AABB
-JNIEXPORT jint JNICALL Java_box2d_b2AABB__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2AABB);
+// B2_Transform
+JNIEXPORT jint JNICALL Java_box2d_B2_1Transform__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_Transform);
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_b2AABB_1placed(JNIEnv*, jclass, jlong _placement_address) {
-    return (jlong) new((void*)_placement_address) b2AABB();
+JNIEXPORT void JNICALL Java_box2d_B2_1Transform_00024Raw_transformPoint(JNIEnv*, jclass, jlong t, jlong p, jlong result) {
+    B2_Transform::transformPoint(*((b2Transform*) t), *((b2Vec2*) p), *((b2Vec2*) result));
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_b2AABB(JNIEnv*, jclass) {
-    return (jlong) new b2AABB();
+JNIEXPORT void JNICALL Java_box2d_B2_1Transform_00024Raw_invTransformPoint(JNIEnv*, jclass, jlong t, jlong p, jlong result) {
+    B2_Transform::invTransformPoint(*((b2Transform*) t), *((b2Vec2*) p), *((b2Vec2*) result));
 }
-JNIEXPORT void JNICALL Java_box2d_b2AABB_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2AABB*) _address;
+JNIEXPORT void JNICALL Java_box2d_B2_1Transform_00024Raw_mulTransforms(JNIEnv*, jclass, jlong A, jlong B, jlong result) {
+    B2_Transform::mulTransforms(*((b2Transform*) A), *((b2Transform*) B), *((b2Transform*) result));
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_getLowerBound(JNIEnv*, jclass, jlong _address) {
-    b2AABB* _self = (b2AABB*) _address;
-    return (jlong) &_self->lowerBound;
+JNIEXPORT void JNICALL Java_box2d_B2_1Transform_00024Raw_invMulTransforms(JNIEnv*, jclass, jlong A, jlong B, jlong result) {
+    B2_Transform::invMulTransforms(*((b2Transform*) A), *((b2Transform*) B), *((b2Transform*) result));
 }
-JNIEXPORT void JNICALL Java_box2d_b2AABB_00024Raw_setLowerBound(JNIEnv*, jclass, jlong _address, jlong value) {
-    b2AABB* _self = (b2AABB*) _address;
-    _self->lowerBound = *((b2Vec2*) value);
+
+// B2_Mat22
+JNIEXPORT jint JNICALL Java_box2d_B2_1Mat22__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_Mat22);
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_getUpperBound(JNIEnv*, jclass, jlong _address) {
-    b2AABB* _self = (b2AABB*) _address;
-    return (jlong) &_self->upperBound;
+JNIEXPORT void JNICALL Java_box2d_B2_1Mat22_00024Raw_mulMV(JNIEnv*, jclass, jlong A, jlong v, jlong result) {
+    B2_Mat22::mulMV(*((b2Mat22*) A), *((b2Vec2*) v), *((b2Vec2*) result));
 }
-JNIEXPORT void JNICALL Java_box2d_b2AABB_00024Raw_setUpperBound(JNIEnv*, jclass, jlong _address, jlong value) {
-    b2AABB* _self = (b2AABB*) _address;
-    _self->upperBound = *((b2Vec2*) value);
+JNIEXPORT void JNICALL Java_box2d_B2_1Mat22_00024Raw_getInverse22(JNIEnv*, jclass, jlong A, jlong result) {
+    B2_Mat22::getInverse22(*((b2Mat22*) A), *((b2Mat22*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Mat22_00024Raw_solve22(JNIEnv*, jclass, jlong A, jlong b, jlong result) {
+    B2_Mat22::solve22(*((b2Mat22*) A), *((b2Vec2*) b), *((b2Vec2*) result));
+}
+
+// B2_AABB
+JNIEXPORT jint JNICALL Java_box2d_B2_1AABB__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_AABB);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1AABB_00024Raw_contains(JNIEnv*, jclass, jlong a, jlong b) {
+    return (jboolean) B2_AABB::contains(*((b2AABB*) a), *((b2AABB*) b));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1AABB_00024Raw_center(JNIEnv*, jclass, jlong a, jlong result) {
+    B2_AABB::center(*((b2AABB*) a), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1AABB_00024Raw_extents(JNIEnv*, jclass, jlong a, jlong result) {
+    B2_AABB::extents(*((b2AABB*) a), *((b2Vec2*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1AABB_00024Raw_unionAABB(JNIEnv*, jclass, jlong a, jlong b, jlong result) {
+    B2_AABB::unionAABB(*((b2AABB*) a), *((b2AABB*) b), *((b2AABB*) result));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1AABB_00024Raw_overlaps(JNIEnv*, jclass, jlong a, jlong b) {
+    return (jboolean) B2_AABB::overlaps(*((b2AABB*) a), *((b2AABB*) b));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1AABB_00024Raw_isValid(JNIEnv*, jclass, jlong aabb) {
+    return (jboolean) B2_AABB::isValid(*((b2AABB*) aabb));
+}
+
+// B2_Plane
+JNIEXPORT jint JNICALL Java_box2d_B2_1Plane__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_Plane);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Plane_00024Raw_planeSeparation(JNIEnv*, jclass, jlong plane, jlong point) {
+    return (jfloat) B2_Plane::planeSeparation(*((b2Plane*) plane), *((b2Vec2*) point));
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Plane_00024Raw_isValid(JNIEnv*, jclass, jlong plane) {
+    return (jboolean) B2_Plane::isValid(*((b2Plane*) plane));
+}
+
+// B2_Math
+JNIEXPORT jint JNICALL Java_box2d_B2_1Math__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_Math);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Math_00024Raw_computeCosSin(JNIEnv*, jclass, jfloat radians, jlong result) {
+    B2_Math::computeCosSin(radians, *((b2CosSin*) result));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Math_00024Raw_springDamper(JNIEnv*, jclass, jfloat hertz, jfloat dampingRatio, jfloat position, jfloat velocity, jfloat timeStep) {
+    return (jfloat) B2_Math::springDamper(hertz, dampingRatio, position, velocity, timeStep);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Math_00024Raw_setLengthUnitsPerMeter(JNIEnv*, jclass, jfloat lengthUnits) {
+    B2_Math::setLengthUnitsPerMeter(lengthUnits);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Math_00024Raw_getLengthUnitsPerMeter(JNIEnv*, jclass) {
+    return (jfloat) B2_Math::getLengthUnitsPerMeter();
+}
+
+// b2Vec2
+JNIEXPORT jint JNICALL Java_box2d_b2Vec2__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Vec2);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Vec2_00024Raw_b2Vec2_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Vec2();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Vec2_00024Raw_b2Vec2(JNIEnv*, jclass) {
+    return (jlong) new b2Vec2();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Vec2*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Vec2_00024Raw_getX(JNIEnv*, jclass, jlong _address) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    return (jfloat) _self->x;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_setX(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    _self->x = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Vec2_00024Raw_getY(JNIEnv*, jclass, jlong _address) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    return (jfloat) _self->y;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_setY(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Vec2* _self = (b2Vec2*) _address;
+    _self->y = value;
+}
+
+// b2CosSin
+JNIEXPORT jint JNICALL Java_box2d_b2CosSin__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2CosSin);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CosSin_00024Raw_b2CosSin_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2CosSin();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CosSin_00024Raw_b2CosSin(JNIEnv*, jclass) {
+    return (jlong) new b2CosSin();
+}
+JNIEXPORT void JNICALL Java_box2d_b2CosSin_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2CosSin*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2CosSin_00024Raw_getCosine(JNIEnv*, jclass, jlong _address) {
+    b2CosSin* _self = (b2CosSin*) _address;
+    return (jfloat) _self->cosine;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CosSin_00024Raw_setCosine(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2CosSin* _self = (b2CosSin*) _address;
+    _self->cosine = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2CosSin_00024Raw_getSine(JNIEnv*, jclass, jlong _address) {
+    b2CosSin* _self = (b2CosSin*) _address;
+    return (jfloat) _self->sine;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CosSin_00024Raw_setSine(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2CosSin* _self = (b2CosSin*) _address;
+    _self->sine = value;
 }
 
 // b2Rot
@@ -371,34 +935,94 @@ JNIEXPORT void JNICALL Java_box2d_b2Transform_00024Raw_setQ(JNIEnv*, jclass, jlo
     _self->q = *((b2Rot*) value);
 }
 
-// b2Vec2
-JNIEXPORT jint JNICALL Java_box2d_b2Vec2__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2Vec2);
+// b2Mat22
+JNIEXPORT jint JNICALL Java_box2d_b2Mat22__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Mat22);
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2Vec2_00024Raw_b2Vec2_1placed(JNIEnv*, jclass, jlong _placement_address) {
-    return (jlong) new((void*)_placement_address) b2Vec2();
+JNIEXPORT jlong JNICALL Java_box2d_b2Mat22_00024Raw_b2Mat22_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Mat22();
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2Vec2_00024Raw_b2Vec2(JNIEnv*, jclass) {
-    return (jlong) new b2Vec2();
+JNIEXPORT jlong JNICALL Java_box2d_b2Mat22_00024Raw_b2Mat22(JNIEnv*, jclass) {
+    return (jlong) new b2Mat22();
 }
-JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2Vec2*) _address;
+JNIEXPORT void JNICALL Java_box2d_b2Mat22_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Mat22*) _address;
 }
-JNIEXPORT jfloat JNICALL Java_box2d_b2Vec2_00024Raw_getX(JNIEnv*, jclass, jlong _address) {
-    b2Vec2* _self = (b2Vec2*) _address;
-    return (jfloat) _self->x;
+JNIEXPORT jlong JNICALL Java_box2d_b2Mat22_00024Raw_getCx(JNIEnv*, jclass, jlong _address) {
+    b2Mat22* _self = (b2Mat22*) _address;
+    return (jlong) &_self->cx;
 }
-JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_setX(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2Vec2* _self = (b2Vec2*) _address;
-    _self->x = value;
+JNIEXPORT void JNICALL Java_box2d_b2Mat22_00024Raw_setCx(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Mat22* _self = (b2Mat22*) _address;
+    _self->cx = *((b2Vec2*) value);
 }
-JNIEXPORT jfloat JNICALL Java_box2d_b2Vec2_00024Raw_getY(JNIEnv*, jclass, jlong _address) {
-    b2Vec2* _self = (b2Vec2*) _address;
-    return (jfloat) _self->y;
+JNIEXPORT jlong JNICALL Java_box2d_b2Mat22_00024Raw_getCy(JNIEnv*, jclass, jlong _address) {
+    b2Mat22* _self = (b2Mat22*) _address;
+    return (jlong) &_self->cy;
 }
-JNIEXPORT void JNICALL Java_box2d_b2Vec2_00024Raw_setY(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2Vec2* _self = (b2Vec2*) _address;
-    _self->y = value;
+JNIEXPORT void JNICALL Java_box2d_b2Mat22_00024Raw_setCy(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Mat22* _self = (b2Mat22*) _address;
+    _self->cy = *((b2Vec2*) value);
+}
+
+// b2AABB
+JNIEXPORT jint JNICALL Java_box2d_b2AABB__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2AABB);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_b2AABB_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2AABB();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_b2AABB(JNIEnv*, jclass) {
+    return (jlong) new b2AABB();
+}
+JNIEXPORT void JNICALL Java_box2d_b2AABB_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2AABB*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_getLowerBound(JNIEnv*, jclass, jlong _address) {
+    b2AABB* _self = (b2AABB*) _address;
+    return (jlong) &_self->lowerBound;
+}
+JNIEXPORT void JNICALL Java_box2d_b2AABB_00024Raw_setLowerBound(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2AABB* _self = (b2AABB*) _address;
+    _self->lowerBound = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2AABB_00024Raw_getUpperBound(JNIEnv*, jclass, jlong _address) {
+    b2AABB* _self = (b2AABB*) _address;
+    return (jlong) &_self->upperBound;
+}
+JNIEXPORT void JNICALL Java_box2d_b2AABB_00024Raw_setUpperBound(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2AABB* _self = (b2AABB*) _address;
+    _self->upperBound = *((b2Vec2*) value);
+}
+
+// b2Plane
+JNIEXPORT jint JNICALL Java_box2d_b2Plane__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Plane);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Plane_00024Raw_b2Plane_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Plane();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Plane_00024Raw_b2Plane(JNIEnv*, jclass) {
+    return (jlong) new b2Plane();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Plane_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Plane*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Plane_00024Raw_getNormal(JNIEnv*, jclass, jlong _address) {
+    b2Plane* _self = (b2Plane*) _address;
+    return (jlong) &_self->normal;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Plane_00024Raw_setNormal(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Plane* _self = (b2Plane*) _address;
+    _self->normal = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Plane_00024Raw_getOffset(JNIEnv*, jclass, jlong _address) {
+    b2Plane* _self = (b2Plane*) _address;
+    return (jfloat) _self->offset;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Plane_00024Raw_setOffset(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Plane* _self = (b2Plane*) _address;
+    _self->offset = value;
 }
 
 // B2_World
@@ -408,110 +1032,110 @@ JNIEXPORT jint JNICALL Java_box2d_B2_1World__1_1sizeOf(JNIEnv*, jclass) {
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_defaultWorldDef(JNIEnv*, jclass, jlong result) {
     B2_World::defaultWorldDef(*((b2WorldDef*) result));
 }
-JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_createWorld(JNIEnv*, jclass, jlong def, jlong result) {
-    B2_World::createWorld((b2WorldDef*) def, *((b2WorldId*) result));
+JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_createWorld(JNIEnv*, jclass, jlong def) {
+    return (jlong) B2_World::createWorld((b2WorldDef*) def);
 }
-JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_destroyWorld(JNIEnv*, jclass, jlong result) {
-    B2_World::destroyWorld(*((b2WorldId*) result));
+JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_destroyWorld(JNIEnv*, jclass, jlong worldId) {
+    B2_World::destroyWorld(worldId);
 }
-JNIEXPORT jboolean JNICALL Java_box2d_B2_1World_00024Raw_isValid(JNIEnv*, jclass, jlong id) {
-    return (jboolean) B2_World::isValid(*((b2WorldId*) id));
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1World_00024Raw_isValid(JNIEnv*, jclass, jlong worldId) {
+    return (jboolean) B2_World::isValid(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_step(JNIEnv*, jclass, jlong world, jfloat timeStep, jint subStepCount) {
-    B2_World::step(*((b2WorldId*) world), timeStep, subStepCount);
+    B2_World::step(world, timeStep, subStepCount);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getBodyEvents(JNIEnv*, jclass, jlong worldId) {
-    static thread_local b2BodyEvents _cache = B2_World::getBodyEvents(*((b2WorldId*) worldId));
-    _cache = B2_World::getBodyEvents(*((b2WorldId*) worldId));
+    static thread_local b2BodyEvents _cache = B2_World::getBodyEvents(worldId);
+    _cache = B2_World::getBodyEvents(worldId);
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getSensorEvents(JNIEnv*, jclass, jlong worldId) {
-    static thread_local b2SensorEvents _cache = B2_World::getSensorEvents(*((b2WorldId*) worldId));
-    _cache = B2_World::getSensorEvents(*((b2WorldId*) worldId));
+    static thread_local b2SensorEvents _cache = B2_World::getSensorEvents(worldId);
+    _cache = B2_World::getSensorEvents(worldId);
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getContactEvents(JNIEnv*, jclass, jlong worldId) {
-    static thread_local b2ContactEvents _cache = B2_World::getContactEvents(*((b2WorldId*) worldId));
-    _cache = B2_World::getContactEvents(*((b2WorldId*) worldId));
+    static thread_local b2ContactEvents _cache = B2_World::getContactEvents(worldId);
+    _cache = B2_World::getContactEvents(worldId);
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_enableSleeping(JNIEnv*, jclass, jlong worldId, jboolean flag) {
-    B2_World::enableSleeping(*((b2WorldId*) worldId), flag);
+    B2_World::enableSleeping(worldId, flag);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1World_00024Raw_isSleepingEnabled(JNIEnv*, jclass, jlong worldId) {
-    return (jboolean) B2_World::isSleepingEnabled(*((b2WorldId*) worldId));
+    return (jboolean) B2_World::isSleepingEnabled(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_enableContinuous(JNIEnv*, jclass, jlong worldId, jboolean flag) {
-    B2_World::enableContinuous(*((b2WorldId*) worldId), flag);
+    B2_World::enableContinuous(worldId, flag);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1World_00024Raw_isContinuousEnabled(JNIEnv*, jclass, jlong worldId) {
-    return (jboolean) B2_World::isContinuousEnabled(*((b2WorldId*) worldId));
+    return (jboolean) B2_World::isContinuousEnabled(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_setRestitutionThreshold(JNIEnv*, jclass, jlong worldId, jfloat value) {
-    B2_World::setRestitutionThreshold(*((b2WorldId*) worldId), value);
+    B2_World::setRestitutionThreshold(worldId, value);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1World_00024Raw_getRestitutionThreshold(JNIEnv*, jclass, jlong worldId) {
-    return (jfloat) B2_World::getRestitutionThreshold(*((b2WorldId*) worldId));
+    return (jfloat) B2_World::getRestitutionThreshold(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_setHitEventThreshold(JNIEnv*, jclass, jlong worldId, jfloat value) {
-    B2_World::setHitEventThreshold(*((b2WorldId*) worldId), value);
+    B2_World::setHitEventThreshold(worldId, value);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1World_00024Raw_getHitEventThreshold(JNIEnv*, jclass, jlong worldId) {
-    return (jfloat) B2_World::getHitEventThreshold(*((b2WorldId*) worldId));
+    return (jfloat) B2_World::getHitEventThreshold(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_setGravity(JNIEnv*, jclass, jlong worldId, jlong gravity) {
-    B2_World::setGravity(*((b2WorldId*) worldId), *((b2Vec2*) gravity));
+    B2_World::setGravity(worldId, *((b2Vec2*) gravity));
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getGravity(JNIEnv*, jclass, jlong worldId) {
-    static thread_local b2Vec2 _cache = B2_World::getGravity(*((b2WorldId*) worldId));
-    _cache = B2_World::getGravity(*((b2WorldId*) worldId));
+    static thread_local b2Vec2 _cache = B2_World::getGravity(worldId);
+    _cache = B2_World::getGravity(worldId);
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_explode(JNIEnv*, jclass, jlong worldId, jlong explosionDef) {
-    B2_World::explode(*((b2WorldId*) worldId), (b2ExplosionDef*) explosionDef);
+    B2_World::explode(worldId, (b2ExplosionDef*) explosionDef);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_setContactTuning(JNIEnv*, jclass, jlong worldId, jfloat hertz, jfloat dampingRatio, jfloat pushSpeed) {
-    B2_World::setContactTuning(*((b2WorldId*) worldId), hertz, dampingRatio, pushSpeed);
+    B2_World::setContactTuning(worldId, hertz, dampingRatio, pushSpeed);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_setMaximumLinearSpeed(JNIEnv*, jclass, jlong worldId, jfloat maximumLinearSpeed) {
-    B2_World::setMaximumLinearSpeed(*((b2WorldId*) worldId), maximumLinearSpeed);
+    B2_World::setMaximumLinearSpeed(worldId, maximumLinearSpeed);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1World_00024Raw_getMaximumLinearSpeed(JNIEnv*, jclass, jlong worldId) {
-    return (jfloat) B2_World::getMaximumLinearSpeed(*((b2WorldId*) worldId));
+    return (jfloat) B2_World::getMaximumLinearSpeed(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_enableWarmStarting(JNIEnv*, jclass, jlong worldId, jboolean flag) {
-    B2_World::enableWarmStarting(*((b2WorldId*) worldId), flag);
+    B2_World::enableWarmStarting(worldId, flag);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1World_00024Raw_isWarmStartingEnabled(JNIEnv*, jclass, jlong worldId) {
-    return (jboolean) B2_World::isWarmStartingEnabled(*((b2WorldId*) worldId));
+    return (jboolean) B2_World::isWarmStartingEnabled(worldId);
 }
 JNIEXPORT jint JNICALL Java_box2d_B2_1World_00024Raw_getAwakeBodyCount(JNIEnv*, jclass, jlong worldId) {
-    return (jint) B2_World::getAwakeBodyCount(*((b2WorldId*) worldId));
+    return (jint) B2_World::getAwakeBodyCount(worldId);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getProfile(JNIEnv*, jclass, jlong worldId) {
-    static thread_local b2Profile _cache = B2_World::getProfile(*((b2WorldId*) worldId));
-    _cache = B2_World::getProfile(*((b2WorldId*) worldId));
+    static thread_local b2Profile _cache = B2_World::getProfile(worldId);
+    _cache = B2_World::getProfile(worldId);
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getCounters(JNIEnv*, jclass, jlong worldId) {
-    static thread_local b2Counters _cache = B2_World::getCounters(*((b2WorldId*) worldId));
-    _cache = B2_World::getCounters(*((b2WorldId*) worldId));
+    static thread_local b2Counters _cache = B2_World::getCounters(worldId);
+    _cache = B2_World::getCounters(worldId);
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_dumpMemoryStats(JNIEnv*, jclass, jlong worldId) {
-    B2_World::dumpMemoryStats(*((b2WorldId*) worldId));
+    B2_World::dumpMemoryStats(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_setUserData(JNIEnv*, jclass, jlong worldId, jlong userData) {
-    B2_World::setUserData(*((b2WorldId*) worldId), (void*) userData);
+    B2_World::setUserData(worldId, (void*) userData);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1World_00024Raw_getUserData(JNIEnv*, jclass, jlong worldId) {
-    return (jlong) B2_World::getUserData(*((b2WorldId*) worldId));
+    return (jlong) B2_World::getUserData(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_rebuildStaticTree(JNIEnv*, jclass, jlong worldId) {
-    B2_World::rebuildStaticTree(*((b2WorldId*) worldId));
+    B2_World::rebuildStaticTree(worldId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1World_00024Raw_enableSpeculative(JNIEnv*, jclass, jlong worldId, jboolean flag) {
-    B2_World::enableSpeculative(*((b2WorldId*) worldId), flag);
+    B2_World::enableSpeculative(worldId, flag);
 }
 
 // b2BodyEvents
@@ -954,6 +1578,154 @@ JNIEXPORT void JNICALL Java_box2d_b2ManifoldPoint_00024Raw_setTotalNormalImpulse
     _self->totalNormalImpulse = value;
 }
 
+// b2ExplosionDef
+JNIEXPORT jint JNICALL Java_box2d_b2ExplosionDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ExplosionDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_b2ExplosionDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ExplosionDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_b2ExplosionDef(JNIEnv*, jclass) {
+    return (jlong) new b2ExplosionDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ExplosionDef*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2ExplosionDef_00024Raw_getFalloff(JNIEnv*, jclass, jlong _address) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    return (jfloat) _self->falloff;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setFalloff(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    _self->falloff = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2ExplosionDef_00024Raw_getImpulsePerLength(JNIEnv*, jclass, jlong _address) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    return (jfloat) _self->impulsePerLength;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setImpulsePerLength(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    _self->impulsePerLength = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_getMaskBits(JNIEnv*, jclass, jlong _address) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    return (jlong) _self->maskBits;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setMaskBits(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    _self->maskBits = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_getPosition(JNIEnv*, jclass, jlong _address) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    return (jlong) &_self->position;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setPosition(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    _self->position = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2ExplosionDef_00024Raw_getRadius(JNIEnv*, jclass, jlong _address) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    return (jfloat) _self->radius;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setRadius(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
+    _self->radius = value;
+}
+
+// b2WorldDef
+JNIEXPORT jint JNICALL Java_box2d_b2WorldDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2WorldDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_b2WorldDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2WorldDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_b2WorldDef(JNIEnv*, jclass) {
+    return (jlong) new b2WorldDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2WorldDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_getGravity(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jlong) &_self->gravity;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setGravity(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->gravity = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getRestitutionThreshold(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jfloat) _self->restitutionThreshold;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setRestitutionThreshold(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->restitutionThreshold = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getHitEventThreshold(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jfloat) _self->hitEventThreshold;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setHitEventThreshold(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->hitEventThreshold = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getContactHertz(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jfloat) _self->contactHertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setContactHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->contactHertz = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getContactDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jfloat) _self->contactDampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setContactDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->contactDampingRatio = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getMaxContactPushSpeed(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jfloat) _self->maxContactPushSpeed;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setMaxContactPushSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->maxContactPushSpeed = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getMaximumLinearSpeed(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jfloat) _self->maximumLinearSpeed;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setMaximumLinearSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->maximumLinearSpeed = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WorldDef_00024Raw_getEnableSleep(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jboolean) _self->enableSleep;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setEnableSleep(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->enableSleep = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WorldDef_00024Raw_getEnableContinuous(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jboolean) _self->enableContinuous;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setEnableContinuous(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->enableContinuous = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WorldDef* _self = (b2WorldDef*) _address;
+    _self->userData = (void*) value;
+}
+
 // b2Counters
 JNIEXPORT jint JNICALL Java_box2d_b2Counters__1_1sizeOf(JNIEnv*, jclass) {
     return sizeof(b2Counters);
@@ -1051,60 +1823,6 @@ JNIEXPORT jint JNICALL Java_box2d_b2Counters_00024Raw_getColorCounts(JNIEnv*, jc
 JNIEXPORT void JNICALL Java_box2d_b2Counters_00024Raw_setColorCounts(JNIEnv*, jclass, jlong _address, jint _index, jint value) {
     b2Counters* _self = (b2Counters*) _address;
     _self->colorCounts[_index] = value;
-}
-
-// b2ExplosionDef
-JNIEXPORT jint JNICALL Java_box2d_b2ExplosionDef__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2ExplosionDef);
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_b2ExplosionDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
-    return (jlong) new((void*)_placement_address) b2ExplosionDef();
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_b2ExplosionDef(JNIEnv*, jclass) {
-    return (jlong) new b2ExplosionDef();
-}
-JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2ExplosionDef*) _address;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2ExplosionDef_00024Raw_getFalloff(JNIEnv*, jclass, jlong _address) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    return (jfloat) _self->falloff;
-}
-JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setFalloff(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    _self->falloff = value;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2ExplosionDef_00024Raw_getImpulsePerLength(JNIEnv*, jclass, jlong _address) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    return (jfloat) _self->impulsePerLength;
-}
-JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setImpulsePerLength(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    _self->impulsePerLength = value;
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_getMaskBits(JNIEnv*, jclass, jlong _address) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    return (jlong) _self->maskBits;
-}
-JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setMaskBits(JNIEnv*, jclass, jlong _address, jlong value) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    _self->maskBits = value;
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2ExplosionDef_00024Raw_getPosition(JNIEnv*, jclass, jlong _address) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    return (jlong) &_self->position;
-}
-JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setPosition(JNIEnv*, jclass, jlong _address, jlong value) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    _self->position = *((b2Vec2*) value);
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2ExplosionDef_00024Raw_getRadius(JNIEnv*, jclass, jlong _address) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    return (jfloat) _self->radius;
-}
-JNIEXPORT void JNICALL Java_box2d_b2ExplosionDef_00024Raw_setRadius(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2ExplosionDef* _self = (b2ExplosionDef*) _address;
-    _self->radius = value;
 }
 
 // b2Profile
@@ -1294,127 +2012,6 @@ JNIEXPORT void JNICALL Java_box2d_b2Profile_00024Raw_setSensors(JNIEnv*, jclass,
     _self->sensors = value;
 }
 
-// b2WorldDef
-JNIEXPORT jint JNICALL Java_box2d_b2WorldDef__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2WorldDef);
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_b2WorldDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
-    return (jlong) new((void*)_placement_address) b2WorldDef();
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_b2WorldDef(JNIEnv*, jclass) {
-    return (jlong) new b2WorldDef();
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2WorldDef*) _address;
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_getGravity(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jlong) &_self->gravity;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setGravity(JNIEnv*, jclass, jlong _address, jlong value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->gravity = *((b2Vec2*) value);
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getRestitutionThreshold(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jfloat) _self->restitutionThreshold;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setRestitutionThreshold(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->restitutionThreshold = value;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getHitEventThreshold(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jfloat) _self->hitEventThreshold;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setHitEventThreshold(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->hitEventThreshold = value;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getContactHertz(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jfloat) _self->contactHertz;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setContactHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->contactHertz = value;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getContactDampingRatio(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jfloat) _self->contactDampingRatio;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setContactDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->contactDampingRatio = value;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getMaxContactPushSpeed(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jfloat) _self->maxContactPushSpeed;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setMaxContactPushSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->maxContactPushSpeed = value;
-}
-JNIEXPORT jfloat JNICALL Java_box2d_b2WorldDef_00024Raw_getMaximumLinearSpeed(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jfloat) _self->maximumLinearSpeed;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setMaximumLinearSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->maximumLinearSpeed = value;
-}
-JNIEXPORT jboolean JNICALL Java_box2d_b2WorldDef_00024Raw_getEnableSleep(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jboolean) _self->enableSleep;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setEnableSleep(JNIEnv*, jclass, jlong _address, jboolean value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->enableSleep = value;
-}
-JNIEXPORT jboolean JNICALL Java_box2d_b2WorldDef_00024Raw_getEnableContinuous(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jboolean) _self->enableContinuous;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setEnableContinuous(JNIEnv*, jclass, jlong _address, jboolean value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->enableContinuous = value;
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2WorldDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    return (jlong) _self->userData;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
-    b2WorldDef* _self = (b2WorldDef*) _address;
-    _self->userData = (void*) value;
-}
-
-// b2WorldId
-JNIEXPORT jint JNICALL Java_box2d_b2WorldId__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2WorldId);
-}
-JNIEXPORT jlong JNICALL Java_box2d_b2WorldId_00024Raw_b2WorldId(JNIEnv*, jclass) {
-    return (jlong) new b2WorldId();
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2WorldId*) _address;
-}
-JNIEXPORT jshort JNICALL Java_box2d_b2WorldId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
-    b2WorldId* _self = (b2WorldId*) _address;
-    return (jshort) _self->generation;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
-    b2WorldId* _self = (b2WorldId*) _address;
-    _self->generation = value;
-}
-JNIEXPORT jshort JNICALL Java_box2d_b2WorldId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
-    b2WorldId* _self = (b2WorldId*) _address;
-    return (jshort) _self->index1;
-}
-JNIEXPORT void JNICALL Java_box2d_b2WorldId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jshort value) {
-    b2WorldId* _self = (b2WorldId*) _address;
-    _self->index1 = value;
-}
-
 // B2_Base
 JNIEXPORT jint JNICALL Java_box2d_B2_1Base__1_1sizeOf(JNIEnv*, jclass) {
     return sizeof(B2_Base);
@@ -1423,6 +2020,39 @@ JNIEXPORT jlong JNICALL Java_box2d_B2_1Base_00024Raw_getVersion(JNIEnv*, jclass)
     static thread_local b2Version _cache = B2_Base::getVersion();
     _cache = B2_Base::getVersion();
     return (jlong) &_cache;
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Base_00024Raw_getByteCount(JNIEnv*, jclass) {
+    return (jint) B2_Base::getByteCount();
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Base_00024Raw_storeWorldId(JNIEnv*, jclass, jlong worldId) {
+    return (jlong) B2_Base::storeWorldId(*((b2WorldId*) worldId));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Base_00024Raw_loadWorldId(JNIEnv*, jclass, jlong worldId, jlong result) {
+    B2_Base::loadWorldId(worldId, *((b2WorldId*) result));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Base_00024Raw_storeBodyId(JNIEnv*, jclass, jlong bodyId) {
+    return (jlong) B2_Base::storeBodyId(*((b2BodyId*) bodyId));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Base_00024Raw_loadBodyId(JNIEnv*, jclass, jlong bodyId, jlong result) {
+    B2_Base::loadBodyId(bodyId, *((b2BodyId*) result));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Base_00024Raw_storeShapeId(JNIEnv*, jclass, jlong shapeId) {
+    return (jlong) B2_Base::storeShapeId(*((b2ShapeId*) shapeId));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Base_00024Raw_loadShapeId(JNIEnv*, jclass, jlong shapeId, jlong result) {
+    B2_Base::loadShapeId(shapeId, *((b2ShapeId*) result));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Base_00024Raw_storeChainId(JNIEnv*, jclass, jlong chainId) {
+    return (jlong) B2_Base::storeChainId(*((b2ChainId*) chainId));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Base_00024Raw_loadChainId(JNIEnv*, jclass, jlong chainId, jlong result) {
+    B2_Base::loadChainId(chainId, *((b2ChainId*) result));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Base_00024Raw_storeJointId(JNIEnv*, jclass, jlong jointId) {
+    return (jlong) B2_Base::storeJointId(*((b2JointId*) jointId));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Base_00024Raw_loadJointId(JNIEnv*, jclass, jlong jointId, jlong result) {
+    B2_Base::loadJointId(jointId, *((b2JointId*) result));
 }
 
 // b2Version
@@ -1457,6 +2087,188 @@ JNIEXPORT void JNICALL Java_box2d_b2Version_00024Raw_setRevision(JNIEnv*, jclass
     _self->revision = value;
 }
 
+// b2WorldId
+JNIEXPORT jint JNICALL Java_box2d_b2WorldId__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2WorldId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WorldId_00024Raw_b2WorldId_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2WorldId();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WorldId_00024Raw_b2WorldId(JNIEnv*, jclass) {
+    return (jlong) new b2WorldId();
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2WorldId*) _address;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2WorldId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
+    b2WorldId* _self = (b2WorldId*) _address;
+    return (jshort) _self->generation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2WorldId* _self = (b2WorldId*) _address;
+    _self->generation = value;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2WorldId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
+    b2WorldId* _self = (b2WorldId*) _address;
+    return (jshort) _self->index1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WorldId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2WorldId* _self = (b2WorldId*) _address;
+    _self->index1 = value;
+}
+
+// b2BodyId
+JNIEXPORT jint JNICALL Java_box2d_b2BodyId__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2BodyId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2BodyId_00024Raw_b2BodyId_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2BodyId();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2BodyId_00024Raw_b2BodyId(JNIEnv*, jclass) {
+    return (jlong) new b2BodyId();
+}
+JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2BodyId*) _address;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2BodyId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
+    b2BodyId* _self = (b2BodyId*) _address;
+    return (jshort) _self->generation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2BodyId* _self = (b2BodyId*) _address;
+    _self->generation = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2BodyId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
+    b2BodyId* _self = (b2BodyId*) _address;
+    return (jint) _self->index1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jint value) {
+    b2BodyId* _self = (b2BodyId*) _address;
+    _self->index1 = value;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2BodyId_00024Raw_getWorld0(JNIEnv*, jclass, jlong _address) {
+    b2BodyId* _self = (b2BodyId*) _address;
+    return (jshort) _self->world0;
+}
+JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_setWorld0(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2BodyId* _self = (b2BodyId*) _address;
+    _self->world0 = value;
+}
+
+// b2ShapeId
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeId__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ShapeId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeId_00024Raw_b2ShapeId_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ShapeId();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeId_00024Raw_b2ShapeId(JNIEnv*, jclass) {
+    return (jlong) new b2ShapeId();
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ShapeId*) _address;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2ShapeId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
+    b2ShapeId* _self = (b2ShapeId*) _address;
+    return (jshort) _self->generation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2ShapeId* _self = (b2ShapeId*) _address;
+    _self->generation = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
+    b2ShapeId* _self = (b2ShapeId*) _address;
+    return (jint) _self->index1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ShapeId* _self = (b2ShapeId*) _address;
+    _self->index1 = value;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2ShapeId_00024Raw_getWorld0(JNIEnv*, jclass, jlong _address) {
+    b2ShapeId* _self = (b2ShapeId*) _address;
+    return (jshort) _self->world0;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeId_00024Raw_setWorld0(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2ShapeId* _self = (b2ShapeId*) _address;
+    _self->world0 = value;
+}
+
+// b2ChainId
+JNIEXPORT jint JNICALL Java_box2d_b2ChainId__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ChainId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainId_00024Raw_b2ChainId_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ChainId();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainId_00024Raw_b2ChainId(JNIEnv*, jclass) {
+    return (jlong) new b2ChainId();
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ChainId*) _address;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2ChainId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
+    b2ChainId* _self = (b2ChainId*) _address;
+    return (jshort) _self->generation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2ChainId* _self = (b2ChainId*) _address;
+    _self->generation = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ChainId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
+    b2ChainId* _self = (b2ChainId*) _address;
+    return (jint) _self->index1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ChainId* _self = (b2ChainId*) _address;
+    _self->index1 = value;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2ChainId_00024Raw_getWorld0(JNIEnv*, jclass, jlong _address) {
+    b2ChainId* _self = (b2ChainId*) _address;
+    return (jshort) _self->world0;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainId_00024Raw_setWorld0(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2ChainId* _self = (b2ChainId*) _address;
+    _self->world0 = value;
+}
+
+// b2JointId
+JNIEXPORT jint JNICALL Java_box2d_b2JointId__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2JointId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2JointId_00024Raw_b2JointId_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2JointId();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2JointId_00024Raw_b2JointId(JNIEnv*, jclass) {
+    return (jlong) new b2JointId();
+}
+JNIEXPORT void JNICALL Java_box2d_b2JointId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2JointId*) _address;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2JointId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
+    b2JointId* _self = (b2JointId*) _address;
+    return (jshort) _self->generation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2JointId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2JointId* _self = (b2JointId*) _address;
+    _self->generation = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
+    b2JointId* _self = (b2JointId*) _address;
+    return (jint) _self->index1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2JointId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jint value) {
+    b2JointId* _self = (b2JointId*) _address;
+    _self->index1 = value;
+}
+JNIEXPORT jshort JNICALL Java_box2d_b2JointId_00024Raw_getWorld0(JNIEnv*, jclass, jlong _address) {
+    b2JointId* _self = (b2JointId*) _address;
+    return (jshort) _self->world0;
+}
+JNIEXPORT void JNICALL Java_box2d_b2JointId_00024Raw_setWorld0(JNIEnv*, jclass, jlong _address, jshort value) {
+    b2JointId* _self = (b2JointId*) _address;
+    _self->world0 = value;
+}
+
 // B2_Body
 JNIEXPORT jint JNICALL Java_box2d_B2_1Body__1_1sizeOf(JNIEnv*, jclass) {
     return sizeof(B2_Body);
@@ -1464,224 +2276,224 @@ JNIEXPORT jint JNICALL Java_box2d_B2_1Body__1_1sizeOf(JNIEnv*, jclass) {
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_defaultBodyDef(JNIEnv*, jclass, jlong result) {
     B2_Body::defaultBodyDef(*((b2BodyDef*) result));
 }
-JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_createBody(JNIEnv*, jclass, jlong worldId, jlong def, jlong result) {
-    B2_Body::createBody(*((b2WorldId*) worldId), (b2BodyDef*) def, *((b2BodyId*) result));
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_createBody(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_Body::createBody(worldId, (b2BodyDef*) def);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_destroyBody(JNIEnv*, jclass, jlong bodyId) {
-    B2_Body::destroyBody(*((b2BodyId*) bodyId));
+    B2_Body::destroyBody(bodyId);
 }
-JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isValid(JNIEnv*, jclass, jlong id) {
-    return (jboolean) B2_Body::isValid(*((b2BodyId*) id));
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isValid(JNIEnv*, jclass, jlong bodyId) {
+    return (jboolean) B2_Body::isValid(bodyId);
 }
 JNIEXPORT jint JNICALL Java_box2d_B2_1Body_00024Raw_getType(JNIEnv*, jclass, jlong bodyId) {
-    return (jint) B2_Body::getType(*((b2BodyId*) bodyId));
+    return (jint) B2_Body::getType(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setType(JNIEnv*, jclass, jlong bodyId, jint type) {
-    B2_Body::setType(*((b2BodyId*) bodyId), (b2BodyType) type);
-}
-JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setName(JNIEnv* _env, jclass, jlong bodyId, jstring name) {
-    B2_Body::setName(*((b2BodyId*) bodyId), _env->GetStringUTFChars(name, 0));
-}
-JNIEXPORT jstring JNICALL Java_box2d_B2_1Body_00024Raw_getName(JNIEnv* _env, jclass, jlong bodyId) {
-    return _env->NewStringUTF(B2_Body::getName(*((b2BodyId*) bodyId)));
-}
-JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setUserData(JNIEnv*, jclass, jlong bodyId, jlong userData) {
-    B2_Body::setUserData(*((b2BodyId*) bodyId), (void*) userData);
-}
-JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getUserData(JNIEnv*, jclass, jlong bodyId) {
-    return (jlong) B2_Body::getUserData(*((b2BodyId*) bodyId));
+    B2_Body::setType(bodyId, (b2BodyType) type);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getPosition(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2Vec2 _cache = B2_Body::getPosition(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getPosition(*((b2BodyId*) bodyId));
+    static thread_local b2Vec2 _cache = B2_Body::getPosition(bodyId);
+    _cache = B2_Body::getPosition(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getRotation(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2Rot _cache = B2_Body::getRotation(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getRotation(*((b2BodyId*) bodyId));
+    static thread_local b2Rot _cache = B2_Body::getRotation(bodyId);
+    _cache = B2_Body::getRotation(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getTransform(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2Transform _cache = B2_Body::getTransform(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getTransform(*((b2BodyId*) bodyId));
+    static thread_local b2Transform _cache = B2_Body::getTransform(bodyId);
+    _cache = B2_Body::getTransform(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setTransform(JNIEnv*, jclass, jlong bodyId, jlong position, jlong rotation) {
-    B2_Body::setTransform(*((b2BodyId*) bodyId), *((b2Vec2*) position), *((b2Rot*) rotation));
+    B2_Body::setTransform(bodyId, *((b2Vec2*) position), *((b2Rot*) rotation));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_computeAABB(JNIEnv*, jclass, jlong bodyId) {
+    static thread_local b2AABB _cache = B2_Body::computeAABB(bodyId);
+    _cache = B2_Body::computeAABB(bodyId);
+    return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getLocalPoint(JNIEnv*, jclass, jlong bodyId, jlong worldPoint) {
-    static thread_local b2Vec2 _cache = B2_Body::getLocalPoint(*((b2BodyId*) bodyId), *((b2Vec2*) worldPoint));
-    _cache = B2_Body::getLocalPoint(*((b2BodyId*) bodyId), *((b2Vec2*) worldPoint));
+    static thread_local b2Vec2 _cache = B2_Body::getLocalPoint(bodyId, *((b2Vec2*) worldPoint));
+    _cache = B2_Body::getLocalPoint(bodyId, *((b2Vec2*) worldPoint));
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getWorldPoint(JNIEnv*, jclass, jlong bodyId, jlong localPoint) {
-    static thread_local b2Vec2 _cache = B2_Body::getWorldPoint(*((b2BodyId*) bodyId), *((b2Vec2*) localPoint));
-    _cache = B2_Body::getWorldPoint(*((b2BodyId*) bodyId), *((b2Vec2*) localPoint));
+    static thread_local b2Vec2 _cache = B2_Body::getWorldPoint(bodyId, *((b2Vec2*) localPoint));
+    _cache = B2_Body::getWorldPoint(bodyId, *((b2Vec2*) localPoint));
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getLocalVector(JNIEnv*, jclass, jlong bodyId, jlong worldVector) {
-    static thread_local b2Vec2 _cache = B2_Body::getLocalVector(*((b2BodyId*) bodyId), *((b2Vec2*) worldVector));
-    _cache = B2_Body::getLocalVector(*((b2BodyId*) bodyId), *((b2Vec2*) worldVector));
+    static thread_local b2Vec2 _cache = B2_Body::getLocalVector(bodyId, *((b2Vec2*) worldVector));
+    _cache = B2_Body::getLocalVector(bodyId, *((b2Vec2*) worldVector));
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getWorldVector(JNIEnv*, jclass, jlong bodyId, jlong localVector) {
-    static thread_local b2Vec2 _cache = B2_Body::getWorldVector(*((b2BodyId*) bodyId), *((b2Vec2*) localVector));
-    _cache = B2_Body::getWorldVector(*((b2BodyId*) bodyId), *((b2Vec2*) localVector));
+    static thread_local b2Vec2 _cache = B2_Body::getWorldVector(bodyId, *((b2Vec2*) localVector));
+    _cache = B2_Body::getWorldVector(bodyId, *((b2Vec2*) localVector));
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getLinearVelocity(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2Vec2 _cache = B2_Body::getLinearVelocity(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getLinearVelocity(*((b2BodyId*) bodyId));
+    static thread_local b2Vec2 _cache = B2_Body::getLinearVelocity(bodyId);
+    _cache = B2_Body::getLinearVelocity(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getAngularVelocity(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getAngularVelocity(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getAngularVelocity(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setLinearVelocity(JNIEnv*, jclass, jlong bodyId, jlong linearVelocity) {
-    B2_Body::setLinearVelocity(*((b2BodyId*) bodyId), *((b2Vec2*) linearVelocity));
+    B2_Body::setLinearVelocity(bodyId, *((b2Vec2*) linearVelocity));
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setAngularVelocity(JNIEnv*, jclass, jlong bodyId, jfloat angularVelocity) {
-    B2_Body::setAngularVelocity(*((b2BodyId*) bodyId), angularVelocity);
+    B2_Body::setAngularVelocity(bodyId, angularVelocity);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setTargetTransform(JNIEnv*, jclass, jlong bodyId, jlong target, jfloat timeStep) {
-    B2_Body::setTargetTransform(*((b2BodyId*) bodyId), *((b2Transform*) target), timeStep);
+    B2_Body::setTargetTransform(bodyId, *((b2Transform*) target), timeStep);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getLocalPointVelocity(JNIEnv*, jclass, jlong bodyId, jlong localPoint) {
-    static thread_local b2Vec2 _cache = B2_Body::getLocalPointVelocity(*((b2BodyId*) bodyId), *((b2Vec2*) localPoint));
-    _cache = B2_Body::getLocalPointVelocity(*((b2BodyId*) bodyId), *((b2Vec2*) localPoint));
+    static thread_local b2Vec2 _cache = B2_Body::getLocalPointVelocity(bodyId, *((b2Vec2*) localPoint));
+    _cache = B2_Body::getLocalPointVelocity(bodyId, *((b2Vec2*) localPoint));
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getWorldPointVelocity(JNIEnv*, jclass, jlong bodyId, jlong worldPoint) {
-    static thread_local b2Vec2 _cache = B2_Body::getWorldPointVelocity(*((b2BodyId*) bodyId), *((b2Vec2*) worldPoint));
-    _cache = B2_Body::getWorldPointVelocity(*((b2BodyId*) bodyId), *((b2Vec2*) worldPoint));
+    static thread_local b2Vec2 _cache = B2_Body::getWorldPointVelocity(bodyId, *((b2Vec2*) worldPoint));
+    _cache = B2_Body::getWorldPointVelocity(bodyId, *((b2Vec2*) worldPoint));
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyForce(JNIEnv*, jclass, jlong bodyId, jlong force, jlong point, jboolean wake) {
-    B2_Body::applyForce(*((b2BodyId*) bodyId), *((b2Vec2*) force), *((b2Vec2*) point), wake);
+    B2_Body::applyForce(bodyId, *((b2Vec2*) force), *((b2Vec2*) point), wake);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyForceToCenter(JNIEnv*, jclass, jlong bodyId, jlong force, jboolean wake) {
-    B2_Body::applyForceToCenter(*((b2BodyId*) bodyId), *((b2Vec2*) force), wake);
+    B2_Body::applyForceToCenter(bodyId, *((b2Vec2*) force), wake);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyTorque(JNIEnv*, jclass, jlong bodyId, jfloat torque, jboolean wake) {
-    B2_Body::applyTorque(*((b2BodyId*) bodyId), torque, wake);
+    B2_Body::applyTorque(bodyId, torque, wake);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyLinearImpulse(JNIEnv*, jclass, jlong bodyId, jlong impulse, jlong point, jboolean wake) {
-    B2_Body::applyLinearImpulse(*((b2BodyId*) bodyId), *((b2Vec2*) impulse), *((b2Vec2*) point), wake);
+    B2_Body::applyLinearImpulse(bodyId, *((b2Vec2*) impulse), *((b2Vec2*) point), wake);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyLinearImpulseToCenter(JNIEnv*, jclass, jlong bodyId, jlong impulse, jboolean wake) {
-    B2_Body::applyLinearImpulseToCenter(*((b2BodyId*) bodyId), *((b2Vec2*) impulse), wake);
+    B2_Body::applyLinearImpulseToCenter(bodyId, *((b2Vec2*) impulse), wake);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyAngularImpulse(JNIEnv*, jclass, jlong bodyId, jfloat impulse, jboolean wake) {
-    B2_Body::applyAngularImpulse(*((b2BodyId*) bodyId), impulse, wake);
+    B2_Body::applyAngularImpulse(bodyId, impulse, wake);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getMass(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getMass(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getMass(bodyId);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getRotationalInertia(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getRotationalInertia(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getRotationalInertia(bodyId);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getLocalCenterOfMass(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2Vec2 _cache = B2_Body::getLocalCenterOfMass(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getLocalCenterOfMass(*((b2BodyId*) bodyId));
+    static thread_local b2Vec2 _cache = B2_Body::getLocalCenterOfMass(bodyId);
+    _cache = B2_Body::getLocalCenterOfMass(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getWorldCenterOfMass(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2Vec2 _cache = B2_Body::getWorldCenterOfMass(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getWorldCenterOfMass(*((b2BodyId*) bodyId));
+    static thread_local b2Vec2 _cache = B2_Body::getWorldCenterOfMass(bodyId);
+    _cache = B2_Body::getWorldCenterOfMass(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setMassData(JNIEnv*, jclass, jlong bodyId, jlong massData) {
-    B2_Body::setMassData(*((b2BodyId*) bodyId), *((b2MassData*) massData));
+    B2_Body::setMassData(bodyId, *((b2MassData*) massData));
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getMassData(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2MassData _cache = B2_Body::getMassData(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getMassData(*((b2BodyId*) bodyId));
+    static thread_local b2MassData _cache = B2_Body::getMassData(bodyId);
+    _cache = B2_Body::getMassData(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_applyMassFromShapes(JNIEnv*, jclass, jlong bodyId) {
-    B2_Body::applyMassFromShapes(*((b2BodyId*) bodyId));
+    B2_Body::applyMassFromShapes(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setLinearDamping(JNIEnv*, jclass, jlong bodyId, jfloat linearDamping) {
-    B2_Body::setLinearDamping(*((b2BodyId*) bodyId), linearDamping);
+    B2_Body::setLinearDamping(bodyId, linearDamping);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getLinearDamping(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getLinearDamping(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getLinearDamping(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setAngularDamping(JNIEnv*, jclass, jlong bodyId, jfloat angularDamping) {
-    B2_Body::setAngularDamping(*((b2BodyId*) bodyId), angularDamping);
+    B2_Body::setAngularDamping(bodyId, angularDamping);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getAngularDamping(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getAngularDamping(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getAngularDamping(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setGravityScale(JNIEnv*, jclass, jlong bodyId, jfloat gravityScale) {
-    B2_Body::setGravityScale(*((b2BodyId*) bodyId), gravityScale);
+    B2_Body::setGravityScale(bodyId, gravityScale);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getGravityScale(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getGravityScale(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getGravityScale(bodyId);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isAwake(JNIEnv*, jclass, jlong bodyId) {
-    return (jboolean) B2_Body::isAwake(*((b2BodyId*) bodyId));
+    return (jboolean) B2_Body::isAwake(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setAwake(JNIEnv*, jclass, jlong bodyId, jboolean awake) {
-    B2_Body::setAwake(*((b2BodyId*) bodyId), awake);
+    B2_Body::setAwake(bodyId, awake);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_enableSleep(JNIEnv*, jclass, jlong bodyId, jboolean enableSleep) {
-    B2_Body::enableSleep(*((b2BodyId*) bodyId), enableSleep);
+    B2_Body::enableSleep(bodyId, enableSleep);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isSleepEnabled(JNIEnv*, jclass, jlong bodyId) {
-    return (jboolean) B2_Body::isSleepEnabled(*((b2BodyId*) bodyId));
+    return (jboolean) B2_Body::isSleepEnabled(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setSleepThreshold(JNIEnv*, jclass, jlong bodyId, jfloat sleepThreshold) {
-    B2_Body::setSleepThreshold(*((b2BodyId*) bodyId), sleepThreshold);
+    B2_Body::setSleepThreshold(bodyId, sleepThreshold);
 }
 JNIEXPORT jfloat JNICALL Java_box2d_B2_1Body_00024Raw_getSleepThreshold(JNIEnv*, jclass, jlong bodyId) {
-    return (jfloat) B2_Body::getSleepThreshold(*((b2BodyId*) bodyId));
+    return (jfloat) B2_Body::getSleepThreshold(bodyId);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isEnabled(JNIEnv*, jclass, jlong bodyId) {
-    return (jboolean) B2_Body::isEnabled(*((b2BodyId*) bodyId));
+    return (jboolean) B2_Body::isEnabled(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_disable(JNIEnv*, jclass, jlong bodyId) {
-    B2_Body::disable(*((b2BodyId*) bodyId));
+    B2_Body::disable(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_enable(JNIEnv*, jclass, jlong bodyId) {
-    B2_Body::enable(*((b2BodyId*) bodyId));
+    B2_Body::enable(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setFixedRotation(JNIEnv*, jclass, jlong bodyId, jboolean flag) {
-    B2_Body::setFixedRotation(*((b2BodyId*) bodyId), flag);
+    B2_Body::setFixedRotation(bodyId, flag);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isFixedRotation(JNIEnv*, jclass, jlong bodyId) {
-    return (jboolean) B2_Body::isFixedRotation(*((b2BodyId*) bodyId));
+    return (jboolean) B2_Body::isFixedRotation(bodyId);
 }
 JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setBullet(JNIEnv*, jclass, jlong bodyId, jboolean flag) {
-    B2_Body::setBullet(*((b2BodyId*) bodyId), flag);
+    B2_Body::setBullet(bodyId, flag);
 }
 JNIEXPORT jboolean JNICALL Java_box2d_B2_1Body_00024Raw_isBullet(JNIEnv*, jclass, jlong bodyId) {
-    return (jboolean) B2_Body::isBullet(*((b2BodyId*) bodyId));
-}
-JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_enableContactEvents(JNIEnv*, jclass, jlong bodyId, jboolean flag) {
-    B2_Body::enableContactEvents(*((b2BodyId*) bodyId), flag);
-}
-JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_enableHitEvents(JNIEnv*, jclass, jlong bodyId, jboolean flag) {
-    B2_Body::enableHitEvents(*((b2BodyId*) bodyId), flag);
+    return (jboolean) B2_Body::isBullet(bodyId);
 }
 JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getWorld(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2WorldId _cache = B2_Body::getWorld(*((b2BodyId*) bodyId));
-    _cache = B2_Body::getWorld(*((b2BodyId*) bodyId));
+    static thread_local b2WorldId _cache = B2_Body::getWorld(bodyId);
+    _cache = B2_Body::getWorld(bodyId);
     return (jlong) &_cache;
 }
 JNIEXPORT jint JNICALL Java_box2d_B2_1Body_00024Raw_getShapeCount(JNIEnv*, jclass, jlong bodyId) {
-    return (jint) B2_Body::getShapeCount(*((b2BodyId*) bodyId));
+    return (jint) B2_Body::getShapeCount(bodyId);
 }
 JNIEXPORT jint JNICALL Java_box2d_B2_1Body_00024Raw_getJointCount(JNIEnv*, jclass, jlong bodyId) {
-    return (jint) B2_Body::getJointCount(*((b2BodyId*) bodyId));
+    return (jint) B2_Body::getJointCount(bodyId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_enableContactEvents(JNIEnv*, jclass, jlong bodyId, jboolean flag) {
+    B2_Body::enableContactEvents(bodyId, flag);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_enableHitEvents(JNIEnv*, jclass, jlong bodyId, jboolean flag) {
+    B2_Body::enableHitEvents(bodyId, flag);
 }
 JNIEXPORT jint JNICALL Java_box2d_B2_1Body_00024Raw_getContactCapacity(JNIEnv*, jclass, jlong bodyId) {
-    return (jint) B2_Body::getContactCapacity(*((b2BodyId*) bodyId));
+    return (jint) B2_Body::getContactCapacity(bodyId);
 }
-JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_computeAABB(JNIEnv*, jclass, jlong bodyId) {
-    static thread_local b2AABB _cache = B2_Body::computeAABB(*((b2BodyId*) bodyId));
-    _cache = B2_Body::computeAABB(*((b2BodyId*) bodyId));
-    return (jlong) &_cache;
+JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setName(JNIEnv* _env, jclass, jlong bodyId, jstring name) {
+    B2_Body::setName(bodyId, _env->GetStringUTFChars(name, 0));
+}
+JNIEXPORT jstring JNICALL Java_box2d_B2_1Body_00024Raw_getName(JNIEnv* _env, jclass, jlong bodyId) {
+    return _env->NewStringUTF(B2_Body::getName(bodyId));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Body_00024Raw_setUserData(JNIEnv*, jclass, jlong bodyId, jlong userData) {
+    B2_Body::setUserData(bodyId, (void*) userData);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Body_00024Raw_getUserData(JNIEnv*, jclass, jlong bodyId) {
+    return (jlong) B2_Body::getUserData(bodyId);
 }
 
 // b2BodyDef
@@ -1834,47 +2646,1688 @@ JNIEXPORT void JNICALL Java_box2d_b2BodyDef_00024Raw_setAllowFastRotation(JNIEnv
     _self->allowFastRotation = value;
 }
 
-// b2BodyId
-JNIEXPORT jint JNICALL Java_box2d_b2BodyId__1_1sizeOf(JNIEnv*, jclass) {
-    return sizeof(b2BodyId);
+// B2_CharacterMover
+JNIEXPORT jint JNICALL Java_box2d_B2_1CharacterMover__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_CharacterMover);
 }
-JNIEXPORT jlong JNICALL Java_box2d_b2BodyId_00024Raw_b2BodyId(JNIEnv*, jclass) {
-    return (jlong) new b2BodyId();
+
+// b2PlaneResult
+JNIEXPORT jint JNICALL Java_box2d_b2PlaneResult__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2PlaneResult);
 }
-JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
-    delete (b2BodyId*) _address;
+JNIEXPORT jlong JNICALL Java_box2d_b2PlaneResult_00024Raw_b2PlaneResult_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2PlaneResult();
 }
-JNIEXPORT jshort JNICALL Java_box2d_b2BodyId_00024Raw_getGeneration(JNIEnv*, jclass, jlong _address) {
-    b2BodyId* _self = (b2BodyId*) _address;
-    return (jshort) _self->generation;
+JNIEXPORT jlong JNICALL Java_box2d_b2PlaneResult_00024Raw_b2PlaneResult(JNIEnv*, jclass) {
+    return (jlong) new b2PlaneResult();
 }
-JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_setGeneration(JNIEnv*, jclass, jlong _address, jshort value) {
-    b2BodyId* _self = (b2BodyId*) _address;
-    _self->generation = value;
+JNIEXPORT void JNICALL Java_box2d_b2PlaneResult_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2PlaneResult*) _address;
 }
-JNIEXPORT jint JNICALL Java_box2d_b2BodyId_00024Raw_getIndex1(JNIEnv*, jclass, jlong _address) {
-    b2BodyId* _self = (b2BodyId*) _address;
-    return (jint) _self->index1;
+JNIEXPORT jboolean JNICALL Java_box2d_b2PlaneResult_00024Raw_getHit(JNIEnv*, jclass, jlong _address) {
+    b2PlaneResult* _self = (b2PlaneResult*) _address;
+    return (jboolean) _self->hit;
 }
-JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_setIndex1(JNIEnv*, jclass, jlong _address, jint value) {
-    b2BodyId* _self = (b2BodyId*) _address;
-    _self->index1 = value;
+JNIEXPORT void JNICALL Java_box2d_b2PlaneResult_00024Raw_setHit(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2PlaneResult* _self = (b2PlaneResult*) _address;
+    _self->hit = value;
 }
-JNIEXPORT jshort JNICALL Java_box2d_b2BodyId_00024Raw_getWorld0(JNIEnv*, jclass, jlong _address) {
-    b2BodyId* _self = (b2BodyId*) _address;
-    return (jshort) _self->world0;
+JNIEXPORT jlong JNICALL Java_box2d_b2PlaneResult_00024Raw_getPlane(JNIEnv*, jclass, jlong _address) {
+    b2PlaneResult* _self = (b2PlaneResult*) _address;
+    return (jlong) &_self->plane;
 }
-JNIEXPORT void JNICALL Java_box2d_b2BodyId_00024Raw_setWorld0(JNIEnv*, jclass, jlong _address, jshort value) {
-    b2BodyId* _self = (b2BodyId*) _address;
-    _self->world0 = value;
+JNIEXPORT void JNICALL Java_box2d_b2PlaneResult_00024Raw_setPlane(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PlaneResult* _self = (b2PlaneResult*) _address;
+    _self->plane = *((b2Plane*) value);
+}
+
+// b2CollisionPlane
+JNIEXPORT jint JNICALL Java_box2d_b2CollisionPlane__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2CollisionPlane);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CollisionPlane_00024Raw_b2CollisionPlane_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2CollisionPlane();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CollisionPlane_00024Raw_b2CollisionPlane(JNIEnv*, jclass) {
+    return (jlong) new b2CollisionPlane();
+}
+JNIEXPORT void JNICALL Java_box2d_b2CollisionPlane_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2CollisionPlane*) _address;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2CollisionPlane_00024Raw_getClipVelocity(JNIEnv*, jclass, jlong _address) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    return (jboolean) _self->clipVelocity;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CollisionPlane_00024Raw_setClipVelocity(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    _self->clipVelocity = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CollisionPlane_00024Raw_getPlane(JNIEnv*, jclass, jlong _address) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    return (jlong) &_self->plane;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CollisionPlane_00024Raw_setPlane(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    _self->plane = *((b2Plane*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2CollisionPlane_00024Raw_getPush(JNIEnv*, jclass, jlong _address) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    return (jfloat) _self->push;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CollisionPlane_00024Raw_setPush(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    _self->push = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2CollisionPlane_00024Raw_getPushLimit(JNIEnv*, jclass, jlong _address) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    return (jfloat) _self->pushLimit;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CollisionPlane_00024Raw_setPushLimit(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2CollisionPlane* _self = (b2CollisionPlane*) _address;
+    _self->pushLimit = value;
+}
+
+// b2PlaneSolverResult
+JNIEXPORT jint JNICALL Java_box2d_b2PlaneSolverResult__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2PlaneSolverResult);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_b2PlaneSolverResult_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2PlaneSolverResult();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_b2PlaneSolverResult(JNIEnv*, jclass) {
+    return (jlong) new b2PlaneSolverResult();
+}
+JNIEXPORT void JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2PlaneSolverResult*) _address;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_getIterationCount(JNIEnv*, jclass, jlong _address) {
+    b2PlaneSolverResult* _self = (b2PlaneSolverResult*) _address;
+    return (jint) _self->iterationCount;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_setIterationCount(JNIEnv*, jclass, jlong _address, jint value) {
+    b2PlaneSolverResult* _self = (b2PlaneSolverResult*) _address;
+    _self->iterationCount = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_getTranslation(JNIEnv*, jclass, jlong _address) {
+    b2PlaneSolverResult* _self = (b2PlaneSolverResult*) _address;
+    return (jlong) &_self->translation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PlaneSolverResult_00024Raw_setTranslation(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PlaneSolverResult* _self = (b2PlaneSolverResult*) _address;
+    _self->translation = *((b2Vec2*) value);
+}
+
+// B2_Joint
+JNIEXPORT jint JNICALL Java_box2d_B2_1Joint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_Joint);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_destroyJoint(JNIEnv*, jclass, jlong jointId) {
+    B2_Joint::destroyJoint(jointId);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Joint_00024Raw_isValid(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_Joint::isValid(jointId);
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Joint_00024Raw_getType(JNIEnv*, jclass, jlong jointId) {
+    return (jint) B2_Joint::getType(jointId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getBodyA(JNIEnv*, jclass, jlong jointId) {
+    return (jlong) B2_Joint::getBodyA(jointId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getBodyB(JNIEnv*, jclass, jlong jointId) {
+    return (jlong) B2_Joint::getBodyB(jointId);
+}
+JNIEXPORT jint JNICALL Java_box2d_B2_1Joint_00024Raw_getWorld(JNIEnv*, jclass, jlong jointId) {
+    return (jint) B2_Joint::getWorld(jointId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getLocalAnchorA(JNIEnv*, jclass, jlong jointId) {
+    static thread_local b2Vec2 _cache = B2_Joint::getLocalAnchorA(jointId);
+    _cache = B2_Joint::getLocalAnchorA(jointId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getLocalAnchorB(JNIEnv*, jclass, jlong jointId) {
+    static thread_local b2Vec2 _cache = B2_Joint::getLocalAnchorB(jointId);
+    _cache = B2_Joint::getLocalAnchorB(jointId);
+    return (jlong) &_cache;
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setLocalAnchorA(JNIEnv*, jclass, jlong jointId, jlong localAnchor) {
+    B2_Joint::setLocalAnchorA(jointId, *((b2Vec2*) localAnchor));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setLocalAnchorB(JNIEnv*, jclass, jlong jointId, jlong localAnchor) {
+    B2_Joint::setLocalAnchorB(jointId, *((b2Vec2*) localAnchor));
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Joint_00024Raw_getReferenceAngle(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_Joint::getReferenceAngle(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setReferenceAngle(JNIEnv*, jclass, jlong jointId, jfloat angleInRadians) {
+    B2_Joint::setReferenceAngle(jointId, angleInRadians);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setLocalAxisA(JNIEnv*, jclass, jlong jointId, jlong localAxis) {
+    B2_Joint::setLocalAxisA(jointId, *((b2Vec2*) localAxis));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getLocalAxisA(JNIEnv*, jclass, jlong jointId) {
+    static thread_local b2Vec2 _cache = B2_Joint::getLocalAxisA(jointId);
+    _cache = B2_Joint::getLocalAxisA(jointId);
+    return (jlong) &_cache;
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong jointId, jboolean shouldCollide) {
+    B2_Joint::setCollideConnected(jointId, shouldCollide);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Joint_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_Joint::getCollideConnected(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setUserData(JNIEnv*, jclass, jlong jointId, jlong userData) {
+    B2_Joint::setUserData(jointId, (void*) userData);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getUserData(JNIEnv*, jclass, jlong jointId) {
+    return (jlong) B2_Joint::getUserData(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_wakeBodies(JNIEnv*, jclass, jlong jointId) {
+    B2_Joint::wakeBodies(jointId);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Joint_00024Raw_getConstraintForce(JNIEnv*, jclass, jlong jointId) {
+    static thread_local b2Vec2 _cache = B2_Joint::getConstraintForce(jointId);
+    _cache = B2_Joint::getConstraintForce(jointId);
+    return (jlong) &_cache;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Joint_00024Raw_getConstraintTorque(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_Joint::getConstraintTorque(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Joint_00024Raw_getLinearSeparation(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_Joint::getLinearSeparation(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Joint_00024Raw_getAngularSeparation(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_Joint::getAngularSeparation(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Joint_00024Raw_getConstraintTuningHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_Joint::getConstraintTuningHertz(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1Joint_00024Raw_getConstraintTuningDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_Joint::getConstraintTuningDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Joint_00024Raw_setConstraintTuning(JNIEnv*, jclass, jlong jointId, jfloat hertz, jfloat dampingRatio) {
+    B2_Joint::setConstraintTuning(jointId, hertz, dampingRatio);
+}
+
+// B2_DistanceJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1DistanceJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_DistanceJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_createDistanceJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_DistanceJoint::createDistanceJoint(worldId, (b2DistanceJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_defaultDistanceJointDef(JNIEnv*, jclass, jlong result) {
+    B2_DistanceJoint::defaultDistanceJointDef(*((b2DistanceJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_setLength(JNIEnv*, jclass, jlong jointId, jfloat length) {
+    B2_DistanceJoint::setLength(jointId, length);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getLength(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getLength(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_enableSpring(JNIEnv*, jclass, jlong jointId, jboolean enableSpring) {
+    B2_DistanceJoint::enableSpring(jointId, enableSpring);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_isSpringEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_DistanceJoint::isSpringEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_setSpringHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_DistanceJoint::setSpringHertz(jointId, hertz);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_setSpringDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_DistanceJoint::setSpringDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getSpringHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getSpringHertz(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getSpringDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getSpringDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_enableLimit(JNIEnv*, jclass, jlong jointId, jboolean enableLimit) {
+    B2_DistanceJoint::enableLimit(jointId, enableLimit);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_isLimitEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_DistanceJoint::isLimitEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_setLengthRange(JNIEnv*, jclass, jlong jointId, jfloat minLength, jfloat maxLength) {
+    B2_DistanceJoint::setLengthRange(jointId, minLength, maxLength);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getMinLength(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getMinLength(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getMaxLength(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getMaxLength(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getCurrentLength(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getCurrentLength(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_enableMotor(JNIEnv*, jclass, jlong jointId, jboolean enableMotor) {
+    B2_DistanceJoint::enableMotor(jointId, enableMotor);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_isMotorEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_DistanceJoint::isMotorEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong jointId, jfloat motorSpeed) {
+    B2_DistanceJoint::setMotorSpeed(jointId, motorSpeed);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getMotorSpeed(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_setMaxMotorForce(JNIEnv*, jclass, jlong jointId, jfloat force) {
+    B2_DistanceJoint::setMaxMotorForce(jointId, force);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getMaxMotorForce(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getMaxMotorForce(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1DistanceJoint_00024Raw_getMotorForce(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_DistanceJoint::getMotorForce(jointId);
+}
+
+// b2DistanceJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2DistanceJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2DistanceJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_b2DistanceJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2DistanceJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_b2DistanceJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2DistanceJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2DistanceJointDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->dampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->dampingRatio = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getEnableLimit(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jboolean) _self->enableLimit;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setEnableLimit(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->enableLimit = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getEnableMotor(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jboolean) _self->enableMotor;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setEnableMotor(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->enableMotor = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getEnableSpring(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jboolean) _self->enableSpring;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setEnableSpring(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->enableSpring = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getHertz(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->hertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->hertz = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getLength(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->length;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setLength(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->length = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getLocalAnchorA(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jlong) &_self->localAnchorA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setLocalAnchorA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->localAnchorA = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getLocalAnchorB(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jlong) &_self->localAnchorB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setLocalAnchorB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->localAnchorB = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getMaxLength(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->maxLength;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setMaxLength(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->maxLength = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getMaxMotorForce(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->maxMotorForce;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setMaxMotorForce(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->maxMotorForce = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getMinLength(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->minLength;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setMinLength(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->minLength = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jfloat) _self->motorSpeed;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->motorSpeed = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2DistanceJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2DistanceJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2DistanceJointDef* _self = (b2DistanceJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_FilterJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1FilterJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_FilterJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1FilterJoint_00024Raw_createFilterJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_FilterJoint::createFilterJoint(worldId, (b2FilterJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1FilterJoint_00024Raw_defaultFilterJointDef(JNIEnv*, jclass, jlong result) {
+    B2_FilterJoint::defaultFilterJointDef(*((b2FilterJointDef*) result));
+}
+
+// b2FilterJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2FilterJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2FilterJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2FilterJointDef_00024Raw_b2FilterJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2FilterJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2FilterJointDef_00024Raw_b2FilterJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2FilterJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2FilterJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2FilterJointDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2FilterJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2FilterJointDef* _self = (b2FilterJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2FilterJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2FilterJointDef* _self = (b2FilterJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2FilterJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2FilterJointDef* _self = (b2FilterJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2FilterJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2FilterJointDef* _self = (b2FilterJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2FilterJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2FilterJointDef* _self = (b2FilterJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2FilterJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2FilterJointDef* _self = (b2FilterJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_MotorJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1MotorJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_MotorJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1MotorJoint_00024Raw_createMotorJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_MotorJoint::createMotorJoint(worldId, (b2MotorJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MotorJoint_00024Raw_defaultMotorJointDef(JNIEnv*, jclass, jlong result) {
+    B2_MotorJoint::defaultMotorJointDef(*((b2MotorJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MotorJoint_00024Raw_setLinearOffset(JNIEnv*, jclass, jlong jointId, jlong linearOffset) {
+    B2_MotorJoint::setLinearOffset(jointId, *((b2Vec2*) linearOffset));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1MotorJoint_00024Raw_getLinearOffset(JNIEnv*, jclass, jlong jointId) {
+    static thread_local b2Vec2 _cache = B2_MotorJoint::getLinearOffset(jointId);
+    _cache = B2_MotorJoint::getLinearOffset(jointId);
+    return (jlong) &_cache;
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MotorJoint_00024Raw_setAngularOffset(JNIEnv*, jclass, jlong jointId, jfloat angularOffset) {
+    B2_MotorJoint::setAngularOffset(jointId, angularOffset);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MotorJoint_00024Raw_getAngularOffset(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MotorJoint::getAngularOffset(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MotorJoint_00024Raw_setMaxForce(JNIEnv*, jclass, jlong jointId, jfloat maxForce) {
+    B2_MotorJoint::setMaxForce(jointId, maxForce);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MotorJoint_00024Raw_getMaxForce(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MotorJoint::getMaxForce(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MotorJoint_00024Raw_setMaxTorque(JNIEnv*, jclass, jlong jointId, jfloat maxTorque) {
+    B2_MotorJoint::setMaxTorque(jointId, maxTorque);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MotorJoint_00024Raw_getMaxTorque(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MotorJoint::getMaxTorque(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MotorJoint_00024Raw_setCorrectionFactor(JNIEnv*, jclass, jlong jointId, jfloat correctionFactor) {
+    B2_MotorJoint::setCorrectionFactor(jointId, correctionFactor);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MotorJoint_00024Raw_getCorrectionFactor(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MotorJoint::getCorrectionFactor(jointId);
+}
+
+// b2MotorJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2MotorJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2MotorJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MotorJointDef_00024Raw_b2MotorJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2MotorJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MotorJointDef_00024Raw_b2MotorJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2MotorJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2MotorJointDef*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MotorJointDef_00024Raw_getAngularOffset(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jfloat) _self->angularOffset;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setAngularOffset(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->angularOffset = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MotorJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MotorJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2MotorJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MotorJointDef_00024Raw_getCorrectionFactor(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jfloat) _self->correctionFactor;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setCorrectionFactor(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->correctionFactor = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2MotorJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MotorJointDef_00024Raw_getLinearOffset(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jlong) &_self->linearOffset;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setLinearOffset(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->linearOffset = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MotorJointDef_00024Raw_getMaxForce(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jfloat) _self->maxForce;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setMaxForce(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->maxForce = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MotorJointDef_00024Raw_getMaxTorque(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jfloat) _self->maxTorque;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setMaxTorque(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->maxTorque = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MotorJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MotorJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MotorJointDef* _self = (b2MotorJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_MouseJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1MouseJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_MouseJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1MouseJoint_00024Raw_createMouseJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_MouseJoint::createMouseJoint(worldId, (b2MouseJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MouseJoint_00024Raw_defaultMouseJointDef(JNIEnv*, jclass, jlong result) {
+    B2_MouseJoint::defaultMouseJointDef(*((b2MouseJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MouseJoint_00024Raw_setTarget(JNIEnv*, jclass, jlong jointId, jlong target) {
+    B2_MouseJoint::setTarget(jointId, *((b2Vec2*) target));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1MouseJoint_00024Raw_getTarget(JNIEnv*, jclass, jlong jointId) {
+    static thread_local b2Vec2 _cache = B2_MouseJoint::getTarget(jointId);
+    _cache = B2_MouseJoint::getTarget(jointId);
+    return (jlong) &_cache;
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MouseJoint_00024Raw_setSpringHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_MouseJoint::setSpringHertz(jointId, hertz);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MouseJoint_00024Raw_getSpringHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MouseJoint::getSpringHertz(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MouseJoint_00024Raw_setSpringDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_MouseJoint::setSpringDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MouseJoint_00024Raw_getSpringDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MouseJoint::getSpringDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1MouseJoint_00024Raw_setMaxForce(JNIEnv*, jclass, jlong jointId, jfloat maxForce) {
+    B2_MouseJoint::setMaxForce(jointId, maxForce);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1MouseJoint_00024Raw_getMaxForce(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_MouseJoint::getMaxForce(jointId);
+}
+
+// b2MouseJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2MouseJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2MouseJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MouseJointDef_00024Raw_b2MouseJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2MouseJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MouseJointDef_00024Raw_b2MouseJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2MouseJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2MouseJointDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MouseJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MouseJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2MouseJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MouseJointDef_00024Raw_getDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jfloat) _self->dampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->dampingRatio = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MouseJointDef_00024Raw_getHertz(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jfloat) _self->hertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->hertz = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2MouseJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2MouseJointDef_00024Raw_getMaxForce(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jfloat) _self->maxForce;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setMaxForce(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->maxForce = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MouseJointDef_00024Raw_getTarget(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jlong) &_self->target;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setTarget(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->target = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2MouseJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2MouseJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2MouseJointDef* _self = (b2MouseJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_PrismaticJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1PrismaticJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_PrismaticJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_createPrismaticJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_PrismaticJoint::createPrismaticJoint(worldId, (b2PrismaticJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_defaultPrismaticJointDef(JNIEnv*, jclass, jlong result) {
+    B2_PrismaticJoint::defaultPrismaticJointDef(*((b2PrismaticJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_enableSpring(JNIEnv*, jclass, jlong jointId, jboolean enableSpring) {
+    B2_PrismaticJoint::enableSpring(jointId, enableSpring);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_isSpringEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_PrismaticJoint::isSpringEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_setSpringHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_PrismaticJoint::setSpringHertz(jointId, hertz);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getSpringHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getSpringHertz(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_setSpringDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_PrismaticJoint::setSpringDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getSpringDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getSpringDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_setTargetTranslation(JNIEnv*, jclass, jlong jointId, jfloat translation) {
+    B2_PrismaticJoint::setTargetTranslation(jointId, translation);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getTargetTranslation(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getTargetTranslation(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_enableLimit(JNIEnv*, jclass, jlong jointId, jboolean enableLimit) {
+    B2_PrismaticJoint::enableLimit(jointId, enableLimit);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_isLimitEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_PrismaticJoint::isLimitEnabled(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getLowerLimit(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getLowerLimit(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getUpperLimit(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getUpperLimit(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_setLimits(JNIEnv*, jclass, jlong jointId, jfloat lower, jfloat upper) {
+    B2_PrismaticJoint::setLimits(jointId, lower, upper);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_enableMotor(JNIEnv*, jclass, jlong jointId, jboolean enableMotor) {
+    B2_PrismaticJoint::enableMotor(jointId, enableMotor);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_isMotorEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_PrismaticJoint::isMotorEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong jointId, jfloat motorSpeed) {
+    B2_PrismaticJoint::setMotorSpeed(jointId, motorSpeed);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getMotorSpeed(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_setMaxMotorForce(JNIEnv*, jclass, jlong jointId, jfloat force) {
+    B2_PrismaticJoint::setMaxMotorForce(jointId, force);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getMaxMotorForce(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getMaxMotorForce(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getMotorForce(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getMotorForce(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getTranslation(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getTranslation(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1PrismaticJoint_00024Raw_getSpeed(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_PrismaticJoint::getSpeed(jointId);
+}
+
+// b2PrismaticJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2PrismaticJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2PrismaticJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_b2PrismaticJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2PrismaticJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_b2PrismaticJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2PrismaticJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2PrismaticJointDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->dampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->dampingRatio = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getEnableLimit(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jboolean) _self->enableLimit;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setEnableLimit(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->enableLimit = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getEnableMotor(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jboolean) _self->enableMotor;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setEnableMotor(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->enableMotor = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getEnableSpring(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jboolean) _self->enableSpring;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setEnableSpring(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->enableSpring = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getHertz(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->hertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->hertz = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getLocalAnchorA(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jlong) &_self->localAnchorA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setLocalAnchorA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->localAnchorA = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getLocalAnchorB(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jlong) &_self->localAnchorB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setLocalAnchorB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->localAnchorB = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getLocalAxisA(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jlong) &_self->localAxisA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setLocalAxisA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->localAxisA = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getLowerTranslation(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->lowerTranslation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setLowerTranslation(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->lowerTranslation = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getMaxMotorForce(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->maxMotorForce;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setMaxMotorForce(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->maxMotorForce = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->motorSpeed;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->motorSpeed = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getReferenceAngle(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->referenceAngle;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setReferenceAngle(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->referenceAngle = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getUpperTranslation(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jfloat) _self->upperTranslation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setUpperTranslation(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->upperTranslation = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2PrismaticJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2PrismaticJointDef* _self = (b2PrismaticJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_RevoluteJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1RevoluteJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_RevoluteJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_createRevoluteJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_RevoluteJoint::createRevoluteJoint(worldId, (b2RevoluteJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_defaultRevoluteJointDef(JNIEnv*, jclass, jlong result) {
+    B2_RevoluteJoint::defaultRevoluteJointDef(*((b2RevoluteJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_enableSpring(JNIEnv*, jclass, jlong jointId, jboolean enableSpring) {
+    B2_RevoluteJoint::enableSpring(jointId, enableSpring);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_isSpringEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_RevoluteJoint::isSpringEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_setSpringHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_RevoluteJoint::setSpringHertz(jointId, hertz);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getSpringHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getSpringHertz(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_setSpringDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_RevoluteJoint::setSpringDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getSpringDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getSpringDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_setTargetAngle(JNIEnv*, jclass, jlong jointId, jfloat angle) {
+    B2_RevoluteJoint::setTargetAngle(jointId, angle);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getTargetAngle(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getTargetAngle(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getAngle(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getAngle(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_enableLimit(JNIEnv*, jclass, jlong jointId, jboolean enableLimit) {
+    B2_RevoluteJoint::enableLimit(jointId, enableLimit);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_isLimitEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_RevoluteJoint::isLimitEnabled(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getLowerLimit(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getLowerLimit(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getUpperLimit(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getUpperLimit(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_setLimits(JNIEnv*, jclass, jlong jointId, jfloat lower, jfloat upper) {
+    B2_RevoluteJoint::setLimits(jointId, lower, upper);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_enableMotor(JNIEnv*, jclass, jlong jointId, jboolean enableMotor) {
+    B2_RevoluteJoint::enableMotor(jointId, enableMotor);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_isMotorEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_RevoluteJoint::isMotorEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong jointId, jfloat motorSpeed) {
+    B2_RevoluteJoint::setMotorSpeed(jointId, motorSpeed);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getMotorSpeed(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getMotorTorque(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getMotorTorque(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_setMaxMotorTorque(JNIEnv*, jclass, jlong jointId, jfloat torque) {
+    B2_RevoluteJoint::setMaxMotorTorque(jointId, torque);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1RevoluteJoint_00024Raw_getMaxMotorTorque(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_RevoluteJoint::getMaxMotorTorque(jointId);
+}
+
+// b2RevoluteJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2RevoluteJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2RevoluteJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_b2RevoluteJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2RevoluteJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_b2RevoluteJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2RevoluteJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2RevoluteJointDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->dampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->dampingRatio = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getDrawSize(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->drawSize;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setDrawSize(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->drawSize = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getEnableLimit(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jboolean) _self->enableLimit;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setEnableLimit(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->enableLimit = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getEnableMotor(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jboolean) _self->enableMotor;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setEnableMotor(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->enableMotor = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getEnableSpring(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jboolean) _self->enableSpring;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setEnableSpring(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->enableSpring = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getHertz(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->hertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->hertz = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getLocalAnchorA(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jlong) &_self->localAnchorA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setLocalAnchorA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->localAnchorA = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getLocalAnchorB(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jlong) &_self->localAnchorB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setLocalAnchorB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->localAnchorB = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getLowerAngle(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->lowerAngle;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setLowerAngle(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->lowerAngle = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getMaxMotorTorque(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->maxMotorTorque;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setMaxMotorTorque(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->maxMotorTorque = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->motorSpeed;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->motorSpeed = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getReferenceAngle(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->referenceAngle;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setReferenceAngle(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->referenceAngle = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getUpperAngle(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jfloat) _self->upperAngle;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setUpperAngle(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->upperAngle = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RevoluteJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RevoluteJointDef* _self = (b2RevoluteJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_WeldJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1WeldJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_WeldJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1WeldJoint_00024Raw_createWeldJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_WeldJoint::createWeldJoint(worldId, (b2WeldJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WeldJoint_00024Raw_defaultWeldJointDef(JNIEnv*, jclass, jlong result) {
+    B2_WeldJoint::defaultWeldJointDef(*((b2WeldJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WeldJoint_00024Raw_setLinearHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_WeldJoint::setLinearHertz(jointId, hertz);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WeldJoint_00024Raw_getLinearHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WeldJoint::getLinearHertz(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WeldJoint_00024Raw_setLinearDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_WeldJoint::setLinearDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WeldJoint_00024Raw_getLinearDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WeldJoint::getLinearDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WeldJoint_00024Raw_setAngularHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_WeldJoint::setAngularHertz(jointId, hertz);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WeldJoint_00024Raw_getAngularHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WeldJoint::getAngularHertz(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WeldJoint_00024Raw_setAngularDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_WeldJoint::setAngularDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WeldJoint_00024Raw_getAngularDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WeldJoint::getAngularDampingRatio(jointId);
+}
+
+// b2WeldJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2WeldJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2WeldJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_b2WeldJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2WeldJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_b2WeldJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2WeldJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2WeldJointDef*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WeldJointDef_00024Raw_getAngularDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jfloat) _self->angularDampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setAngularDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->angularDampingRatio = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WeldJointDef_00024Raw_getAngularHertz(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jfloat) _self->angularHertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setAngularHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->angularHertz = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WeldJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2WeldJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WeldJointDef_00024Raw_getLinearDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jfloat) _self->linearDampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setLinearDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->linearDampingRatio = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WeldJointDef_00024Raw_getLinearHertz(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jfloat) _self->linearHertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setLinearHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->linearHertz = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_getLocalAnchorA(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jlong) &_self->localAnchorA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setLocalAnchorA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->localAnchorA = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_getLocalAnchorB(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jlong) &_self->localAnchorB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setLocalAnchorB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->localAnchorB = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WeldJointDef_00024Raw_getReferenceAngle(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jfloat) _self->referenceAngle;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setReferenceAngle(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->referenceAngle = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WeldJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WeldJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WeldJointDef* _self = (b2WeldJointDef*) _address;
+    _self->userData = (void*) value;
+}
+
+// B2_WheelJoint
+JNIEXPORT jint JNICALL Java_box2d_B2_1WheelJoint__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(B2_WheelJoint);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1WheelJoint_00024Raw_createWheelJoint(JNIEnv*, jclass, jlong worldId, jlong def) {
+    return (jlong) B2_WheelJoint::createWheelJoint(worldId, (b2WheelJointDef*) def);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_defaultWheelJointDef(JNIEnv*, jclass, jlong result) {
+    B2_WheelJoint::defaultWheelJointDef(*((b2WheelJointDef*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_enableSpring(JNIEnv*, jclass, jlong jointId, jboolean enableSpring) {
+    B2_WheelJoint::enableSpring(jointId, enableSpring);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1WheelJoint_00024Raw_isSpringEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_WheelJoint::isSpringEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_setSpringHertz(JNIEnv*, jclass, jlong jointId, jfloat hertz) {
+    B2_WheelJoint::setSpringHertz(jointId, hertz);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getSpringHertz(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getSpringHertz(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_setSpringDampingRatio(JNIEnv*, jclass, jlong jointId, jfloat dampingRatio) {
+    B2_WheelJoint::setSpringDampingRatio(jointId, dampingRatio);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getSpringDampingRatio(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getSpringDampingRatio(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_enableLimit(JNIEnv*, jclass, jlong jointId, jboolean enableLimit) {
+    B2_WheelJoint::enableLimit(jointId, enableLimit);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1WheelJoint_00024Raw_isLimitEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_WheelJoint::isLimitEnabled(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getLowerLimit(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getLowerLimit(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getUpperLimit(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getUpperLimit(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_setLimits(JNIEnv*, jclass, jlong jointId, jfloat lower, jfloat upper) {
+    B2_WheelJoint::setLimits(jointId, lower, upper);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_enableMotor(JNIEnv*, jclass, jlong jointId, jboolean enableMotor) {
+    B2_WheelJoint::enableMotor(jointId, enableMotor);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1WheelJoint_00024Raw_isMotorEnabled(JNIEnv*, jclass, jlong jointId) {
+    return (jboolean) B2_WheelJoint::isMotorEnabled(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong jointId, jfloat motorSpeed) {
+    B2_WheelJoint::setMotorSpeed(jointId, motorSpeed);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getMotorSpeed(jointId);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1WheelJoint_00024Raw_setMaxMotorTorque(JNIEnv*, jclass, jlong jointId, jfloat torque) {
+    B2_WheelJoint::setMaxMotorTorque(jointId, torque);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getMaxMotorTorque(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getMaxMotorTorque(jointId);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_B2_1WheelJoint_00024Raw_getMotorTorque(JNIEnv*, jclass, jlong jointId) {
+    return (jfloat) B2_WheelJoint::getMotorTorque(jointId);
+}
+
+// b2WheelJointDef
+JNIEXPORT jint JNICALL Java_box2d_b2WheelJointDef__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2WheelJointDef);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_b2WheelJointDef_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2WheelJointDef();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_b2WheelJointDef(JNIEnv*, jclass) {
+    return (jlong) new b2WheelJointDef();
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2WheelJointDef*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_getBodyIdA(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jlong) &_self->bodyIdA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setBodyIdA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->bodyIdA = *((b2BodyId*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_getBodyIdB(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jlong) &_self->bodyIdB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setBodyIdB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->bodyIdB = *((b2BodyId*) value);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WheelJointDef_00024Raw_getCollideConnected(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jboolean) _self->collideConnected;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setCollideConnected(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->collideConnected = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WheelJointDef_00024Raw_getDampingRatio(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jfloat) _self->dampingRatio;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setDampingRatio(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->dampingRatio = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WheelJointDef_00024Raw_getEnableLimit(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jboolean) _self->enableLimit;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setEnableLimit(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->enableLimit = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WheelJointDef_00024Raw_getEnableMotor(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jboolean) _self->enableMotor;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setEnableMotor(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->enableMotor = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2WheelJointDef_00024Raw_getEnableSpring(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jboolean) _self->enableSpring;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setEnableSpring(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->enableSpring = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WheelJointDef_00024Raw_getHertz(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jfloat) _self->hertz;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setHertz(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->hertz = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2WheelJointDef_00024Raw_getInternalValue(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jint) _self->internalValue;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setInternalValue(JNIEnv*, jclass, jlong _address, jint value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->internalValue = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_getLocalAnchorA(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jlong) &_self->localAnchorA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setLocalAnchorA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->localAnchorA = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_getLocalAnchorB(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jlong) &_self->localAnchorB;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setLocalAnchorB(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->localAnchorB = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_getLocalAxisA(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jlong) &_self->localAxisA;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setLocalAxisA(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->localAxisA = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WheelJointDef_00024Raw_getLowerTranslation(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jfloat) _self->lowerTranslation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setLowerTranslation(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->lowerTranslation = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WheelJointDef_00024Raw_getMaxMotorTorque(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jfloat) _self->maxMotorTorque;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setMaxMotorTorque(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->maxMotorTorque = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WheelJointDef_00024Raw_getMotorSpeed(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jfloat) _self->motorSpeed;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setMotorSpeed(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->motorSpeed = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2WheelJointDef_00024Raw_getUpperTranslation(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jfloat) _self->upperTranslation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setUpperTranslation(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->upperTranslation = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2WheelJointDef_00024Raw_getUserData(JNIEnv*, jclass, jlong _address) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    return (jlong) _self->userData;
+}
+JNIEXPORT void JNICALL Java_box2d_b2WheelJointDef_00024Raw_setUserData(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2WheelJointDef* _self = (b2WheelJointDef*) _address;
+    _self->userData = (void*) value;
 }
 
 // B2_Geometry
 JNIEXPORT jint JNICALL Java_box2d_B2_1Geometry__1_1sizeOf(JNIEnv*, jclass) {
     return sizeof(B2_Geometry);
 }
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Geometry_00024Raw_isValidRay(JNIEnv*, jclass, jlong input) {
+    return (jboolean) B2_Geometry::isValidRay((b2RayCastInput*) input);
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makePolygon(JNIEnv*, jclass, jlong hull, jfloat radius, jlong result) {
+    B2_Geometry::makePolygon((b2Hull*) hull, radius, *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeOffsetPolygon(JNIEnv*, jclass, jlong hull, jlong position, jlong rotation, jlong result) {
+    B2_Geometry::makeOffsetPolygon((b2Hull*) hull, *((b2Vec2*) position), *((b2Rot*) rotation), *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeOffsetRoundedPolygon(JNIEnv*, jclass, jlong hull, jlong position, jlong rotation, jfloat radius, jlong result) {
+    B2_Geometry::makeOffsetRoundedPolygon((b2Hull*) hull, *((b2Vec2*) position), *((b2Rot*) rotation), radius, *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeSquare(JNIEnv*, jclass, jfloat halfWidth, jlong result) {
+    B2_Geometry::makeSquare(halfWidth, *((b2Polygon*) result));
+}
 JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeBox(JNIEnv*, jclass, jfloat halfWidth, jfloat halfHeight, jlong result) {
     B2_Geometry::makeBox(halfWidth, halfHeight, *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeRoundedBox(JNIEnv*, jclass, jfloat halfWidth, jfloat halfHeight, jfloat radius, jlong result) {
+    B2_Geometry::makeRoundedBox(halfWidth, halfHeight, radius, *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeOffsetBox(JNIEnv*, jclass, jfloat halfWidth, jfloat halfHeight, jlong center, jlong rotation, jlong result) {
+    B2_Geometry::makeOffsetBox(halfWidth, halfHeight, *((b2Vec2*) center), *((b2Rot*) rotation), *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_makeOffsetRoundedBox(JNIEnv*, jclass, jfloat halfWidth, jfloat halfHeight, jlong center, jlong rotation, jfloat radius, jlong result) {
+    B2_Geometry::makeOffsetRoundedBox(halfWidth, halfHeight, *((b2Vec2*) center), *((b2Rot*) rotation), radius, *((b2Polygon*) result));
+}
+JNIEXPORT void JNICALL Java_box2d_B2_1Geometry_00024Raw_transformPolygon(JNIEnv*, jclass, jlong transform, jlong polygon, jlong result) {
+    B2_Geometry::transformPolygon(*((b2Transform*) transform), (b2Polygon*) polygon, *((b2Polygon*) result));
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computeCircleMass(JNIEnv*, jclass, jlong shape, jfloat density) {
+    static thread_local b2MassData _cache = B2_Geometry::computeCircleMass((b2Circle*) shape, density);
+    _cache = B2_Geometry::computeCircleMass((b2Circle*) shape, density);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computeCapsuleMass(JNIEnv*, jclass, jlong shape, jfloat density) {
+    static thread_local b2MassData _cache = B2_Geometry::computeCapsuleMass((b2Capsule*) shape, density);
+    _cache = B2_Geometry::computeCapsuleMass((b2Capsule*) shape, density);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computePolygonMass(JNIEnv*, jclass, jlong shape, jfloat density) {
+    static thread_local b2MassData _cache = B2_Geometry::computePolygonMass((b2Polygon*) shape, density);
+    _cache = B2_Geometry::computePolygonMass((b2Polygon*) shape, density);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computeCircleAABB(JNIEnv*, jclass, jlong shape, jlong transform) {
+    static thread_local b2AABB _cache = B2_Geometry::computeCircleAABB((b2Circle*) shape, *((b2Transform*) transform));
+    _cache = B2_Geometry::computeCircleAABB((b2Circle*) shape, *((b2Transform*) transform));
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computeCapsuleAABB(JNIEnv*, jclass, jlong shape, jlong transform) {
+    static thread_local b2AABB _cache = B2_Geometry::computeCapsuleAABB((b2Capsule*) shape, *((b2Transform*) transform));
+    _cache = B2_Geometry::computeCapsuleAABB((b2Capsule*) shape, *((b2Transform*) transform));
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computePolygonAABB(JNIEnv*, jclass, jlong shape, jlong transform) {
+    static thread_local b2AABB _cache = B2_Geometry::computePolygonAABB((b2Polygon*) shape, *((b2Transform*) transform));
+    _cache = B2_Geometry::computePolygonAABB((b2Polygon*) shape, *((b2Transform*) transform));
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_computeSegmentAABB(JNIEnv*, jclass, jlong shape, jlong transform) {
+    static thread_local b2AABB _cache = B2_Geometry::computeSegmentAABB((b2Segment*) shape, *((b2Transform*) transform));
+    _cache = B2_Geometry::computeSegmentAABB((b2Segment*) shape, *((b2Transform*) transform));
+    return (jlong) &_cache;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Geometry_00024Raw_pointInCircle(JNIEnv*, jclass, jlong point, jlong shape) {
+    return (jboolean) B2_Geometry::pointInCircle(*((b2Vec2*) point), (b2Circle*) shape);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Geometry_00024Raw_pointInCapsule(JNIEnv*, jclass, jlong point, jlong shape) {
+    return (jboolean) B2_Geometry::pointInCapsule(*((b2Vec2*) point), (b2Capsule*) shape);
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Geometry_00024Raw_pointInPolygon(JNIEnv*, jclass, jlong point, jlong shape) {
+    return (jboolean) B2_Geometry::pointInPolygon(*((b2Vec2*) point), (b2Polygon*) shape);
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_rayCastCircle(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::rayCastCircle((b2RayCastInput*) input, (b2Circle*) shape);
+    _cache = B2_Geometry::rayCastCircle((b2RayCastInput*) input, (b2Circle*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_rayCastCapsule(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::rayCastCapsule((b2RayCastInput*) input, (b2Capsule*) shape);
+    _cache = B2_Geometry::rayCastCapsule((b2RayCastInput*) input, (b2Capsule*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_rayCastSegment(JNIEnv*, jclass, jlong input, jlong shape, jboolean oneSided) {
+    static thread_local b2CastOutput _cache = B2_Geometry::rayCastSegment((b2RayCastInput*) input, (b2Segment*) shape, oneSided);
+    _cache = B2_Geometry::rayCastSegment((b2RayCastInput*) input, (b2Segment*) shape, oneSided);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_rayCastPolygon(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::rayCastPolygon((b2RayCastInput*) input, (b2Polygon*) shape);
+    _cache = B2_Geometry::rayCastPolygon((b2RayCastInput*) input, (b2Polygon*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_shapeCastCircle(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::shapeCastCircle((b2ShapeCastInput*) input, (b2Circle*) shape);
+    _cache = B2_Geometry::shapeCastCircle((b2ShapeCastInput*) input, (b2Circle*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_shapeCastCapsule(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::shapeCastCapsule((b2ShapeCastInput*) input, (b2Capsule*) shape);
+    _cache = B2_Geometry::shapeCastCapsule((b2ShapeCastInput*) input, (b2Capsule*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_shapeCastSegment(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::shapeCastSegment((b2ShapeCastInput*) input, (b2Segment*) shape);
+    _cache = B2_Geometry::shapeCastSegment((b2ShapeCastInput*) input, (b2Segment*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jlong JNICALL Java_box2d_B2_1Geometry_00024Raw_shapeCastPolygon(JNIEnv*, jclass, jlong input, jlong shape) {
+    static thread_local b2CastOutput _cache = B2_Geometry::shapeCastPolygon((b2ShapeCastInput*) input, (b2Polygon*) shape);
+    _cache = B2_Geometry::shapeCastPolygon((b2ShapeCastInput*) input, (b2Polygon*) shape);
+    return (jlong) &_cache;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_B2_1Geometry_00024Raw_validateHull(JNIEnv*, jclass, jlong hull) {
+    return (jboolean) B2_Geometry::validateHull((b2Hull*) hull);
 }
 JNIEXPORT jint JNICALL Java_box2d_B2_1Geometry_00024Raw_getMAX_1POLYGON_1VERTICES(JNIEnv*, jclass) {
     return (jint) B2_Geometry::MAX_POLYGON_VERTICES;
@@ -1916,6 +4369,74 @@ JNIEXPORT jfloat JNICALL Java_box2d_b2MassData_00024Raw_getRotationalInertia(JNI
 JNIEXPORT void JNICALL Java_box2d_b2MassData_00024Raw_setRotationalInertia(JNIEnv*, jclass, jlong _address, jfloat value) {
     b2MassData* _self = (b2MassData*) _address;
     _self->rotationalInertia = value;
+}
+
+// b2Circle
+JNIEXPORT jint JNICALL Java_box2d_b2Circle__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Circle);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Circle_00024Raw_b2Circle_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Circle();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Circle_00024Raw_b2Circle(JNIEnv*, jclass) {
+    return (jlong) new b2Circle();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Circle_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Circle*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Circle_00024Raw_getCenter(JNIEnv*, jclass, jlong _address) {
+    b2Circle* _self = (b2Circle*) _address;
+    return (jlong) &_self->center;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Circle_00024Raw_setCenter(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Circle* _self = (b2Circle*) _address;
+    _self->center = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Circle_00024Raw_getRadius(JNIEnv*, jclass, jlong _address) {
+    b2Circle* _self = (b2Circle*) _address;
+    return (jfloat) _self->radius;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Circle_00024Raw_setRadius(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Circle* _self = (b2Circle*) _address;
+    _self->radius = value;
+}
+
+// b2Capsule
+JNIEXPORT jint JNICALL Java_box2d_b2Capsule__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Capsule);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Capsule_00024Raw_b2Capsule_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Capsule();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Capsule_00024Raw_b2Capsule(JNIEnv*, jclass) {
+    return (jlong) new b2Capsule();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Capsule_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Capsule*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Capsule_00024Raw_getCenter1(JNIEnv*, jclass, jlong _address) {
+    b2Capsule* _self = (b2Capsule*) _address;
+    return (jlong) &_self->center1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Capsule_00024Raw_setCenter1(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Capsule* _self = (b2Capsule*) _address;
+    _self->center1 = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Capsule_00024Raw_getCenter2(JNIEnv*, jclass, jlong _address) {
+    b2Capsule* _self = (b2Capsule*) _address;
+    return (jlong) &_self->center2;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Capsule_00024Raw_setCenter2(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Capsule* _self = (b2Capsule*) _address;
+    _self->center2 = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2Capsule_00024Raw_getRadius(JNIEnv*, jclass, jlong _address) {
+    b2Capsule* _self = (b2Capsule*) _address;
+    return (jfloat) _self->radius;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Capsule_00024Raw_setRadius(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2Capsule* _self = (b2Capsule*) _address;
+    _self->radius = value;
 }
 
 // b2Polygon
@@ -1972,6 +4493,305 @@ JNIEXPORT void JNICALL Java_box2d_b2Polygon_00024Raw_setCount(JNIEnv*, jclass, j
     _self->count = value;
 }
 
+// b2Segment
+JNIEXPORT jint JNICALL Java_box2d_b2Segment__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Segment);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Segment_00024Raw_b2Segment_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Segment();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Segment_00024Raw_b2Segment(JNIEnv*, jclass) {
+    return (jlong) new b2Segment();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Segment_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Segment*) _address;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Segment_00024Raw_getPoint1(JNIEnv*, jclass, jlong _address) {
+    b2Segment* _self = (b2Segment*) _address;
+    return (jlong) &_self->point1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Segment_00024Raw_setPoint1(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Segment* _self = (b2Segment*) _address;
+    _self->point1 = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Segment_00024Raw_getPoint2(JNIEnv*, jclass, jlong _address) {
+    b2Segment* _self = (b2Segment*) _address;
+    return (jlong) &_self->point2;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Segment_00024Raw_setPoint2(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2Segment* _self = (b2Segment*) _address;
+    _self->point2 = *((b2Vec2*) value);
+}
+
+// b2ChainSegment
+JNIEXPORT jint JNICALL Java_box2d_b2ChainSegment__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ChainSegment);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainSegment_00024Raw_b2ChainSegment_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ChainSegment();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainSegment_00024Raw_b2ChainSegment(JNIEnv*, jclass) {
+    return (jlong) new b2ChainSegment();
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainSegment_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ChainSegment*) _address;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ChainSegment_00024Raw_getChainId(JNIEnv*, jclass, jlong _address) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    return (jint) _self->chainId;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainSegment_00024Raw_setChainId(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    _self->chainId = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainSegment_00024Raw_getGhost1(JNIEnv*, jclass, jlong _address) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    return (jlong) &_self->ghost1;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainSegment_00024Raw_setGhost1(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    _self->ghost1 = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainSegment_00024Raw_getGhost2(JNIEnv*, jclass, jlong _address) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    return (jlong) &_self->ghost2;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainSegment_00024Raw_setGhost2(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    _self->ghost2 = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ChainSegment_00024Raw_getSegment(JNIEnv*, jclass, jlong _address) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    return (jlong) &_self->segment;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ChainSegment_00024Raw_setSegment(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ChainSegment* _self = (b2ChainSegment*) _address;
+    _self->segment = *((b2Segment*) value);
+}
+
+// b2Hull
+JNIEXPORT jint JNICALL Java_box2d_b2Hull__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2Hull);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Hull_00024Raw_b2Hull_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2Hull();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Hull_00024Raw_b2Hull(JNIEnv*, jclass) {
+    return (jlong) new b2Hull();
+}
+JNIEXPORT void JNICALL Java_box2d_b2Hull_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2Hull*) _address;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2Hull_00024Raw_getCount(JNIEnv*, jclass, jlong _address) {
+    b2Hull* _self = (b2Hull*) _address;
+    return (jint) _self->count;
+}
+JNIEXPORT void JNICALL Java_box2d_b2Hull_00024Raw_setCount(JNIEnv*, jclass, jlong _address, jint value) {
+    b2Hull* _self = (b2Hull*) _address;
+    _self->count = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2Hull_00024Raw_getPoints(JNIEnv*, jclass, jlong _address, jint _index) {
+    b2Hull* _self = (b2Hull*) _address;
+    return (jlong) &_self->points[_index];
+}
+JNIEXPORT void JNICALL Java_box2d_b2Hull_00024Raw_setPoints(JNIEnv*, jclass, jlong _address, jint _index, jlong value) {
+    b2Hull* _self = (b2Hull*) _address;
+    _self->points[_index] = *((b2Vec2*) value);
+}
+
+// b2ShapeProxy
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeProxy__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ShapeProxy);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeProxy_00024Raw_b2ShapeProxy_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ShapeProxy();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeProxy_00024Raw_b2ShapeProxy(JNIEnv*, jclass) {
+    return (jlong) new b2ShapeProxy();
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeProxy_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ShapeProxy*) _address;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeProxy_00024Raw_getCount(JNIEnv*, jclass, jlong _address) {
+    b2ShapeProxy* _self = (b2ShapeProxy*) _address;
+    return (jint) _self->count;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeProxy_00024Raw_setCount(JNIEnv*, jclass, jlong _address, jint value) {
+    b2ShapeProxy* _self = (b2ShapeProxy*) _address;
+    _self->count = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeProxy_00024Raw_getPoints(JNIEnv*, jclass, jlong _address, jint _index) {
+    b2ShapeProxy* _self = (b2ShapeProxy*) _address;
+    return (jlong) &_self->points[_index];
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeProxy_00024Raw_setPoints(JNIEnv*, jclass, jlong _address, jint _index, jlong value) {
+    b2ShapeProxy* _self = (b2ShapeProxy*) _address;
+    _self->points[_index] = *((b2Vec2*) value);
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2ShapeProxy_00024Raw_getRadius(JNIEnv*, jclass, jlong _address) {
+    b2ShapeProxy* _self = (b2ShapeProxy*) _address;
+    return (jfloat) _self->radius;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeProxy_00024Raw_setRadius(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2ShapeProxy* _self = (b2ShapeProxy*) _address;
+    _self->radius = value;
+}
+
+// b2RayCastInput
+JNIEXPORT jint JNICALL Java_box2d_b2RayCastInput__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2RayCastInput);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RayCastInput_00024Raw_b2RayCastInput_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2RayCastInput();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RayCastInput_00024Raw_b2RayCastInput(JNIEnv*, jclass) {
+    return (jlong) new b2RayCastInput();
+}
+JNIEXPORT void JNICALL Java_box2d_b2RayCastInput_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2RayCastInput*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2RayCastInput_00024Raw_getMaxFraction(JNIEnv*, jclass, jlong _address) {
+    b2RayCastInput* _self = (b2RayCastInput*) _address;
+    return (jfloat) _self->maxFraction;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RayCastInput_00024Raw_setMaxFraction(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2RayCastInput* _self = (b2RayCastInput*) _address;
+    _self->maxFraction = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RayCastInput_00024Raw_getOrigin(JNIEnv*, jclass, jlong _address) {
+    b2RayCastInput* _self = (b2RayCastInput*) _address;
+    return (jlong) &_self->origin;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RayCastInput_00024Raw_setOrigin(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RayCastInput* _self = (b2RayCastInput*) _address;
+    _self->origin = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2RayCastInput_00024Raw_getTranslation(JNIEnv*, jclass, jlong _address) {
+    b2RayCastInput* _self = (b2RayCastInput*) _address;
+    return (jlong) &_self->translation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2RayCastInput_00024Raw_setTranslation(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2RayCastInput* _self = (b2RayCastInput*) _address;
+    _self->translation = *((b2Vec2*) value);
+}
+
+// b2ShapeCastInput
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeCastInput__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2ShapeCastInput);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeCastInput_00024Raw_b2ShapeCastInput_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2ShapeCastInput();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeCastInput_00024Raw_b2ShapeCastInput(JNIEnv*, jclass) {
+    return (jlong) new b2ShapeCastInput();
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeCastInput_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2ShapeCastInput*) _address;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2ShapeCastInput_00024Raw_getCanEncroach(JNIEnv*, jclass, jlong _address) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    return (jboolean) _self->canEncroach;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeCastInput_00024Raw_setCanEncroach(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    _self->canEncroach = value;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2ShapeCastInput_00024Raw_getMaxFraction(JNIEnv*, jclass, jlong _address) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    return (jfloat) _self->maxFraction;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeCastInput_00024Raw_setMaxFraction(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    _self->maxFraction = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeCastInput_00024Raw_getProxy(JNIEnv*, jclass, jlong _address) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    return (jlong) &_self->proxy;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeCastInput_00024Raw_setProxy(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    _self->proxy = *((b2ShapeProxy*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2ShapeCastInput_00024Raw_getTranslation(JNIEnv*, jclass, jlong _address) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    return (jlong) &_self->translation;
+}
+JNIEXPORT void JNICALL Java_box2d_b2ShapeCastInput_00024Raw_setTranslation(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2ShapeCastInput* _self = (b2ShapeCastInput*) _address;
+    _self->translation = *((b2Vec2*) value);
+}
+
+// b2CastOutput
+JNIEXPORT jint JNICALL Java_box2d_b2CastOutput__1_1sizeOf(JNIEnv*, jclass) {
+    return sizeof(b2CastOutput);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CastOutput_00024Raw_b2CastOutput_1placed(JNIEnv*, jclass, jlong _placement_address) {
+    return (jlong) new((void*)_placement_address) b2CastOutput();
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CastOutput_00024Raw_b2CastOutput(JNIEnv*, jclass) {
+    return (jlong) new b2CastOutput();
+}
+JNIEXPORT void JNICALL Java_box2d_b2CastOutput_00024Raw_destroy(JNIEnv*, jclass, jlong _address) {
+    delete (b2CastOutput*) _address;
+}
+JNIEXPORT jfloat JNICALL Java_box2d_b2CastOutput_00024Raw_getFraction(JNIEnv*, jclass, jlong _address) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    return (jfloat) _self->fraction;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CastOutput_00024Raw_setFraction(JNIEnv*, jclass, jlong _address, jfloat value) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    _self->fraction = value;
+}
+JNIEXPORT jboolean JNICALL Java_box2d_b2CastOutput_00024Raw_getHit(JNIEnv*, jclass, jlong _address) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    return (jboolean) _self->hit;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CastOutput_00024Raw_setHit(JNIEnv*, jclass, jlong _address, jboolean value) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    _self->hit = value;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2CastOutput_00024Raw_getIterations(JNIEnv*, jclass, jlong _address) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    return (jint) _self->iterations;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CastOutput_00024Raw_setIterations(JNIEnv*, jclass, jlong _address, jint value) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    _self->iterations = value;
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CastOutput_00024Raw_getNormal(JNIEnv*, jclass, jlong _address) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    return (jlong) &_self->normal;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CastOutput_00024Raw_setNormal(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    _self->normal = *((b2Vec2*) value);
+}
+JNIEXPORT jlong JNICALL Java_box2d_b2CastOutput_00024Raw_getPoint(JNIEnv*, jclass, jlong _address) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    return (jlong) &_self->point;
+}
+JNIEXPORT void JNICALL Java_box2d_b2CastOutput_00024Raw_setPoint(JNIEnv*, jclass, jlong _address, jlong value) {
+    b2CastOutput* _self = (b2CastOutput*) _address;
+    _self->point = *((b2Vec2*) value);
+}
+
+// b2ShapeType
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeType__1getb2_1circleShape(JNIEnv*, jclass) {
+    return b2_circleShape;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeType__1getb2_1capsuleShape(JNIEnv*, jclass) {
+    return b2_capsuleShape;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeType__1getb2_1segmentShape(JNIEnv*, jclass) {
+    return b2_segmentShape;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeType__1getb2_1polygonShape(JNIEnv*, jclass) {
+    return b2_polygonShape;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2ShapeType__1getb2_1chainSegmentShape(JNIEnv*, jclass) {
+    return b2_chainSegmentShape;
+}
+
 // b2BodyType
 JNIEXPORT jint JNICALL Java_box2d_b2BodyType__1getb2_1staticBody(JNIEnv*, jclass) {
     return b2_staticBody;
@@ -1981,6 +4801,32 @@ JNIEXPORT jint JNICALL Java_box2d_b2BodyType__1getb2_1kinematicBody(JNIEnv*, jcl
 }
 JNIEXPORT jint JNICALL Java_box2d_b2BodyType__1getb2_1dynamicBody(JNIEnv*, jclass) {
     return b2_dynamicBody;
+}
+
+// b2JointType
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1distanceJoint(JNIEnv*, jclass) {
+    return b2_distanceJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1filterJoint(JNIEnv*, jclass) {
+    return b2_filterJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1motorJoint(JNIEnv*, jclass) {
+    return b2_motorJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1mouseJoint(JNIEnv*, jclass) {
+    return b2_mouseJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1prismaticJoint(JNIEnv*, jclass) {
+    return b2_prismaticJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1revoluteJoint(JNIEnv*, jclass) {
+    return b2_revoluteJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1weldJoint(JNIEnv*, jclass) {
+    return b2_weldJoint;
+}
+JNIEXPORT jint JNICALL Java_box2d_b2JointType__1getb2_1wheelJoint(JNIEnv*, jclass) {
+    return b2_wheelJoint;
 }
 
 

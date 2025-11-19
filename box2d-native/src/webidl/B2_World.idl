@@ -2,67 +2,67 @@
 interface B2_World {
     // World creation and management
     static void defaultWorldDef([Ref] b2WorldDef result);
-    static void createWorld([Const] b2WorldDef def, [Ref] b2WorldId result);
-    static void destroyWorld([Value] b2WorldId result);
-    static boolean isValid([Value] b2WorldId id);
+    static unsigned long long createWorld([Const] b2WorldDef def);
+    static void destroyWorld(unsigned long long worldId);
+    static boolean isValid(unsigned long long worldId);
 
     // Simulation
-    static void step([Value] b2WorldId world, float timeStep, long subStepCount);
-    // static void draw([Value] b2WorldId worldId, b2DebugDraw draw);
+    static void step(unsigned long long world, float timeStep, long subStepCount);
+    // static void draw(unsigned long long worldId, b2DebugDraw draw);
 
     // Event handling
-    [Value] static b2BodyEvents getBodyEvents([Value] b2WorldId worldId);
-    [Value] static b2SensorEvents getSensorEvents([Value] b2WorldId worldId);
-    [Value] static b2ContactEvents getContactEvents([Value] b2WorldId worldId);
+    [Value] static b2BodyEvents getBodyEvents(unsigned long long worldId);
+    [Value] static b2SensorEvents getSensorEvents(unsigned long long worldId);
+    [Value] static b2ContactEvents getContactEvents(unsigned long long worldId);
 
     // Query and collision detection
-    // [Value] static b2TreeStats overlapAABB([Value] b2WorldId worldId, [Value] b2AABB aabb, [Value] b2QueryFilter filter, b2OverlapResultFcn fcn, VoidPtr context);
-    // [Value] static b2TreeStats overlapShape([Value] b2WorldId worldId, [Const] b2ShapeProxy proxy, [Value] b2QueryFilter filter, b2OverlapResultFcn fcn, VoidPtr context);
-    // [Value] static b2TreeStats castRay([Value] b2WorldId worldId, [Value] b2Vec2 origin, [Value] b2Vec2 translation, [Value] b2QueryFilter filter, b2CastResultFcn fcn, VoidPtr context);
-    // [Value] static b2RayResult castRayClosest([Value] b2WorldId worldId, [Value] b2Vec2 origin, [Value] b2Vec2 translation, [Value] b2QueryFilter filter);
-    // [Value] static b2TreeStats castShape([Value] b2WorldId worldId, [Const] b2ShapeProxy proxy, [Value] b2Vec2 translation, [Value] b2QueryFilter filter, b2CastResultFcn fcn, VoidPtr context);
-    // static float castMover([Value] b2WorldId worldId, [Const] b2Capsule mover, [Value] b2Vec2 translation, [Value] b2QueryFilter filter);
-    // static void collideMover([Value] b2WorldId worldId, [Const] b2Capsule mover, [Value] b2QueryFilter filter, b2PlaneResultFcn fcn, VoidPtr context);
+    // [Value] static b2TreeStats overlapAABB(unsigned long long worldId, [Value] b2AABB aabb, [Value] b2QueryFilter filter, b2OverlapResultFcn fcn, VoidPtr context);
+    // [Value] static b2TreeStats overlapShape(unsigned long long worldId, [Const] b2ShapeProxy proxy, [Value] b2QueryFilter filter, b2OverlapResultFcn fcn, VoidPtr context);
+    // [Value] static b2TreeStats castRay(unsigned long long worldId, [Value] b2Vec2 origin, [Value] b2Vec2 translation, [Value] b2QueryFilter filter, b2CastResultFcn fcn, VoidPtr context);
+    // [Value] static b2RayResult castRayClosest(unsigned long long worldId, [Value] b2Vec2 origin, [Value] b2Vec2 translation, [Value] b2QueryFilter filter);
+    // [Value] static b2TreeStats castShape(unsigned long long worldId, [Const] b2ShapeProxy proxy, [Value] b2Vec2 translation, [Value] b2QueryFilter filter, b2CastResultFcn fcn, VoidPtr context);
+    // static float castMover(unsigned long long worldId, [Const] b2Capsule mover, [Value] b2Vec2 translation, [Value] b2QueryFilter filter);
+    // static void collideMover(unsigned long long worldId, [Const] b2Capsule mover, [Value] b2QueryFilter filter, b2PlaneResultFcn fcn, VoidPtr context);
 
     // World settings
-    static void enableSleeping([Value] b2WorldId worldId, boolean flag);
-    static boolean isSleepingEnabled([Value] b2WorldId worldId);
-    static void enableContinuous([Value] b2WorldId worldId, boolean flag);
-    static boolean isContinuousEnabled([Value] b2WorldId worldId);
-    static void setRestitutionThreshold([Value] b2WorldId worldId, float value);
-    static float getRestitutionThreshold([Value] b2WorldId worldId);
-    static void setHitEventThreshold([Value] b2WorldId worldId, float value);
-    static float getHitEventThreshold([Value] b2WorldId worldId);
-    static void setGravity([Value] b2WorldId worldId, [Value] b2Vec2 gravity);
-    [Value] static b2Vec2 getGravity([Value] b2WorldId worldId);
+    static void enableSleeping(unsigned long long worldId, boolean flag);
+    static boolean isSleepingEnabled(unsigned long long worldId);
+    static void enableContinuous(unsigned long long worldId, boolean flag);
+    static boolean isContinuousEnabled(unsigned long long worldId);
+    static void setRestitutionThreshold(unsigned long long worldId, float value);
+    static float getRestitutionThreshold(unsigned long long worldId);
+    static void setHitEventThreshold(unsigned long long worldId, float value);
+    static float getHitEventThreshold(unsigned long long worldId);
+    static void setGravity(unsigned long long worldId, [Value] b2Vec2 gravity);
+    [Value] static b2Vec2 getGravity(unsigned long long worldId);
 
     // Callbacks
-    // static void setCustomFilterCallback([Value] b2WorldId worldId, b2CustomFilterFcn fcn, VoidPtr context);
-    // static void setPreSolveCallback([Value] b2WorldId worldId, b2PreSolveFcn fcn, VoidPtr context);
-    // static void setFrictionCallback([Value] b2WorldId worldId, b2FrictionCallback callback);
-    // static void setRestitutionCallback([Value] b2WorldId worldId, b2RestitutionCallback callback);
+    // static void setCustomFilterCallback(unsigned long long worldId, b2CustomFilterFcn fcn, VoidPtr context);
+    // static void setPreSolveCallback(unsigned long long worldId, b2PreSolveFcn fcn, VoidPtr context);
+    // static void setFrictionCallback(unsigned long long worldId, b2FrictionCallback callback);
+    // static void setRestitutionCallback(unsigned long long worldId, b2RestitutionCallback callback);
 
     // Advanced features
-    static void explode([Value] b2WorldId worldId, [Const] b2ExplosionDef explosionDef);
-    static void setContactTuning([Value] b2WorldId worldId, float hertz, float dampingRatio, float pushSpeed);
-    static void setMaximumLinearSpeed([Value] b2WorldId worldId, float maximumLinearSpeed);
-    static float getMaximumLinearSpeed([Value] b2WorldId worldId);
-    static void enableWarmStarting([Value] b2WorldId worldId, boolean flag);
-    static boolean isWarmStartingEnabled([Value] b2WorldId worldId);
+    static void explode(unsigned long long worldId, [Const] b2ExplosionDef explosionDef);
+    static void setContactTuning(unsigned long long worldId, float hertz, float dampingRatio, float pushSpeed);
+    static void setMaximumLinearSpeed(unsigned long long worldId, float maximumLinearSpeed);
+    static float getMaximumLinearSpeed(unsigned long long worldId);
+    static void enableWarmStarting(unsigned long long worldId, boolean flag);
+    static boolean isWarmStartingEnabled(unsigned long long worldId);
 
     // Statistics and debugging
-    static long getAwakeBodyCount([Value] b2WorldId worldId);
-    [Value] static b2Profile getProfile([Value] b2WorldId worldId);
-    [Value] static b2Counters getCounters([Value] b2WorldId worldId);
-    static void dumpMemoryStats([Value] b2WorldId worldId);
+    static long getAwakeBodyCount(unsigned long long worldId);
+    [Value] static b2Profile getProfile(unsigned long long worldId);
+    [Value] static b2Counters getCounters(unsigned long long worldId);
+    static void dumpMemoryStats(unsigned long long worldId);
 
     // User data
-    static void setUserData([Value] b2WorldId worldId, VoidPtr userData);
-    static VoidPtr getUserData([Value] b2WorldId worldId);
+    static void setUserData(unsigned long long worldId, VoidPtr userData);
+    static VoidPtr getUserData(unsigned long long worldId);
 
     // Internal testing functions
-    static void rebuildStaticTree([Value] b2WorldId worldId);
-    static void enableSpeculative([Value] b2WorldId worldId, boolean flag);
+    static void rebuildStaticTree(unsigned long long worldId);
+    static void enableSpeculative(unsigned long long worldId, boolean flag);
 };
 
 [StackAllocatable]
@@ -182,13 +182,6 @@ interface b2WorldDef {
     // b2FinishTaskCallback * 	finishTask
     // attribute VoidPtr userTaskContext;
     attribute VoidPtr userData;
-};
-
-[StackAllocatable]
-interface b2WorldId {
-    void b2WorldId();
-    attribute unsigned short generation;
-    attribute unsigned short index1;
 };
 
 interface b2Counters {

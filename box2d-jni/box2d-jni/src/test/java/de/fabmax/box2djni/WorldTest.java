@@ -16,8 +16,7 @@ public class WorldTest {
             grav.setX(0.0f);
             grav.setY(-10.0f);
             worldDef.setGravity(grav);
-            var worldId = new b2WorldId();
-            B2_World.createWorld(worldDef, worldId);
+            var worldId = B2_World.createWorld(worldDef);
 
             var groundBodyDef = b2BodyDef.createAt(stack, MemoryStack::nmalloc);
             B2_Body.defaultBodyDef(groundBodyDef);
@@ -25,15 +24,13 @@ public class WorldTest {
             groundPos.setX(0.0f);
             groundPos.setY(-10.0f);
             groundBodyDef.setPosition(groundPos);
-            var groundId = new b2BodyId();
-            B2_Body.createBody(worldId, groundBodyDef, groundId);
+            var groundId = B2_Body.createBody(worldId, groundBodyDef);
 
             var groundBox = b2Polygon.createAt(stack, MemoryStack::nmalloc);
             B2_Geometry.makeBox(50.0f, 10.0f, groundBox);
             var groundShapeDef = b2ShapeDef.createAt(stack, MemoryStack::nmalloc);
             B2_Shape.defaultShapeDef(groundShapeDef);
-            var groundShapeId = new b2ShapeId();
-            B2_Shape.createPolygonShape(groundId, groundShapeDef, groundBox, groundShapeId);
+            B2_Shape.createPolygonShape(groundId, groundShapeDef, groundBox);
 
 
             var bodyDef = b2BodyDef.createAt(stack, MemoryStack::nmalloc);
@@ -43,8 +40,7 @@ public class WorldTest {
             bodyPos.setX(0.0f);
             bodyPos.setY(10.0f);
             bodyDef.setPosition(bodyPos);
-            var bodyId = new b2BodyId();
-            B2_Body.createBody(worldId, bodyDef, bodyId);
+            var bodyId = B2_Body.createBody(worldId, bodyDef);
 
             var dynamicBox = b2Polygon.createAt(stack, MemoryStack::nmalloc);
             B2_Geometry.makeBox(1f, 1f, dynamicBox);
@@ -54,8 +50,7 @@ public class WorldTest {
             var material = shapeDef.getMaterial();
             material.setFriction(0.3f);
             shapeDef.setMaterial(material);
-            var bodyShapeId = new b2ShapeId();
-            B2_Shape.createPolygonShape(bodyId, shapeDef, dynamicBox, bodyShapeId);
+            B2_Shape.createPolygonShape(bodyId, shapeDef, dynamicBox);
 
             float timeStep = 1f / 60f;
             int subStepCount = 4;
@@ -73,12 +68,6 @@ public class WorldTest {
             assertEquals(0.0f, B2_Rot.getAngle(B2_Body.getRotation(bodyId)), 0.01f);
 
             B2_World.destroyWorld(worldId);
-
-            groundId.destroy();
-            groundShapeId.destroy();
-            bodyId.destroy();
-            bodyShapeId.destroy();
-            worldId.destroy();
         }
     }
 }

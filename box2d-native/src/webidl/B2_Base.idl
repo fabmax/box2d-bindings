@@ -2,10 +2,60 @@
 interface B2_Base {
     [Value] static b2Version getVersion();
     static long getByteCount();
+
+    static unsigned long long storeWorldId([Value] b2WorldId worldId);
+    static void loadWorldId(unsigned long long worldId, [Ref] b2WorldId result);
+    static unsigned long long storeBodyId([Value] b2BodyId bodyId);
+    static void loadBodyId(unsigned long long bodyId, [Ref] b2BodyId result);
+    static unsigned long long storeShapeId([Value] b2ShapeId shapeId);
+    static void loadShapeId(unsigned long long shapeId, [Ref] b2ShapeId result);
+    static unsigned long long storeChainId([Value] b2ChainId chainId);
+    static void loadChainId(unsigned long long chainId, [Ref] b2ChainId result);
+    static unsigned long long storeJointId([Value] b2JointId jointId);
+    static void loadJointId(unsigned long long jointId, [Ref] b2JointId result);
 };
 
 interface b2Version {
     attribute long major;
     attribute long minor;
     attribute long revision;
+};
+
+[StackAllocatable]
+interface b2WorldId {
+    void b2WorldId();
+    attribute unsigned short generation;
+    attribute unsigned short index1;
+};
+
+[StackAllocatable]
+interface b2BodyId {
+    void b2BodyId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
+};
+
+[StackAllocatable]
+interface b2ShapeId {
+    void b2ShapeId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
+};
+
+[StackAllocatable]
+interface b2ChainId {
+    void b2ChainId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
+};
+
+[StackAllocatable]
+interface b2JointId {
+    void b2JointId();
+    attribute unsigned short generation;
+    attribute long index1;
+    attribute unsigned short world0;
 };
