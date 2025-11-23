@@ -1,9 +1,7 @@
 #pragma once
 
-#ifndef __EMSCRIPTEN__
-    #include "EnkiTS_integration.hpp"
-#endif
 #include <box2d/box2d.h>
+#include "TaskManager.hpp"
 
 class b2CustomFilterFcnI;
 class b2PreSolveFcnI;

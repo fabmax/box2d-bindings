@@ -78,12 +78,6 @@ interface TaskManagerImpl {
     void finishTask(unsigned long long userTask);
 };
 
-interface EnkiTaskManager {
-    void EnkiTaskManager([Ref] b2WorldDef worldDef, long threadCount);
-    void stepWorld(unsigned long long worldId, float timeStep, long subStepCount);
-};
-EnkiTaskManager implements TaskManager;
-
 [StackAllocatable]
 interface b2BodyEvents {
     attribute long moveCount;

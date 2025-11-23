@@ -42,15 +42,7 @@ FetchContent_Declare(
     GIT_TAG        v3.1.1
     GIT_SHALLOW    TRUE
 )
-
-set(ENKITS_BUILD_EXAMPLES OFF CACHE BOOL "Build enkiTS examples")
-FetchContent_Declare(
-    enkiTS
-    GIT_REPOSITORY https://github.com/dougbinks/enkiTS.git
-    GIT_TAG        d0e74e1b0ed5886d600c09809d572fcdee418f27
-    GIT_SHALLOW    TRUE
-)
-FetchContent_MakeAvailable(box2d enkiTS)
+FetchContent_MakeAvailable(box2d)
 
 set(JAVA_AWT_LIBRARY NotNeeded)
 set(JAVA_JVM_LIBRARY NotNeeded)
@@ -66,7 +58,7 @@ target_include_directories(Box2dJniBindings PRIVATE
     src/webidlbindings
 )
 
-target_link_libraries(Box2dJniBindings PRIVATE box2d enkiTS)
+target_link_libraries(Box2dJniBindings PRIVATE box2d)
 
 # Platform-specific configurations
 if(APPLE)
