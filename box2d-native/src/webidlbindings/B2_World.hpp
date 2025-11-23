@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __EMSCRIPTEN__
+    #include "EnkiTS_integration.hpp"
+#endif
 #include <box2d/box2d.h>
 
 class b2CustomFilterFcnI;

@@ -40,8 +40,17 @@ FetchContent_Declare(
     box2d
     GIT_REPOSITORY https://github.com/erincatto/box2d.git
     GIT_TAG        v3.1.1
+    GIT_SHALLOW    TRUE
 )
-FetchContent_MakeAvailable(box2d)
+
+set(ENKITS_BUILD_EXAMPLES OFF CACHE BOOL "Build enkiTS examples")
+FetchContent_Declare(
+    enkiTS
+    GIT_REPOSITORY https://github.com/dougbinks/enkiTS.git
+    GIT_TAG        d0e74e1b0ed5886d600c09809d572fcdee418f27
+    GIT_SHALLOW    TRUE
+)
+FetchContent_MakeAvailable(box2d enkiTS)
 
 set(JAVA_AWT_LIBRARY NotNeeded)
 set(JAVA_JVM_LIBRARY NotNeeded)
@@ -54,9 +63,10 @@ add_library(Box2dJniBindings SHARED
 target_include_directories(Box2dJniBindings PRIVATE
     ${JNI_INCLUDE_DIRS}
     src/webidlbindings/jni
+    src/webidlbindings
 )
 
-target_link_libraries(Box2dJniBindings PRIVATE box2d)
+target_link_libraries(Box2dJniBindings PRIVATE box2d enkiTS)
 
 # Platform-specific configurations
 if(APPLE)

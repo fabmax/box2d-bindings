@@ -7,7 +7,7 @@ interface B2_World {
     static boolean isValid(unsigned long long worldId);
 
     // Simulation
-    static void step(unsigned long long world, float timeStep, long subStepCount);
+    static void step(unsigned long long worldId, float timeStep, long subStepCount);
     static void draw(unsigned long long worldId, b2DebugDraw draw, b2DebugDrawCallbacks callbacks);
 
     // Event handling
@@ -63,6 +63,10 @@ interface B2_World {
     // Internal testing functions
     static void rebuildStaticTree(unsigned long long worldId);
     static void enableSpeculative(unsigned long long worldId, boolean flag);
+};
+
+interface TaskManager {
+    void TaskManager([Ref] b2WorldDef worldDef, long threadCount);
 };
 
 [StackAllocatable]
