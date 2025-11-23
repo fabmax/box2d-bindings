@@ -66,9 +66,23 @@ interface B2_World {
 };
 
 interface TaskManager {
-    void TaskManager([Ref] b2WorldDef worldDef, long threadCount);
+    void install([Ref] b2WorldDef worldDef, long threadCount);
+    void stepWorld(unsigned long long worldId, float timeStep, long subStepCount);
+    void executeTask(unsigned long start, unsigned long end, unsigned long threadIndex, unsigned long long box2dTask, unsigned long long box2dContext);
+};
+
+[JSImplementation="TaskManager"]
+interface TaskManagerImpl {
+    void TaskManagerImpl();
+    unsigned long long enqueueTask(unsigned long long box2dTask, long itemCount, long minRange, unsigned long long box2dContext);
+    void finishTask(unsigned long long userTask);
+};
+
+interface EnkiTaskManager {
+    void EnkiTaskManager([Ref] b2WorldDef worldDef, long threadCount);
     void stepWorld(unsigned long long worldId, float timeStep, long subStepCount);
 };
+EnkiTaskManager implements TaskManager;
 
 [StackAllocatable]
 interface b2BodyEvents {
