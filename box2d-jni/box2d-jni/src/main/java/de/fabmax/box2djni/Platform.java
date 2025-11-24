@@ -3,8 +3,9 @@ package de.fabmax.box2djni;
 public enum Platform {
 
     LINUX("de.fabmax.box2djni.linux.NativeLibLinux"),
+    LINUX_ARM64("de.fabmax.box2djni.linuxarm64.NativeLibLinuxArm64"),
     WINDOWS("de.fabmax.box2djni.windows.NativeLibWindows"),
-    WINDOWS_ARM64("de.fabmax.box2djni.windows.arm64.NativeLibWindowsArm64"),
+    WINDOWS_ARM64("de.fabmax.box2djni.windowsarm64.NativeLibWindowsArm64"),
     MACOS("de.fabmax.box2djni.macos.NativeLibMacos");
 
     private final String metaClassName;
@@ -32,7 +33,11 @@ public enum Platform {
                 return WINDOWS;
             }
         } else if (osName.contains("linux")) {
-            return LINUX;
+            if (arch.contains("aarch64") || arch.contains("arm64")) {
+                return LINUX_ARM64;
+            } else {
+                return LINUX;
+            }
         } else if (osName.contains("mac os x") || osName.contains("darwin") || osName.contains("osx")) {
             return MACOS;
         } else {

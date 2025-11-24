@@ -28,15 +28,15 @@ elseif(WIN32)
     message(STATUS "Windows architecture: ${WIN_ARCH}")
     
 elseif(UNIX AND NOT APPLE)
-    message(STATUS "Building for Linux")
-    
     # Detect architecture on Linux
-    execute_process(
-        COMMAND uname -m
-        OUTPUT_VARIABLE ARCH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-    message(STATUS "Detected architecture: ${ARCH}")
+    if(CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" OR CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")
+        message(STATUS "Building for Linux ARM64")
+        set(LINUX_ARCH "arm64")
+    else()
+        message(STATUS "Building for Linux x64")
+        set(LINUX_ARCH "x64")
+    endif()
+    message(STATUS "Linux architecture: ${LINUX_ARCH}")
     
 else()
     message(STATUS "Building for unknown platform")
@@ -88,6 +88,11 @@ if(WIN32)
     set_target_properties(Box2dJniBindings PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${WIN_ARCH}"
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${WIN_ARCH}"
+    )
+elseif(UNIX AND NOT APPLE)
+    set_target_properties(Box2dJniBindings PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${LINUX_ARCH}"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${LINUX_ARCH}"
     )
 else()
     set_target_properties(Box2dJniBindings PROPERTIES
