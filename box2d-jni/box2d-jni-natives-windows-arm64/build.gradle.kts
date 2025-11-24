@@ -11,35 +11,35 @@ tasks["sourcesJar"].apply {
     exclude("**/*.sha1")
 }
 
-tasks.register<Exec>("generateNativeProjectWindows") {
+tasks.register<Exec>("generateNativeProjectWindowsArm64") {
     group = "native build"
-    workingDir = File("$rootDir/../box2d-native/build")
-    commandLine = listOf("cmake", "-DBOX2D_AVX2=On", "..")
+    workingDir = File("$rootDir/../box2d-native/build-arm64")
+    commandLine = listOf("cmake", "-DBOX2D_AVX2=Off", "-DCMAKE_TOOLCHAIN_FILE=../cmake/WindowsArm64.cmake", "-A", "ARM64", "..")
 
     doFirst {
-        delete("$rootDir/../box2d-native/build")
-        mkdir("$rootDir/../box2d-native/build")
+        delete("$rootDir/../box2d-native/build-arm64")
+        mkdir("$rootDir/../box2d-native/build-arm64")
     }
 }
 
-tasks.register<Exec>("buildNativeLibWindows") {
+tasks.register<Exec>("buildNativeLibWindowsArm64") {
     dependsOn(":box2d-jni:generateJniNativeBindings")
 
     group = "native build"
-    workingDir = File("$rootDir/../box2d-native/build")
+    workingDir = File("$rootDir/../box2d-native/build-arm64")
     commandLine = listOf("cmake", "--build", ".", "--config", "Release")
     //environment("VERBOSE", "1")
     if (!workingDir.exists()) {
-        dependsOn("generateNativeProjectWindows")
+        dependsOn("generateNativeProjectWindowsArm64")
     }
 
-    val resourcesDir = "${projectDir}/src/main/resources/de/fabmax/box2djni/windows/"
+    val resourcesDir = "${projectDir}/src/main/resources/de/fabmax/box2djni/windowsarm64/"
     doFirst {
         delete(resourcesDir)
     }
     doLast {
         copy {
-            from("$rootDir/../box2d-native/build/bin/Release")
+            from("$rootDir/../box2d-native/build-arm64/bin/arm64/Release")
             include("*.dll")
             into(resourcesDir)
         }

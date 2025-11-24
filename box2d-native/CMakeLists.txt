@@ -17,7 +17,15 @@ if(APPLE)
     message(STATUS "Minimum macOS deployment target: ${CMAKE_OSX_DEPLOYMENT_TARGET}")
     
 elseif(WIN32)
-    message(STATUS "Building for Windows")
+    # Detect Windows architecture
+    if(CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64" OR CMAKE_SYSTEM_PROCESSOR STREQUAL "ARM64")
+        message(STATUS "Building for Windows ARM64")
+        set(WIN_ARCH "arm64")
+    else()
+        message(STATUS "Building for Windows x64")
+        set(WIN_ARCH "x64")
+    endif()
+    message(STATUS "Windows architecture: ${WIN_ARCH}")
     
 elseif(UNIX AND NOT APPLE)
     message(STATUS "Building for Linux")
@@ -76,7 +84,14 @@ if(APPLE)
 endif()
 
 # Set output directory for better organization
-set_target_properties(Box2dJniBindings PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-)
+if(WIN32)
+    set_target_properties(Box2dJniBindings PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${WIN_ARCH}"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${WIN_ARCH}"
+    )
+else()
+    set_target_properties(Box2dJniBindings PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+    )
+endif()
