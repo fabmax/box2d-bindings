@@ -1,0 +1,27 @@
+{
+  "name": "fabmax-box2d-wasm",
+  "version": "1.0.0",
+  "description": "Javascript/WASM bindings for Box2D 3.1.1",
+  "author": "fabmax",
+  "main": "box2d-wasm.mjs",
+  "files": [
+    "box2d-wasm.mjs",
+    "box2d-wasm.wasm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabmax/box2d-bindings.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fabmax/box2d-bindings/issues"
+  },
+  "homepage": "https://github.com/fabmax/box2d-bindings#readme",
+  "keywords": [
+    "physics",
+    "emscripten",
+    "WebIDL",
+    "webassembly",
+    "Box2D"
+  ],
+  "license": "MIT License"
+}

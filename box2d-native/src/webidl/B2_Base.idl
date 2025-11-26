@@ -3,15 +3,15 @@ interface B2_Base {
     [Value] static b2Version getVersion();
     static long getByteCount();
 
-    static unsigned long long storeWorldId([Value] b2WorldId worldId);
+    static unsigned long long storeWorldId([Ref] b2WorldId worldId);
     static void loadWorldId(unsigned long long worldId, [Ref] b2WorldId result);
-    static unsigned long long storeBodyId([Value] b2BodyId bodyId);
+    static unsigned long long storeBodyId([Ref] b2BodyId bodyId);
     static void loadBodyId(unsigned long long bodyId, [Ref] b2BodyId result);
-    static unsigned long long storeShapeId([Value] b2ShapeId shapeId);
+    static unsigned long long storeShapeId([Ref] b2ShapeId shapeId);
     static void loadShapeId(unsigned long long shapeId, [Ref] b2ShapeId result);
-    static unsigned long long storeChainId([Value] b2ChainId chainId);
+    static unsigned long long storeChainId([Ref] b2ChainId chainId);
     static void loadChainId(unsigned long long chainId, [Ref] b2ChainId result);
-    static unsigned long long storeJointId([Value] b2JointId jointId);
+    static unsigned long long storeJointId([Ref] b2JointId jointId);
     static void loadJointId(unsigned long long jointId, [Ref] b2JointId result);
 };
 
@@ -63,7 +63,7 @@ interface b2JointId {
 [StackAllocatable]
 interface b2ShapeIdArray {
     void b2ShapeIdArray(unsigned long length);
-    void set(unsigned long index, [Value] b2ShapeId value);
+    void set(unsigned long index, [Ref] b2ShapeId value);
     b2ShapeId get(unsigned long index);
     attribute unsigned long length;
 };
@@ -71,7 +71,7 @@ interface b2ShapeIdArray {
 [StackAllocatable]
 interface b2JointIdArray {
     void b2JointIdArray(unsigned long length);
-    void set(unsigned long index, [Value] b2JointId value);
+    void set(unsigned long index, [Ref] b2JointId value);
     b2JointId get(unsigned long index);
     attribute unsigned long length;
 };
@@ -79,7 +79,7 @@ interface b2JointIdArray {
 [StackAllocatable]
 interface b2ContactDataArray {
     void b2ContactDataArray(unsigned long length);
-    void set(unsigned long index, [Value] b2ContactData value);
+    void set(unsigned long index, [Ref] b2ContactData value);
     b2ContactData get(unsigned long index);
     attribute unsigned long length;
 };
@@ -87,7 +87,7 @@ interface b2ContactDataArray {
 [StackAllocatable]
 interface b2CollisionPlaneArray {
     void b2CollisionPlaneArray(unsigned long length);
-    void set(unsigned long index,[Value] b2CollisionPlane value);
+    void set(unsigned long index,[Ref] b2CollisionPlane value);
     b2CollisionPlane get(unsigned long index);
     attribute unsigned long length;
 };
@@ -95,7 +95,7 @@ interface b2CollisionPlaneArray {
 [StackAllocatable]
 interface b2Vec2Array {
     void b2Vec2Array(unsigned long length);
-    void set(unsigned long index, [Value] b2Vec2 value);
+    void set(unsigned long index, [Ref] b2Vec2 value);
     b2Vec2 get(unsigned long index);
     attribute unsigned long length;
 };

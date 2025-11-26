@@ -13,28 +13,28 @@ class B2_Shape {
     /// Create a circle shape and attach it to a body. The shape definition and geometry are fully cloned.
     /// Contacts are not created until the next time step.
     /// @return the shape id for accessing the shape
-    static inline uint64_t createCircleShape(uint64_t bodyId, b2ShapeDef* def, b2Circle* circle) {
+    static inline uint64_t createCircleShape(uint64_t bodyId, const b2ShapeDef* def, const b2Circle* circle) {
         return b2StoreShapeId(b2CreateCircleShape(b2LoadBodyId(bodyId), def, circle));
     }
 
     /// Create a line segment shape and attach it to a body. The shape definition and geometry are fully cloned.
     /// Contacts are not created until the next time step.
     /// @return the shape id for accessing the shape
-    static inline uint64_t createSegmentShape(uint64_t bodyId, b2ShapeDef* def, b2Segment* segment) {
+    static inline uint64_t createSegmentShape(uint64_t bodyId, const b2ShapeDef* def, const b2Segment* segment) {
         return b2StoreShapeId(b2CreateSegmentShape(b2LoadBodyId(bodyId), def, segment));
     }
 
     /// Create a capsule shape and attach it to a body. The shape definition and geometry are fully cloned.
     /// Contacts are not created until the next time step.
     /// @return the shape id for accessing the shape
-    static inline uint64_t createCapsuleShape(uint64_t bodyId, b2ShapeDef* def, b2Capsule* capsule) {
+    static inline uint64_t createCapsuleShape(uint64_t bodyId, const b2ShapeDef* def, const b2Capsule* capsule) {
         return b2StoreShapeId(b2CreateCapsuleShape(b2LoadBodyId(bodyId), def, capsule));
     }
 
     /// Create a polygon shape and attach it to a body. The shape definition and geometry are fully cloned.
     /// Contacts are not created until the next time step.
     /// @return the shape id for accessing the shape
-    static inline uint64_t createPolygonShape(uint64_t bodyId, b2ShapeDef* def, b2Polygon* polygon) {
+    static inline uint64_t createPolygonShape(uint64_t bodyId, const b2ShapeDef* def, const b2Polygon* polygon) {
         return b2StoreShapeId(b2CreatePolygonShape(b2LoadBodyId(bodyId), def, polygon));
     }
 
@@ -203,7 +203,7 @@ class B2_Shape {
     }
 
     /// Ray cast a shape directly
-    static inline b2CastOutput rayCast(uint64_t shapeId, b2RayCastInput* input) {
+    static inline b2CastOutput rayCast(uint64_t shapeId, const b2RayCastInput* input) {
         return b2Shape_RayCast(b2LoadShapeId(shapeId), input);
     }
 
@@ -236,26 +236,26 @@ class B2_Shape {
     /// Allows you to change a shape to be a circle or update the current circle.
     /// This does not modify the mass properties.
     /// @see b2Body_ApplyMassFromShapes
-    static inline void setCircle(uint64_t shapeId, b2Circle* circle) {
+    static inline void setCircle(uint64_t shapeId, const b2Circle* circle) {
         b2Shape_SetCircle(b2LoadShapeId(shapeId), circle);
     }
 
     /// Allows you to change a shape to be a capsule or update the current capsule.
     /// This does not modify the mass properties.
     /// @see b2Body_ApplyMassFromShapes
-    static inline void setCapsule(uint64_t shapeId, b2Capsule* capsule) {
+    static inline void setCapsule(uint64_t shapeId, const b2Capsule* capsule) {
         b2Shape_SetCapsule(b2LoadShapeId(shapeId), capsule);
     }
 
     /// Allows you to change a shape to be a segment or update the current segment.
-    static inline void setSegment(uint64_t shapeId, b2Segment* segment) {
+    static inline void setSegment(uint64_t shapeId, const b2Segment* segment) {
         b2Shape_SetSegment(b2LoadShapeId(shapeId), segment);
     }
 
     /// Allows you to change a shape to be a polygon or update the current polygon.
     /// This does not modify the mass properties.
     /// @see b2Body_ApplyMassFromShapes
-    static inline void setPolygon(uint64_t shapeId, b2Polygon* polygon) {
+    static inline void setPolygon(uint64_t shapeId, const b2Polygon* polygon) {
         b2Shape_SetPolygon(b2LoadShapeId(shapeId), polygon);
     }
 
@@ -322,7 +322,7 @@ class B2_Chain {
 
     /// Create a chain shape
     /// @see b2ChainDef for details
-    static inline uint64_t createChain(uint64_t bodyId, b2ChainDef* def) {
+    static inline uint64_t createChain(uint64_t bodyId, const b2ChainDef* def) {
         return b2StoreChainId(b2CreateChain(b2LoadBodyId(bodyId), def));
     }
 

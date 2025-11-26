@@ -39,7 +39,7 @@ public class B2_Base extends NativeObject {
     }
 
     /**
-     * @param worldId WebIDL type: {@link b2WorldId} [Value]
+     * @param worldId WebIDL type: {@link b2WorldId} [Ref]
      * @return WebIDL type: unsigned long long
      */
     public static long storeWorldId(b2WorldId worldId) {
@@ -55,7 +55,7 @@ public class B2_Base extends NativeObject {
     }
 
     /**
-     * @param bodyId WebIDL type: {@link b2BodyId} [Value]
+     * @param bodyId WebIDL type: {@link b2BodyId} [Ref]
      * @return WebIDL type: unsigned long long
      */
     public static long storeBodyId(b2BodyId bodyId) {
@@ -71,7 +71,7 @@ public class B2_Base extends NativeObject {
     }
 
     /**
-     * @param shapeId WebIDL type: {@link b2ShapeId} [Value]
+     * @param shapeId WebIDL type: {@link b2ShapeId} [Ref]
      * @return WebIDL type: unsigned long long
      */
     public static long storeShapeId(b2ShapeId shapeId) {
@@ -87,7 +87,7 @@ public class B2_Base extends NativeObject {
     }
 
     /**
-     * @param chainId WebIDL type: {@link b2ChainId} [Value]
+     * @param chainId WebIDL type: {@link b2ChainId} [Ref]
      * @return WebIDL type: unsigned long long
      */
     public static long storeChainId(b2ChainId chainId) {
@@ -103,7 +103,7 @@ public class B2_Base extends NativeObject {
     }
 
     /**
-     * @param jointId WebIDL type: {@link b2JointId} [Value]
+     * @param jointId WebIDL type: {@link b2JointId} [Ref]
      * @return WebIDL type: unsigned long long
      */
     public static long storeJointId(b2JointId jointId) {

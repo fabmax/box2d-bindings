@@ -33,6 +33,9 @@ webidl {
             file("$rootDir/../box2d-native/src/webidlbindings"),
         ))
     }
+    generateCompactWebIdl {
+        outputFile.set(file("${rootDir}/../box2d-native/src/webidlbindings/wasm/box2d.idl"))
+    }
 }
 
 tasks.javadoc {

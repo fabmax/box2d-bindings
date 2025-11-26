@@ -62,7 +62,7 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param transform   WebIDL type: {@link b2Transform} [Value]
+     * @param transform   WebIDL type: {@link b2Transform} [Ref]
      * @param vertices    WebIDL type: {@link b2Vec2} [Const]
      * @param vertexCount WebIDL type: long
      * @param radius      WebIDL type: float
@@ -78,7 +78,7 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param center WebIDL type: {@link b2Vec2} [Value]
+     * @param center WebIDL type: {@link b2Vec2} [Ref]
      * @param radius WebIDL type: float
      * @param color  WebIDL type: long
      */
@@ -92,7 +92,7 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param transform WebIDL type: {@link b2Transform} [Value]
+     * @param transform WebIDL type: {@link b2Transform} [Ref]
      * @param radius    WebIDL type: float
      * @param color     WebIDL type: long
      */
@@ -106,8 +106,8 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param p1     WebIDL type: {@link b2Vec2} [Value]
-     * @param p2     WebIDL type: {@link b2Vec2} [Value]
+     * @param p1     WebIDL type: {@link b2Vec2} [Ref]
+     * @param p2     WebIDL type: {@link b2Vec2} [Ref]
      * @param radius WebIDL type: float
      * @param color  WebIDL type: long
      */
@@ -121,8 +121,8 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param p1    WebIDL type: {@link b2Vec2} [Value]
-     * @param p2    WebIDL type: {@link b2Vec2} [Value]
+     * @param p1    WebIDL type: {@link b2Vec2} [Ref]
+     * @param p2    WebIDL type: {@link b2Vec2} [Ref]
      * @param color WebIDL type: long
      */
     public void drawSegment(b2Vec2 p1, b2Vec2 p2, int color) { }
@@ -135,7 +135,7 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param transform WebIDL type: {@link b2Transform} [Value]
+     * @param transform WebIDL type: {@link b2Transform} [Ref]
      */
     public void drawTransform(b2Transform transform) { }
 
@@ -147,7 +147,7 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param p     WebIDL type: {@link b2Vec2} [Value]
+     * @param p     WebIDL type: {@link b2Vec2} [Ref]
      * @param size  WebIDL type: float
      * @param color WebIDL type: long
      */
@@ -161,8 +161,8 @@ public class b2DebugDrawCallbacksImpl extends b2DebugDrawCallbacks {
     }
 
     /**
-     * @param p     WebIDL type: {@link b2Vec2} [Value]
-     * @param s     WebIDL type: DOMString
+     * @param p     WebIDL type: {@link b2Vec2} [Ref]
+     * @param s     WebIDL type: DOMString [Const]
      * @param color WebIDL type: long
      */
     public void drawString(b2Vec2 p, String s, int color) { }

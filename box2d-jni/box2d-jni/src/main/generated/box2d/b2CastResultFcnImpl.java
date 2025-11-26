@@ -49,8 +49,8 @@ public class b2CastResultFcnImpl extends b2CastResultFcnI {
 
     /**
      * @param shapeId  WebIDL type: unsigned long long
-     * @param point    WebIDL type: {@link b2Vec2} [Value]
-     * @param normal   WebIDL type: {@link b2Vec2} [Value]
+     * @param point    WebIDL type: {@link b2Vec2} [Ref]
+     * @param normal   WebIDL type: {@link b2Vec2} [Ref]
      * @param fraction WebIDL type: float
      * @return WebIDL type: boolean
      */

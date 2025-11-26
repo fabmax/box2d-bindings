@@ -95,7 +95,7 @@ public class b2Vec2Array extends NativeObject {
 
     /**
      * @param index WebIDL type: unsigned long
-     * @param value WebIDL type: {@link b2Vec2} [Value]
+     * @param value WebIDL type: {@link b2Vec2} [Ref]
      */
     public void set(int index, b2Vec2 value) {
         checkNotNull();

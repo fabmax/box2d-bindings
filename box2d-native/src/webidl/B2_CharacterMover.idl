@@ -1,7 +1,7 @@
 [NoDelete]
 interface B2_CharacterMover {
-    [Value] static b2PlaneSolverResult solvePlanes([Value] b2Vec2 targetDelta, b2CollisionPlaneArray planes);
-    [Value] static b2Vec2 clipVector([Value] b2Vec2 vector, [Const] b2CollisionPlaneArray planes);
+    [Value] static b2PlaneSolverResult solvePlanes([Ref] b2Vec2 targetDelta, b2CollisionPlaneArray planes);
+    [Value] static b2Vec2 clipVector([Ref] b2Vec2 vector, [Const] b2CollisionPlaneArray planes);
 };
 
 [StackAllocatable]

@@ -1,83 +1,83 @@
 [NoDelete]
 interface B2_Vec2 {
-    static float dot([Value] b2Vec2 a, [Value] b2Vec2 b);
-    static float cross([Value] b2Vec2 a, [Value] b2Vec2 b);
-    static void crossVS([Value] b2Vec2 v, float s, [Ref] b2Vec2 result);
-    static void crossSV(float s, [Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static void leftPerp([Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static void rightPerp([Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static void add([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void sub([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void neg([Value] b2Vec2 a, [Ref] b2Vec2 result);
-    static void lerp([Value] b2Vec2 a, [Value] b2Vec2 b, float t, [Ref] b2Vec2 result);
-    static void mul([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void mulSV(float s, [Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static void mulAdd([Value] b2Vec2 a, float s, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void mulSub([Value] b2Vec2 a, float s, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void abs([Value] b2Vec2 a, [Ref] b2Vec2 result);
-    static void min([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void max([Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static void clamp([Value] b2Vec2 v, [Value] b2Vec2 a, [Value] b2Vec2 b, [Ref] b2Vec2 result);
-    static float length([Value] b2Vec2 v);
-    static float distance([Value] b2Vec2 a, [Value] b2Vec2 b);
-    static void normalize([Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static boolean isNormalized([Value] b2Vec2 a);
-    static float getLengthAndNormalize([Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static float lengthSquared([Value] b2Vec2 v);
-    static boolean isValid([Value] b2Vec2 v);
+    static float dot([Ref] b2Vec2 a, [Ref] b2Vec2 b);
+    static float cross([Ref] b2Vec2 a, [Ref] b2Vec2 b);
+    static void crossVS([Ref] b2Vec2 v, float s, [Ref] b2Vec2 result);
+    static void crossSV(float s, [Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static void leftPerp([Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static void rightPerp([Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static void add([Ref] b2Vec2 a, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void sub([Ref] b2Vec2 a, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void neg([Ref] b2Vec2 a, [Ref] b2Vec2 result);
+    static void lerp([Ref] b2Vec2 a, [Ref] b2Vec2 b, float t, [Ref] b2Vec2 result);
+    static void mul([Ref] b2Vec2 a, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void mulSV(float s, [Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static void mulAdd([Ref] b2Vec2 a, float s, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void mulSub([Ref] b2Vec2 a, float s, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void abs([Ref] b2Vec2 a, [Ref] b2Vec2 result);
+    static void min([Ref] b2Vec2 a, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void max([Ref] b2Vec2 a, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static void clamp([Ref] b2Vec2 v, [Ref] b2Vec2 a, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
+    static float length([Ref] b2Vec2 v);
+    static float distance([Ref] b2Vec2 a, [Ref] b2Vec2 b);
+    static void normalize([Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static boolean isNormalized([Ref] b2Vec2 a);
+    static float getLengthAndNormalize([Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static float lengthSquared([Ref] b2Vec2 v);
+    static boolean isValid([Ref] b2Vec2 v);
 };
 
 [NoDelete]
 interface B2_Rot {
-    static float getAngle([Value] b2Rot q);
-    static void getXAxis([Value] b2Rot q, [Ref] b2Vec2 result);
-    static void getYAxis([Value] b2Rot q, [Ref] b2Vec2 result);
+    static float getAngle([Ref] b2Rot q);
+    static void getXAxis([Ref] b2Rot q, [Ref] b2Vec2 result);
+    static void getYAxis([Ref] b2Rot q, [Ref] b2Vec2 result);
     static void makeRot(float radians, [Ref] b2Rot result);
-    static void normalize([Value] b2Rot q, [Ref] b2Rot result);
-    static boolean isNormalized([Value] b2Rot q);
-    static void integrateRotation([Value] b2Rot q1, float deltaAngle, [Ref] b2Rot result);
-    static void nLerp([Value] b2Rot q1, [Value] b2Rot q2, float t, [Ref] b2Rot result);
-    static void mulRot([Value] b2Rot q, [Value] b2Rot r, [Ref] b2Rot result);
-    static void invMulRot([Value] b2Rot q, [Value] b2Rot r, [Ref] b2Rot result);
-    static float relativeAngle([Value] b2Rot b, [Value] b2Rot a);
+    static void normalize([Ref] b2Rot q, [Ref] b2Rot result);
+    static boolean isNormalized([Ref] b2Rot q);
+    static void integrateRotation([Ref] b2Rot q1, float deltaAngle, [Ref] b2Rot result);
+    static void nLerp([Ref] b2Rot q1, [Ref] b2Rot q2, float t, [Ref] b2Rot result);
+    static void mulRot([Ref] b2Rot q, [Ref] b2Rot r, [Ref] b2Rot result);
+    static void invMulRot([Ref] b2Rot q, [Ref] b2Rot r, [Ref] b2Rot result);
+    static float relativeAngle([Ref] b2Rot b, [Ref] b2Rot a);
     static float unwindAngle(float radians);
-    static void rotateVector([Value] b2Rot q, [Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static void invRotateVector([Value] b2Rot q, [Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static float computeAngularVelocity([Value] b2Rot q1, [Value] b2Rot q2, float inv_h);
-    static void computeRotationBetweenUnitVectors([Value] b2Vec2 v1, [Value] b2Vec2 v2, [Ref] b2Rot result);
-    static boolean isValid([Value] b2Rot q);
+    static void rotateVector([Ref] b2Rot q, [Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static void invRotateVector([Ref] b2Rot q, [Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static float computeAngularVelocity([Ref] b2Rot q1, [Ref] b2Rot q2, float inv_h);
+    static void computeRotationBetweenUnitVectors([Ref] b2Vec2 v1, [Ref] b2Vec2 v2, [Ref] b2Rot result);
+    static boolean isValid([Ref] b2Rot q);
 };
 
 [NoDelete]
 interface B2_Transform {
-    static void transformPoint([Value] b2Transform t, [Value] b2Vec2 p, [Ref] b2Vec2 result);
-    static void invTransformPoint([Value] b2Transform t, [Value] b2Vec2 p, [Ref] b2Vec2 result);
-    static void mulTransforms([Value] b2Transform A, [Value] b2Transform B, [Ref] b2Transform result);
-    static void invMulTransforms([Value] b2Transform A, [Value] b2Transform B, [Ref] b2Transform result);
+    static void transformPoint([Ref] b2Transform t, [Ref] b2Vec2 p, [Ref] b2Vec2 result);
+    static void invTransformPoint([Ref] b2Transform t, [Ref] b2Vec2 p, [Ref] b2Vec2 result);
+    static void mulTransforms([Ref] b2Transform A, [Ref] b2Transform B, [Ref] b2Transform result);
+    static void invMulTransforms([Ref] b2Transform A, [Ref] b2Transform B, [Ref] b2Transform result);
 };
 
 [NoDelete]
 interface B2_Mat22 {
-    static void mulMV([Value] b2Mat22 A, [Value] b2Vec2 v, [Ref] b2Vec2 result);
-    static void getInverse22([Value] b2Mat22 A, [Ref] b2Mat22 result);
-    static void solve22([Value] b2Mat22 A, [Value] b2Vec2 b, [Ref] b2Vec2 result);
+    static void mulMV([Ref] b2Mat22 A, [Ref] b2Vec2 v, [Ref] b2Vec2 result);
+    static void getInverse22([Ref] b2Mat22 A, [Ref] b2Mat22 result);
+    static void solve22([Ref] b2Mat22 A, [Ref] b2Vec2 b, [Ref] b2Vec2 result);
 };
 
 [NoDelete]
 interface B2_AABB {
-    static boolean contains([Value] b2AABB a, [Value] b2AABB b);
-    static void center([Value] b2AABB a, [Ref] b2Vec2 result);
-    static void extents([Value] b2AABB a, [Ref] b2Vec2 result);
-    static void unionAABB([Value] b2AABB a, [Value] b2AABB b, [Ref] b2AABB result);
-    static boolean overlaps([Value] b2AABB a, [Value] b2AABB b);
+    static boolean contains([Ref] b2AABB a, [Ref] b2AABB b);
+    static void center([Ref] b2AABB a, [Ref] b2Vec2 result);
+    static void extents([Ref] b2AABB a, [Ref] b2Vec2 result);
+    static void unionAABB([Ref] b2AABB a, [Ref] b2AABB b, [Ref] b2AABB result);
+    static boolean overlaps([Ref] b2AABB a, [Ref] b2AABB b);
     // static void makeAABB([Const] b2Vec2* points, long count, float radius, [Ref] b2AABB result);
-    static boolean isValid([Value] b2AABB aabb);
+    static boolean isValid([Ref] b2AABB aabb);
 };
 
 [NoDelete]
 interface B2_Plane {
-    static float planeSeparation([Value] b2Plane plane, [Value] b2Vec2 point);
-    static boolean isValid([Value] b2Plane plane);
+    static float planeSeparation([Ref] b2Plane plane, [Ref] b2Vec2 point);
+    static boolean isValid([Ref] b2Plane plane);
 };
 
 [NoDelete]

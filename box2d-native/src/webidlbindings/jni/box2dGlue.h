@@ -101,42 +101,42 @@ class b2DebugDrawCallbacksImpl : b2DebugDrawCallbacks {
             _env->CallVoidMethod(javaGlobalRef, drawPolygonMethodId, (jlong) vertices, (jint) vertexCount, (jint) color);
         }
 
-        virtual void drawSolidPolygon(b2Transform transform, const b2Vec2* vertices, int vertexCount, float radius, int color) {
+        virtual void drawSolidPolygon(b2Transform& transform, const b2Vec2* vertices, int vertexCount, float radius, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawSolidPolygonMethodId, (jlong) &transform, (jlong) vertices, (jint) vertexCount, (jfloat) radius, (jint) color);
         }
 
-        virtual void drawCircle(b2Vec2 center, float radius, int color) {
+        virtual void drawCircle(b2Vec2& center, float radius, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawCircleMethodId, (jlong) &center, (jfloat) radius, (jint) color);
         }
 
-        virtual void drawSolidCircle(b2Transform transform, float radius, int color) {
+        virtual void drawSolidCircle(b2Transform& transform, float radius, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawSolidCircleMethodId, (jlong) &transform, (jfloat) radius, (jint) color);
         }
 
-        virtual void drawSolidCapsule(b2Vec2 p1, b2Vec2 p2, float radius, int color) {
+        virtual void drawSolidCapsule(b2Vec2& p1, b2Vec2& p2, float radius, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawSolidCapsuleMethodId, (jlong) &p1, (jlong) &p2, (jfloat) radius, (jint) color);
         }
 
-        virtual void drawSegment(b2Vec2 p1, b2Vec2 p2, int color) {
+        virtual void drawSegment(b2Vec2& p1, b2Vec2& p2, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawSegmentMethodId, (jlong) &p1, (jlong) &p2, (jint) color);
         }
 
-        virtual void drawTransform(b2Transform transform) {
+        virtual void drawTransform(b2Transform& transform) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawTransformMethodId, (jlong) &transform);
         }
 
-        virtual void drawPoint(b2Vec2 p, float size, int color) {
+        virtual void drawPoint(b2Vec2& p, float size, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawPointMethodId, (jlong) &p, (jfloat) size, (jint) color);
         }
 
-        virtual void drawString(b2Vec2 p, const char* s, int color) {
+        virtual void drawString(b2Vec2& p, const char* s, int color) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             _env->CallVoidMethod(javaGlobalRef, drawStringMethodId, (jlong) &p, _env->NewStringUTF(s), (jint) color);
         }
@@ -276,7 +276,7 @@ class b2CastResultFcnImpl : b2CastResultFcnI {
             jniThreadEnv.getEnv()->DeleteGlobalRef(javaGlobalRef);
         }
         
-        virtual bool castResultFcn(unsigned long long shapeId, b2Vec2 point, b2Vec2 normal, float fraction) {
+        virtual bool castResultFcn(unsigned long long shapeId, b2Vec2& point, b2Vec2& normal, float fraction) {
             JNIEnv* _env = jniThreadEnv.getEnv();
             return _env->CallBooleanMethod(javaGlobalRef, castResultFcnMethodId, (jlong) shapeId, (jlong) &point, (jlong) &normal, (jfloat) fraction);
         }

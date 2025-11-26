@@ -95,7 +95,7 @@ public class b2JointIdArray extends NativeObject {
 
     /**
      * @param index WebIDL type: unsigned long
-     * @param value WebIDL type: {@link b2JointId} [Value]
+     * @param value WebIDL type: {@link b2JointId} [Ref]
      */
     public void set(int index, b2JointId value) {
         checkNotNull();

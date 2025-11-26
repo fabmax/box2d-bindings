@@ -18,7 +18,7 @@ class B2_Body {
     /// uint64_t myBodyId = b2CreateBody(myWorldId, &bodyDef);
     /// @endcode
     /// @warning This function is locked during callbacks.
-    static inline uint64_t createBody(uint64_t worldId, b2BodyDef* def) {
+    static inline uint64_t createBody(uint64_t worldId, const b2BodyDef* def) {
         return b2StoreBodyId(b2CreateBody(b2LoadWorldId(worldId), def));
     }
 

@@ -32,12 +32,12 @@ interface B2_Shape {
     static float getRestitution(unsigned long long shapeId);
     static void setMaterial(unsigned long long shapeId, long material);
     static long getMaterial(unsigned long long shapeId);
-    static void setSurfaceMaterial(unsigned long long shapeId, [Value] b2SurfaceMaterial surfaceMaterial);
+    static void setSurfaceMaterial(unsigned long long shapeId, [Ref] b2SurfaceMaterial surfaceMaterial);
     [Value] static b2SurfaceMaterial getSurfaceMaterial(unsigned long long shapeId);
 
     // Shape filtering
     [Value] static b2Filter getFilter(unsigned long long shapeId);
-    static void setFilter(unsigned long long shapeId, [Value] b2Filter filter);
+    static void setFilter(unsigned long long shapeId, [Ref] b2Filter filter);
 
     // Shape events
     static void enableSensorEvents(unsigned long long shapeId, boolean flag);
@@ -50,7 +50,7 @@ interface B2_Shape {
     static boolean areHitEventsEnabled(unsigned long long shapeId);
 
     // Shape testing and casting
-    static boolean testPoint(unsigned long long shapeId, [Value] b2Vec2 point);
+    static boolean testPoint(unsigned long long shapeId, [Ref] b2Vec2 point);
     [Value] static b2CastOutput rayCast(unsigned long long shapeId, [Const] b2RayCastInput input);
 
     // Shape geometry getters
@@ -78,7 +78,7 @@ interface B2_Shape {
     // Shape AABB and mass
     [Value] static b2AABB getAABB(unsigned long long shapeId);
     [Value] static b2MassData getMassData(unsigned long long shapeId);
-    [Value] static b2Vec2 getClosestPoint(unsigned long long shapeId, [Value] b2Vec2 target);
+    [Value] static b2Vec2 getClosestPoint(unsigned long long shapeId, [Ref] b2Vec2 target);
 };
 
 [NoDelete]
@@ -125,9 +125,9 @@ interface b2ShapeDef {
 interface b2ChainDef {
     void b2ChainDef();
 	attribute VoidPtr userData;
-	attribute b2Vec2 points;
+	[Const] attribute b2Vec2 points;
 	attribute long count;
-	attribute b2SurfaceMaterial materials;
+	[Const] attribute b2SurfaceMaterial materials;
 	attribute long materialCount;
 	[Value] attribute b2Filter filter;
 	attribute boolean isLoop;

@@ -14,30 +14,30 @@ interface B2_Body {
     [Value] static b2Vec2 getPosition(unsigned long long bodyId);
     [Value] static b2Rot getRotation(unsigned long long bodyId);
     [Value] static b2Transform getTransform(unsigned long long bodyId);
-    static void setTransform(unsigned long long bodyId, [Value] b2Vec2 position, [Value] b2Rot rotation);
+    static void setTransform(unsigned long long bodyId, [Ref] b2Vec2 position, [Ref] b2Rot rotation);
     [Value] static b2AABB computeAABB(unsigned long long bodyId);
 
     // Coordinate transformations
-    [Value] static b2Vec2 getLocalPoint(unsigned long long bodyId, [Value] b2Vec2 worldPoint);
-    [Value] static b2Vec2 getWorldPoint(unsigned long long bodyId, [Value] b2Vec2 localPoint);
-    [Value] static b2Vec2 getLocalVector(unsigned long long bodyId, [Value] b2Vec2 worldVector);
-    [Value] static b2Vec2 getWorldVector(unsigned long long bodyId, [Value] b2Vec2 localVector);
+    [Value] static b2Vec2 getLocalPoint(unsigned long long bodyId, [Ref] b2Vec2 worldPoint);
+    [Value] static b2Vec2 getWorldPoint(unsigned long long bodyId, [Ref] b2Vec2 localPoint);
+    [Value] static b2Vec2 getLocalVector(unsigned long long bodyId, [Ref] b2Vec2 worldVector);
+    [Value] static b2Vec2 getWorldVector(unsigned long long bodyId, [Ref] b2Vec2 localVector);
 
     // Velocity
     [Value] static b2Vec2 getLinearVelocity(unsigned long long bodyId);
     static float getAngularVelocity(unsigned long long bodyId);
-    static void setLinearVelocity(unsigned long long bodyId, [Value] b2Vec2 linearVelocity);
+    static void setLinearVelocity(unsigned long long bodyId, [Ref] b2Vec2 linearVelocity);
     static void setAngularVelocity(unsigned long long bodyId, float angularVelocity);
-    static void setTargetTransform(unsigned long long bodyId, [Value] b2Transform target, float timeStep);
-    [Value] static b2Vec2 getLocalPointVelocity(unsigned long long bodyId, [Value] b2Vec2 localPoint);
-    [Value] static b2Vec2 getWorldPointVelocity(unsigned long long bodyId, [Value] b2Vec2 worldPoint);
+    static void setTargetTransform(unsigned long long bodyId, [Ref] b2Transform target, float timeStep);
+    [Value] static b2Vec2 getLocalPointVelocity(unsigned long long bodyId, [Ref] b2Vec2 localPoint);
+    [Value] static b2Vec2 getWorldPointVelocity(unsigned long long bodyId, [Ref] b2Vec2 worldPoint);
 
     // Forces and impulses
-    static void applyForce(unsigned long long bodyId, [Value] b2Vec2 force, [Value] b2Vec2 point, boolean wake);
-    static void applyForceToCenter(unsigned long long bodyId, [Value] b2Vec2 force, boolean wake);
+    static void applyForce(unsigned long long bodyId, [Ref] b2Vec2 force, [Ref] b2Vec2 point, boolean wake);
+    static void applyForceToCenter(unsigned long long bodyId, [Ref] b2Vec2 force, boolean wake);
     static void applyTorque(unsigned long long bodyId, float torque, boolean wake);
-    static void applyLinearImpulse(unsigned long long bodyId, [Value] b2Vec2 impulse, [Value] b2Vec2 point, boolean wake);
-    static void applyLinearImpulseToCenter(unsigned long long bodyId, [Value] b2Vec2 impulse, boolean wake);
+    static void applyLinearImpulse(unsigned long long bodyId, [Ref] b2Vec2 impulse, [Ref] b2Vec2 point, boolean wake);
+    static void applyLinearImpulseToCenter(unsigned long long bodyId, [Ref] b2Vec2 impulse, boolean wake);
     static void applyAngularImpulse(unsigned long long bodyId, float impulse, boolean wake);
 
     // Mass properties
@@ -45,7 +45,7 @@ interface B2_Body {
     static float getRotationalInertia(unsigned long long bodyId);
     [Value] static b2Vec2 getLocalCenterOfMass(unsigned long long bodyId);
     [Value] static b2Vec2 getWorldCenterOfMass(unsigned long long bodyId);
-    static void setMassData(unsigned long long bodyId, [Value] b2MassData massData);
+    static void setMassData(unsigned long long bodyId, [Ref] b2MassData massData);
     [Value] static b2MassData getMassData(unsigned long long bodyId);
     static void applyMassFromShapes(unsigned long long bodyId);
 
@@ -97,7 +97,7 @@ interface B2_Body {
 
     // Body name and user data
     static void setName(unsigned long long bodyId, DOMString name);
-    static DOMString getName(unsigned long long bodyId);
+    [Const] static DOMString getName(unsigned long long bodyId);
     static void setUserData(unsigned long long bodyId, VoidPtr userData);
     static VoidPtr getUserData(unsigned long long bodyId);
 };
@@ -114,7 +114,7 @@ interface b2BodyDef {
     attribute float angularDamping;
     attribute float gravityScale;
     attribute float sleepThreshold;
-    attribute DOMString name;
+    [Const] attribute DOMString name;
     attribute VoidPtr userData;
     attribute boolean enableSleep;
     attribute boolean isAwake;

@@ -321,7 +321,7 @@ public:
 class b2CastResultFcnI {
 public:
     virtual ~b2CastResultFcnI() = default;
-    virtual bool castResultFcn(unsigned long long shapeId, b2Vec2 point, b2Vec2 normal, float fraction) = 0;
+    virtual bool castResultFcn(unsigned long long shapeId, b2Vec2& point, b2Vec2& normal, float fraction) = 0;
 };
 
 class b2PlaneResultFcnI {
@@ -373,14 +373,14 @@ class b2DebugDrawCallbacks {
 public:
     virtual ~b2DebugDrawCallbacks() = default;
     virtual void drawPolygon(const b2Vec2 *vertices, int32_t vertexCount, int32_t color) = 0;
-    virtual void drawSolidPolygon(b2Transform transform, const b2Vec2 *vertices, int32_t vertexCount, float radius, int32_t color) = 0;
-    virtual void drawCircle(b2Vec2 center, float radius, int32_t color) = 0;
-    virtual void drawSolidCircle(b2Transform transform, float radius, int32_t color) = 0;
-    virtual void drawSolidCapsule(b2Vec2 p1, b2Vec2 p2, float radius, int32_t color) = 0;
-    virtual void drawSegment(b2Vec2 p1, b2Vec2 p2, int32_t color) = 0;
-    virtual void drawTransform(b2Transform transform) = 0;
-    virtual void drawPoint(b2Vec2 p, float size, int32_t color) = 0;
-    virtual void drawString(b2Vec2 p, const char *s, int32_t color) = 0;
+    virtual void drawSolidPolygon(b2Transform& transform, const b2Vec2 *vertices, int32_t vertexCount, float radius, int32_t color) = 0;
+    virtual void drawCircle(b2Vec2& center, float radius, int32_t color) = 0;
+    virtual void drawSolidCircle(b2Transform& transform, float radius, int32_t color) = 0;
+    virtual void drawSolidCapsule(b2Vec2& p1, b2Vec2& p2, float radius, int32_t color) = 0;
+    virtual void drawSegment(b2Vec2& p1, b2Vec2& p2, int32_t color) = 0;
+    virtual void drawTransform(b2Transform& transform) = 0;
+    virtual void drawPoint(b2Vec2& p, float size, int32_t color) = 0;
+    virtual void drawString(b2Vec2& p, const char *s, int32_t color) = 0;
 };
 
 static void drawPolygonFcn(const b2Vec2* vertices, int vertexCount, b2HexColor color, void* context) {

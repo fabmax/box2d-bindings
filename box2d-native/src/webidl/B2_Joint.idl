@@ -8,11 +8,11 @@ interface B2_Joint {
     static unsigned long getWorld(unsigned long long jointId);
     [Value] static b2Vec2 getLocalAnchorA(unsigned long long jointId);
     [Value] static b2Vec2 getLocalAnchorB(unsigned long long jointId);
-    static void setLocalAnchorA(unsigned long long jointId, [Value] b2Vec2 localAnchor);
-    static void setLocalAnchorB(unsigned long long jointId, [Value] b2Vec2 localAnchor);
+    static void setLocalAnchorA(unsigned long long jointId, [Ref] b2Vec2 localAnchor);
+    static void setLocalAnchorB(unsigned long long jointId, [Ref] b2Vec2 localAnchor);
     static float getReferenceAngle(unsigned long long jointId);
     static void setReferenceAngle(unsigned long long jointId, float angleInRadians);
-    static void setLocalAxisA(unsigned long long jointId, [Value] b2Vec2 localAxis);
+    static void setLocalAxisA(unsigned long long jointId, [Ref] b2Vec2 localAxis);
     [Value] static b2Vec2 getLocalAxisA(unsigned long long jointId);
     static void setCollideConnected(unsigned long long jointId, boolean shouldCollide);
     static boolean getCollideConnected(unsigned long long jointId);
@@ -97,7 +97,7 @@ interface B2_MotorJoint {
     static unsigned long long createMotorJoint(unsigned long long worldId, [Const] b2MotorJointDef def);
     static void defaultMotorJointDef([Ref] b2MotorJointDef result);
 
-    static void setLinearOffset(unsigned long long jointId, [Value] b2Vec2 linearOffset);
+    static void setLinearOffset(unsigned long long jointId, [Ref] b2Vec2 linearOffset);
     [Value] static b2Vec2 getLinearOffset(unsigned long long jointId);
     static void setAngularOffset(unsigned long long jointId, float angularOffset);
     static float getAngularOffset(unsigned long long jointId);
@@ -129,7 +129,7 @@ interface B2_MouseJoint {
     static unsigned long long createMouseJoint(unsigned long long worldId, [Const] b2MouseJointDef def);
     static void defaultMouseJointDef([Ref] b2MouseJointDef result);
 
-    static void setTarget(unsigned long long jointId, [Value] b2Vec2 target);
+    static void setTarget(unsigned long long jointId, [Ref] b2Vec2 target);
     [Value] static b2Vec2 getTarget(unsigned long long jointId);
     static void setSpringHertz(unsigned long long jointId, float hertz);
     static float getSpringHertz(unsigned long long jointId);

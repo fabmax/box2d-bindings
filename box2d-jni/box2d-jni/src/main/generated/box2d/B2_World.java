@@ -116,7 +116,6 @@ public class B2_World extends NativeObject {
      * @param translation The translation of the ray from the start point to the end point
      * @param filter Contains bit flags to filter unwanted shapes from the results
      * @param fcn A user implemented callback function
-     * @param context A user context that is passed along to the callback function
      * @return traversal performance counters
      */
     public static b2TreeStats castRay(long worldId, b2Vec2 origin, b2Vec2 translation, b2QueryFilter filter, b2CastResultFcnI fcn) {

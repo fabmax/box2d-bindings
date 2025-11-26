@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Box2D Test</title>
+    <style>
+        html, body, canvas {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script src="box2d-wasm.mjs" type="module"></script>
+    <script type="module">
+        import Box2D from './box2d-wasm.mjs'
+
+        Box2D().then(function(Box2D) {
+            var version = Box2D.B2_Base.prototype.getVersion();
+            //var version = PhysX.PHYSICS_VERSION;
+            console.log('Box2D loaded! Version: ' + version.major + '.' +  version.minor + '.' +  version.revision);
+        });
+    </script>
+</body>
+</html>

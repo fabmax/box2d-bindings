@@ -95,7 +95,7 @@ public class b2ContactDataArray extends NativeObject {
 
     /**
      * @param index WebIDL type: unsigned long
-     * @param value WebIDL type: {@link b2ContactData} [Value]
+     * @param value WebIDL type: {@link b2ContactData} [Ref]
      */
     public void set(int index, b2ContactData value) {
         checkNotNull();

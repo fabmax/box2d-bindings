@@ -95,7 +95,7 @@ public class b2CollisionPlaneArray extends NativeObject {
 
     /**
      * @param index WebIDL type: unsigned long
-     * @param value WebIDL type: {@link b2CollisionPlane} [Value]
+     * @param value WebIDL type: {@link b2CollisionPlane} [Ref]
      */
     public void set(int index, b2CollisionPlane value) {
         checkNotNull();

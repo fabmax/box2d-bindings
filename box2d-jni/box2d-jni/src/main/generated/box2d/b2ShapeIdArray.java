@@ -95,7 +95,7 @@ public class b2ShapeIdArray extends NativeObject {
 
     /**
      * @param index WebIDL type: unsigned long
-     * @param value WebIDL type: {@link b2ShapeId} [Value]
+     * @param value WebIDL type: {@link b2ShapeId} [Ref]
      */
     public void set(int index, b2ShapeId value) {
         checkNotNull();
