@@ -50,7 +50,7 @@ tasks["clean"].doLast {
 
 tasks.compileJava {
     dependsOn("generateJniJavaBindings")
-    //dependsOn("updateVersionNames")
+    dependsOn("updateVersionNames")
 }
 
 tasks.test {
@@ -58,6 +58,19 @@ tasks.test {
     testLogging {
         showStandardStreams = true
     }
+}
+
+tasks.register<VersionNameUpdate>("updateVersionNames") {
+    versionName = "$version"
+    filesToUpdate = listOf(
+        "${rootDir}/box2d-jni/src/main/java/de/fabmax/box2djni/Loader.java",
+        "${rootDir}/box2d-jni-natives-windows/src/main/java/de/fabmax/box2djni/windows/NativeLibWindows.java",
+        "${rootDir}/box2d-jni-natives-windows-arm64/src/main/java/de/fabmax/box2djni/windowsarm64/NativeLibWindowsArm64.java",
+        "${rootDir}/box2d-jni-natives-linux/src/main/java/de/fabmax/box2djni/linux/NativeLibLinux.java",
+        "${rootDir}/box2d-jni-natives-linux-arm64/src/main/java/de/fabmax/box2djni/linuxarm64/NativeLibLinuxArm64.java",
+        "${rootDir}/box2d-jni-natives-macos/src/main/java/de/fabmax/box2djni/macos/NativeLibMacos.java",
+        "${rootDir}/box2d-jni-natives-macos-arm64/src/main/java/de/fabmax/box2djni/macosarm64/NativeLibMacosArm64.java"
+    )
 }
 
 dependencies {
