@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NativeLibMacos extends NativeLib {
 
-    private static final String version = "1.0.0";
+    private static final String version = "1.0.0-SNAPSHOT";
 
     private static final List<String> libraries = new ArrayList<>() {{
         add("libBox2dJniBindings.dylib");

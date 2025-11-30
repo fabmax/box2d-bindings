@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - "*"
+    paths-ignore:
+      - '*.md'
+      - '*.yml'
+      - '.github/workflows/**'
     tags:
       - '!**'
   pull_request:
@@ -54,6 +58,8 @@ jobs:
           java-version: '17'
       - name: Setup CMake
         uses: lukka/get-cmake@latest
+      - name: Disable Android build
+        run: git apply .github/disable_android.patch
       - name: Build box2d-jni
         run: ./gradlew :box2d-jni-natives-linux-arm64:buildNativeLibLinuxArm64 :box2d-jni-natives-linux-arm64:build :box2d-jni:build
         working-directory: box2d-jni/

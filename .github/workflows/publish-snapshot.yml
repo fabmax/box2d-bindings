@@ -27,7 +27,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-libs
-          path: box2d-jni/box2d-jni-natives-linux/build/libs/*.jar
+          path: |
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/linux/*.so
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/linux/*.so.sha1
           compression-level: 0
 
   build_linux_arm64:
@@ -43,6 +45,8 @@ jobs:
           java-version: '17'
       - name: Setup CMake
         uses: lukka/get-cmake@latest
+      - name: Disable Android build
+        run: git apply .github/disable_android.patch
       - name: Build box2d-jni
         run: ./gradlew :box2d-jni-natives-linux-arm64:buildNativeLibLinuxArm64 :box2d-jni-natives-linux-arm64:build :box2d-jni:build
         working-directory: box2d-jni/
@@ -51,7 +55,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-libs-arm64
-          path: box2d-jni/box2d-jni-natives-linux-arm64/build/libs/*.jar
+          path: |
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/linuxarm64/*.so
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/linuxarm64/*.so.sha1
           compression-level: 0
 
   build_windows:
@@ -77,8 +83,10 @@ jobs:
         with:
           name: windows-libs
           path: |
-            box2d-jni/box2d-jni-natives-windows/build/libs/*.jar
-            box2d-jni/box2d-jni-natives-windows-arm64/build/libs/*.jar
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/windows/*.dll
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/windows/*.dll.sha1
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/windowsarm64/*.dll
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/windowsarm64/*.dll.sha1
           compression-level: 0
 
   build_macos:
@@ -106,8 +114,10 @@ jobs:
         with:
           name: macos-libs
           path: |
-            box2d-jni/box2d-jni-natives-macos/build/libs/*.jar
-            box2d-jni/box2d-jni-natives-macos-arm64/build/libs/*.jar
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/macos/*.dylib
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/macos/*.dylib.sha1
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/macosarm64/*.dylib
+            box2d-jni/*/src/main/resources/de/fabmax/box2djni/macosarm64/*.dylib.sha1
           compression-level: 0
 
   publish:
@@ -128,12 +138,13 @@ jobs:
         uses: actions/download-artifact@v4
       - name: Copy downloaded artifacts to resources
         run: |
-          cp -r linux-libs/* .
-          cp -r linux-libs-arm64/* .
-          cp -r macos-libs/* .
-          cp -r windows-libs/* .
+          cp -r -v linux-libs/* box2d-jni/
+          cp -r -v linux-libs-arm64/* box2d-jni/
+          cp -r -v macos-libs/* box2d-jni/
+          cp -r -v windows-libs/* box2d-jni/
       - name: Build and publish bindings
         run: ./gradlew build publishToMavenCentral
+        working-directory: box2d-jni/
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
