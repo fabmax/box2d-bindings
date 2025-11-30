@@ -1,16 +1,7 @@
-name: Build everything
+name: Publish Java snapshot
 
 on:
-  push:
-    branches:
-      - "*"
-    tags:
-      - '!**'
-  pull_request:
-    branches:
-      - "*"
-    tags:
-      - '!**'
+  workflow_dispatch:
 
 jobs:
   build_linux:
@@ -36,9 +27,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-libs
-          path: |
-            box2d-jni/box2d-jni/build/libs/*.jar
-            box2d-jni/box2d-jni-natives-linux/build/libs/*.jar
+          path: box2d-jni/box2d-jni-natives-linux/build/libs/*.jar
           compression-level: 0
 
   build_linux_arm64:
@@ -62,8 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: linux-libs-arm64
-          path: |
-            box2d-jni/box2d-jni-natives-linux-arm64/build/libs/*.jar
+          path: box2d-jni/box2d-jni-natives-linux-arm64/build/libs/*.jar
           compression-level: 0
 
   build_windows:
@@ -89,7 +77,6 @@ jobs:
         with:
           name: windows-libs
           path: |
-            box2d-jni/box2d-jni/build/libs/*.jar
             box2d-jni/box2d-jni-natives-windows/build/libs/*.jar
             box2d-jni/box2d-jni-natives-windows-arm64/build/libs/*.jar
           compression-level: 0
@@ -119,33 +106,36 @@ jobs:
         with:
           name: macos-libs
           path: |
-            box2d-jni/box2d-jni/build/libs/*.jar
             box2d-jni/box2d-jni-natives-macos/build/libs/*.jar
             box2d-jni/box2d-jni-natives-macos-arm64/build/libs/*.jar
           compression-level: 0
 
-  build_wasm:
-    name: wasm build
+  publish:
+    name: Build and publish Java and Android libs
     runs-on: ubuntu-latest
+    needs: [ build_linux, build_linux_arm64, build_windows, build_macos ]
+    environment: publish
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout project
         uses: actions/checkout@v4
-      - name: Set up Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-      - name: Build Docker Environment
-        run: sudo docker compose up
-        working-directory: box2d-wasm/
-      - name: Build Box2D wasm
-        working-directory: box2d-wasm/
-        run: |
-          sudo docker compose run --rm builder ./generate_release.sh
-          sudo docker compose run --rm builder ./make.sh
-
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
-          name: wasm-libs
-          path: box2d-wasm/dist
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Download native lib artifacts
+        uses: actions/download-artifact@v4
+      - name: Copy downloaded artifacts to resources
+        run: |
+          cp -r linux-libs/* .
+          cp -r linux-libs-arm64/* .
+          cp -r macos-libs/* .
+          cp -r windows-libs/* .
+      - name: Build and publish bindings
+        run: ./gradlew build publishToMavenCentral
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSWORD }}

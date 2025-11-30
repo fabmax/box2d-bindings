@@ -1,6 +1,6 @@
-# Notices for box2d-bindings
+# Notices for box2d-jni
 
-* Project home: https://github.com/fabmax/box2d-bindings
+* Project home: https://github.com/fabmax/box2d-jni
 
 ## Declared Project Licenses
 

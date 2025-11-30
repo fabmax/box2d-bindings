@@ -3,10 +3,15 @@
 .gradle
 .idea
 .kotlin
+.cxx
 build
+build-android
+build-wasm
 .DS_Store
 local.properties
 *.dll
 *.so
 *.dylib
 *.sha1
+*.mjs
+*.wasm

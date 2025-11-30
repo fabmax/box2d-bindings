@@ -110,7 +110,7 @@ mavenPublishing {
         name.set("box2d-jni")
         description.set("JNI bindings for Box2D.")
         inceptionYear.set("2025")
-        url.set("https://github.com/fabmax/box2d-bindings")
+        url.set("https://github.com/fabmax/box2d-jni")
         licenses {
             license {
                 name.set("MIT License")
@@ -126,9 +126,9 @@ mavenPublishing {
             }
         }
         scm {
-            url.set("https://github.com/fabmax/box2d-bindings/")
-            connection.set("scm:git:git://github.com/fabmax/box2d-bindings.git")
-            developerConnection.set("scm:git:ssh://git@github.com/fabmax/box2d-bindings.git")
+            url.set("https://github.com/fabmax/box2d-jni/")
+            connection.set("scm:git:git://github.com/fabmax/box2d-jni.git")
+            developerConnection.set("scm:git:ssh://git@github.com/fabmax/box2d-jni.git")
         }
     }
 }

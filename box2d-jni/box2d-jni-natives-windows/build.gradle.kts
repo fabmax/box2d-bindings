@@ -32,7 +32,6 @@ tasks.register<Exec>("buildNativeLibWindows") {
     group = "native build"
     workingDir = File("$rootDir/../box2d-native/build")
     commandLine = listOf("cmake", "--build", ".", "--config", "Release")
-    //environment("VERBOSE", "1")
     if (!workingDir.exists()) {
         dependsOn("generateNativeProjectWindows")
     }
