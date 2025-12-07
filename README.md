@@ -46,7 +46,8 @@ These are used to generate the corresponding [Java classes](box2d-jni/box2d-jni/
 - macOS (x86_64, arm64)
 - Android (arm-v8, arm-v7, x86_64, x86)
 
-Moreover, there is another version for javascript/webassembly using emscripten and WebIDL Binder. This one basically
+Moreover, there is another version for javascript/webassembly using emscripten and WebIDL Binder:
+[kool-box2d-wasm](https://www.npmjs.com/package/kool-box2d-wasm). This one basically
 comes for free since the WebIDL definitions are already there. However, this one is optimized for using it with
 Kotlin/JS, which makes sense in Kotlin-multiplatform scenarios. If you are looking for a WASM version of Box2D to use
 with your favourite web-framework, you are probably better off with [box2d3-wasm](https://github.com/Birch-san/box2d3-wasm).

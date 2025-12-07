@@ -2,20 +2,6 @@
   "name": "kool-box2d-wasm",
   "version": "1.0.0",
   "description": "Javascript/WASM bindings for Box2D v3",
-  "author": "fabmax",
-  "main": "kool-box2d-wasm.mjs",
-  "files": [
-    "kool-box2d-wasm.mjs",
-    "kool-box2d-wasm.wasm"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fabmax/box2d-jni.git"
-  },
-  "bugs": {
-    "url": "https://github.com/fabmax/box2d-jni/issues"
-  },
-  "homepage": "https://github.com/fabmax/box2d-jni#readme",
   "keywords": [
     "physics",
     "emscripten",
@@ -23,5 +9,20 @@
     "webassembly",
     "Box2D"
   ],
-  "license": "MIT License"
+  "homepage": "https://github.com/fabmax/box2d-jni#readme",
+  "bugs": {
+    "url": "https://github.com/fabmax/box2d-jni/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabmax/box2d-jni.git"
+  },
+  "license": "MIT",
+  "author": "fabmax",
+  "type": "module",
+  "main": "kool-box2d-wasm.mjs",
+  "files": [
+    "kool-box2d-wasm.mjs",
+    "kool-box2d-wasm.wasm"
+  ]
 }

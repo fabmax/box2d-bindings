@@ -3,6 +3,10 @@ name: Publish WASM to npm
 on:
   workflow_dispatch:
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   build_wasm:
     name: wasm build
@@ -33,6 +37,4 @@ jobs:
 
       - name: Publish to npmjs
         working-directory: box2d-wasm/dist
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
